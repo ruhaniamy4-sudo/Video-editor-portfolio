@@ -16,7 +16,8 @@ Text such as the hero headline, services, process steps, reviews and FAQ is plai
 Graded photos live in `assets/`:
 
 - `hero-plate.webp` + `hero-cut.webp`: the hero frame and the matching cut-out that breaks out of it (same crop, same grade, so they line up)
-- `grade-log.webp` / `grade-final.webp`: the raw vs graded comparison in About
+- `about-raw.webp` / `about-scifi.webp`: the real photo vs the AI-generated sci-fi version in About (aligned so the slider wipes cleanly)
+- `scifi-studio.webp`: AI-generated sci-fi clip at the start of the timeline
 - `clip-1.webp` … `clip-5.webp`: the five clips in "Inside My Timeline", each with its own look
 - `avatar.webp`, `contact-night.webp`, `sit-cut.webp`: contact card and footer
 

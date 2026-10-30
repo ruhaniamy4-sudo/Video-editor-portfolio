@@ -301,8 +301,8 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
 .compare-wrap { position: relative; min-width: 0; }
 .compare { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow-lift); cursor: ew-resize; user-select: none; touch-action: pan-y; background: #111; }
 .compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-.compare .c-after { clip-path: inset(0 0 0 55%); }
-.c-line { position: absolute; top: 0; bottom: 0; left: 55%; width: 2px; background: #fff; transform: translateX(-1px); pointer-events: none; box-shadow: 0 0 20px rgba(0,0,0,.4); }
+.compare .c-after { clip-path: inset(0 0 0 38%); }
+.c-line { position: absolute; top: 0; bottom: 0; left: 38%; width: 2px; background: #fff; transform: translateX(-1px); pointer-events: none; box-shadow: 0 0 20px rgba(0,0,0,.4); }
 .c-knob { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; border-radius: 50%; background: var(--lime); color: var(--ink-2); display: grid; place-items: center; font-size: 1.1rem; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
 .c-tag { position: absolute; top: 16px; font: 500 .68rem var(--mono); letter-spacing: .1em; padding: 6px 10px; border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; pointer-events: none; }
 .c-tag.l { left: 16px; }
@@ -767,12 +767,12 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
     <div class="about-grid">
       <div class="compare-wrap reveal">
         <div class="compare" id="compare">
-          <img src="assets/grade-log.webp" alt="Anayet Hossain as flat, ungraded log footage" width="880" height="1100">
-          <img class="c-after" id="cAfter" src="assets/grade-final.webp" alt="The same shot after a cinematic color grade" width="880" height="1100">
-          <span class="c-tag l">S-LOG3 · RAW</span>
-          <span class="c-tag r">GRADED · REC.709</span>
+          <img src="assets/about-raw.webp" alt="The original photo of Anayet Hossain" width="896" height="1120">
+          <img class="c-after" id="cAfter" src="assets/about-scifi.webp" alt="The same shot reimagined as a sci-fi film still on a spaceship observation deck" width="896" height="1120">
+          <span class="c-tag l">RAW PLATE</span>
+          <span class="c-tag r">FINAL COMP · SCI-FI</span>
           <span class="c-line" id="cLine"><span class="c-knob" aria-hidden="true">⇆</span></span>
-          <input type="range" id="cRange" min="0" max="100" value="55" aria-label="Drag to compare raw and graded footage">
+          <input type="range" id="cRange" min="0" max="100" value="38" aria-label="Drag to compare the original photo with the sci-fi version">
         </div>
         <div class="spin-badge" aria-hidden="true">
           <svg class="ring" viewBox="0 0 120 120">
@@ -781,7 +781,7 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
           </svg>
           <div class="core"><svg><use href="#mark"/></svg></div>
         </div>
-        <p class="c-hint">← Drag to see the grade →</p>
+        <p class="c-hint">← Drag: real photo → sci-fi comp →</p>
       </div>
       <div class="about-copy reveal">
         <span class="tag">About Me</span>
@@ -869,7 +869,7 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
     <div class="stack center reveal" style="text-align:center">
       <span class="tag">Inside My Timeline</span>
       <h2 class="sec-title" style="max-width:15ch">Every frame, cut and graded.</h2>
-      <p class="sec-lede">Five frames of me, run through the same pipeline I use for client work. Each clip has its own look. Click any clip on the timeline to jump to it.</p>
+      <p class="sec-lede">Frames of me, run through the same pipeline I use for client work, from color grades to a full sci-fi VFX comp. Click any clip on the timeline to jump to it.</p>
     </div>
     <div class="suite reveal" id="suite">
       <div class="suite-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Anayet_Portfolio_v12.prproj</span><span class="ws">Color</span></div>
@@ -1198,8 +1198,9 @@ const PROJECTS = [
   setSplit(cRange.value);
 
   /* ---- inside my timeline ---- */
-  // DUMMY scene notes; the looks match the grades baked into assets/clip-*.webp
+  // DUMMY scene notes; the looks match the grades baked into assets/clip-*.webp (scifi-studio.webp is AI-generated)
   const CLIPS = [
+    { src: 'assets/scifi-studio.webp', name: 'D001_VFX01', scene: 'Deep Space Studio · AI + VFX comp', look: 'Sci-Fi Comp', dur: 3.4, v: { Temperature: -15, Tint: 10, Contrast: 35, Saturation: 30, Fade: 0 }, sw: ['#0b0a2a', '#3b2a8f', '#2fb7d6', '#ffb86b'] },
     { src: 'assets/clip-1.webp', name: 'A001_C003', scene: 'Rooftop · 35mm · f/1.8', look: 'Teal & Orange', dur: 3.2, v: { Temperature: 12, Tint: -4, Contrast: 28, Saturation: 8, Fade: 0 }, sw: ['#173b44', '#2f6f6e', '#c9864a', '#f3c48a'] },
     { src: 'assets/clip-2.webp', name: 'A002_C011', scene: 'Green Wall · 50mm · f/2', look: 'Noir', dur: 2.6, v: { Temperature: 0, Tint: 0, Contrast: 45, Saturation: -100, Fade: 4 }, sw: ['#0d0d0f', '#4a4b50', '#9a9ca2', '#eeeff2'] },
     { src: 'assets/clip-3.webp', name: 'B001_C007', scene: 'Eid Street · 24mm · f/2.8', look: 'Festive Warm', dur: 3.4, v: { Temperature: 18, Tint: 6, Contrast: 14, Saturation: 22, Fade: 0 }, sw: ['#1d1a2e', '#7a2b4a', '#e0457b', '#f2d3a0'] },
@@ -1218,7 +1219,7 @@ const PROJECTS = [
     el.style.backgroundImage = `url(${c.src})`; el.innerHTML = `<span>${c.name}</span>`; el.dataset.i = i;
     laneV1.appendChild(el); c.el = el;
   });
-  [['TITLE · ANAYET HOSSAIN', 0, 2.4, ''], ['LOWER THIRD', 5.2, 2.2, 'alt'], ['KINETIC TYPE', 9.4, 2.4, ''], ['LOGO REVEAL', 12.6, 2.4, 'alt']].forEach(([t, s0, d, cls]) => {
+  [['TITLE · ANAYET HOSSAIN', 0, 2.6, ''], ['VFX · DEEP SPACE', 3.6, 2.2, 'alt'], ['LOWER THIRD', 7.4, 2.2, ''], ['KINETIC TYPE', 11.6, 2.4, 'alt'], ['LOGO REVEAL', 15.6, 2.6, '']].forEach(([t, s0, d, cls]) => {
     const el = document.createElement('div'); el.className = 'tl-title ' + cls; el.textContent = t;
     el.style.left = (s0 / TOTAL * 100) + '%'; el.style.width = (d / TOTAL * 100) + '%'; laneV2.appendChild(el);
   });
