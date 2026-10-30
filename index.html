@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cutroom Portfolio</title>
-<meta name="description" content="Video editor and motion graphics artist. Reels, YouTube, ads, motion design and color grading.">
+<title>Anayet Hossain | Video Editor &amp; Motion Designer</title>
+<meta name="description" content="Anayet Hossain, video editor and motion designer. YouTube, dramas, trailers, ads, VFX and color grading.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -114,6 +114,7 @@ header.top {
   display: inline-flex; align-items: center; gap: 10px; justify-content: center;
   font: 600 0.95rem var(--body); text-decoration: none; cursor: pointer;
   padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line);
+  white-space: nowrap;
   background: transparent; color: var(--fg); transition: transform .2s, background .2s, border-color .2s;
 }
 .btn:hover { border-color: var(--fg); }
@@ -141,6 +142,7 @@ header.top {
 @media (max-width: 480px) {
   .tc-readout { display: none; }
   .nav .btn { margin-left: auto; padding: 10px 16px; }
+  .brand-role { display: none; }
 }
 
 /* ---------- hero ---------- */
@@ -234,6 +236,7 @@ section.block { padding-block: clamp(64px, 9vw, 120px); }
 .sec-head h2 { font-family: var(--display); font-weight: 900; font-size: var(--step-3); line-height: .95; text-transform: uppercase; }
 .sec-head p { color: var(--muted); max-width: 56ch; }
 @media (max-width: 720px) { .sec-head { grid-template-columns: 1fr; } }
+.sec-head > .filters { flex-direction: row; align-items: center; }
 
 /* ---------- stats ---------- */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: var(--radius); }
@@ -260,9 +263,9 @@ section.block { padding-block: clamp(64px, 9vw, 120px); }
 .chip[aria-pressed="true"] { color: var(--on-accent); background: var(--tungsten); border-color: var(--tungsten); }
 .chip .cnt { font-family: var(--mono); font-size: .72rem; margin-left: 4px; opacity: .7; }
 
-.bin { columns: 3 300px; column-gap: 20px; }
+.bin { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
 .clipcard {
-  break-inside: avoid; margin-bottom: 20px; display: block; text-decoration: none;
+  display: block; text-decoration: none;
   background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
   transition: border-color .25s, transform .25s;
 }
@@ -329,24 +332,17 @@ section.block { padding-block: clamp(64px, 9vw, 120px); }
 @media (max-width: 900px) { .grade { grid-template-columns: 1fr; } }
 
 /* ---------- services ---------- */
-.services { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
-.svc { padding: 28px 28px 32px 0; display: flex; flex-direction: column; gap: 14px; border-bottom: 1px solid var(--line); min-width: 0; }
-.svc:not(:nth-child(3n+1)) { padding-left: 28px; border-left: 1px solid var(--line); }
-.svc .kind { display: flex; justify-content: space-between; gap: 10px; }
-.svc h3 { font-family: var(--display); font-weight: 800; font-size: 1.7rem; line-height: 1; text-transform: uppercase; }
-.svc p { color: var(--muted); font-size: .95rem; }
-.svc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: .92rem; }
+.services { border-top: 1px solid var(--line); }
+.svc { display: grid; grid-template-columns: 1.1fr 1.4fr 1fr; gap: 12px 40px; padding-block: 28px; border-bottom: 1px solid var(--line); align-items: start; }
+.svc > * { min-width: 0; }
+.svc .kind { display: flex; flex-direction: column; gap: 10px; }
+.svc h3 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1; text-transform: uppercase; transition: color .2s; }
+.svc:hover h3 { color: var(--tungsten); }
+.svc p { color: var(--muted); }
+.svc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: .94rem; }
 .svc li { display: flex; gap: 10px; }
 .svc li::before { content: ""; width: 10px; height: 2px; background: var(--tungsten); margin-top: .72em; flex: none; }
-@media (max-width: 960px) {
-  .services { grid-template-columns: 1fr 1fr; }
-  .svc, .svc:not(:nth-child(3n+1)) { padding: 26px 24px 28px 0; border-left: 0; }
-  .svc:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--line); }
-}
-@media (max-width: 600px) {
-  .services { grid-template-columns: 1fr; }
-  .svc:nth-child(even) { padding-left: 0; border-left: 0; }
-}
+@media (max-width: 860px) { .svc { grid-template-columns: 1fr; } }
 
 /* ---------- toolkit ---------- */
 .toolkit { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
@@ -386,14 +382,14 @@ section.block { padding-block: clamp(64px, 9vw, 120px); }
 @media (max-width: 900px) { .pricing { grid-template-columns: 1fr; } }
 
 /* ---------- reviews ---------- */
-.reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.reviews { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
 .review { border-left: 2px solid var(--tungsten); padding: 4px 0 4px 22px; display: flex; flex-direction: column; gap: 16px; }
-.review blockquote { margin: 0; font-size: 1.12rem; line-height: 1.5; }
+.review blockquote { margin: 0; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1; }
 .review .who { display: flex; align-items: center; gap: 12px; }
-.review .av { width: 40px; height: 40px; border-radius: 50%; background: var(--panel-2); border: 1px dashed var(--muted); flex: none; }
+.review .av { width: 40px; height: 40px; border-radius: 50%; background: var(--panel-2); border: 1px solid var(--line); flex: none; display: grid; place-items: center; font-family: var(--mono); color: var(--tungsten); }
 .review .who b { display: block; font-weight: 600; }
 .review .who span { color: var(--muted); font-size: .85rem; }
-@media (max-width: 900px) { .reviews { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 760px) { .reviews { grid-template-columns: 1fr; gap: 28px; } }
 
 /* ---------- faq ---------- */
 .faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(24px, 5vw, 72px); }
@@ -448,20 +444,13 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 </style>
 </head>
 <body>
-<div class="draft" role="note">
-  <div class="wrap">
-    <strong>Draft preview</strong>
-    <span>Name, videos, prices and reviews are placeholders. Send your details and they get replaced.</span>
-  </div>
-</div>
-
 <header class="top">
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Home">
       <span class="brand-mark" aria-hidden="true"></span>
       <span>
-        <span class="brand-name">Your Name</span>
-        <span class="brand-role">Editor · Motion Designer</span>
+        <span class="brand-name">Anayet Hossain</span>
+        <span class="brand-role">Video Editor · Motion Designer</span>
       </span>
     </a>
     <nav class="nav-links" aria-label="Main">
@@ -469,7 +458,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
       <a href="#grade">Color</a>
       <a href="#services">Services</a>
       <a href="#process">Process</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="tc-readout" aria-hidden="true"><span class="dot"></span><span id="tc">00:00:00:00</span></div>
@@ -487,14 +476,14 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <span class="label"><b>●</b> Video Editor &amp; Motion Graphics Artist</span>
+        <span class="label"><b>●</b> Anayet Hossain · Video Editor &amp; Motion Designer</span>
         <h1>Every <span class="cut">cut</span><br>keeps them <span class="outline">watching</span></h1>
-        <p class="hero-lede">I edit short-form, YouTube and ad videos with tight pacing, clean motion graphics and a color grade that fits your brand. You send raw footage; you get back a video people finish.</p>
+        <p class="hero-lede">I turn raw footage into stories people remember. From YouTube videos and dramas to ads and VFX, I edit with a focus on pacing, sound and clean visuals.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="#contact">Start a project</a>
           <a class="btn" href="#work"><span class="tri" aria-hidden="true"></span>See my work</a>
         </div>
-        <span class="availability"><i aria-hidden="true"></i>Booking projects for November 2026</span>
+        <span class="availability"><i aria-hidden="true"></i>Available for new projects</span>
       </div>
 
       <div class="monitor">
@@ -502,10 +491,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
           <canvas id="reelCanvas" aria-hidden="true"></canvas>
           <div class="safe" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
           <div class="hud" aria-hidden="true"><span class="rec">REC</span><span id="reelTc">00:00:00:00</span><span>4K · 25p</span></div>
-          <a class="play-reel" href="https://www.youtube.com/" target="_blank" rel="noopener">
+          <a class="play-reel" id="reelLink" href="https://www.youtube.com/" target="_blank" rel="noopener">
             <span class="circle"><span class="tri"></span></span>Watch showreel
           </a>
-          <div class="lower" aria-hidden="true"><small>Showreel 2026</small>Your Name</div>
+          <div class="lower" aria-hidden="true"><small>Showreel 2026</small>Anayet Hossain</div>
         </div>
         <div class="timeline" aria-hidden="true">
           <div class="timeline-row"><span class="trk">V2</span>
@@ -539,29 +528,15 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
     </div>
   </section>
 
-  <!-- CLIENTS -->
-  <div class="clients">
-    <div class="wrap">
-      <span class="label">Clients · placeholders</span>
-      <div class="marquee">
-        <div class="marquee-track" aria-label="Client names">
-          <span>Client One</span><span>Studio Two</span><span>Brand Three</span><span>Agency Four</span><span>Creator Five</span><span>Shop Six</span>
-          <span aria-hidden="true">Client One</span><span aria-hidden="true">Studio Two</span><span aria-hidden="true">Brand Three</span><span aria-hidden="true">Agency Four</span><span aria-hidden="true">Creator Five</span><span aria-hidden="true">Shop Six</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- STATS -->
   <section class="block" style="padding-bottom:0">
     <div class="wrap">
       <div class="stats">
-        <div class="stat"><span class="n" data-count="4">0<em>+</em></span><span class="k">Years editing</span></div>
-        <div class="stat"><span class="n" data-count="600">0<em>+</em></span><span class="k">Videos delivered</span></div>
-        <div class="stat"><span class="n" data-count="25" data-suffix="M">0<em>+</em></span><span class="k">Views on client videos</span></div>
-        <div class="stat"><span class="n" data-count="80">0<em>+</em></span><span class="k">Clients served</span></div>
+        <div class="stat"><span class="n" data-count="5">0<em>+</em></span><span class="k">Years editing</span></div>
+        <div class="stat"><span class="n" data-count="200">0<em>+</em></span><span class="k">Videos delivered</span></div>
+        <div class="stat"><span class="n" data-count="1" data-suffix="M">0<em>+</em></span><span class="k">Views on client videos</span></div>
+        <div class="stat"><span class="n" data-count="50">0<em>+</em></span><span class="k">Clients served</span></div>
       </div>
-      <p class="note">Sample numbers. Replace them with your own.</p>
     </div>
   </section>
 
@@ -571,16 +546,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
       <div class="sec-head stacked">
         <div>
           <span class="label"><b>01</b> · Selected work</span>
-          <h2>Edits that hold attention</h2>
-          <p>Hover a clip to preview it, click to watch the full video. Vertical cuts sit next to widescreen ones, the way they're actually delivered.</p>
+          <h2>Selected projects</h2>
+          <p>Ad films, trailers, YouTube edits, VFX shots and music videos. Hover a project to preview it, click to watch the full video.</p>
         </div>
-        <div class="filters" role="group" aria-label="Filter work">
-          <button class="chip" type="button" data-filter="all" aria-pressed="true">All<span class="cnt"></span></button>
-          <button class="chip" type="button" data-filter="reels" aria-pressed="false">Reels<span class="cnt"></span></button>
-          <button class="chip" type="button" data-filter="youtube" aria-pressed="false">YouTube<span class="cnt"></span></button>
-          <button class="chip" type="button" data-filter="ads" aria-pressed="false">Ads<span class="cnt"></span></button>
-          <button class="chip" type="button" data-filter="motion" aria-pressed="false">Motion<span class="cnt"></span></button>
-        </div>
+        <div class="filters" role="group" aria-label="Filter work" id="filters"></div>
       </div>
       <div class="bin" id="bin"></div>
     </div>
@@ -628,45 +597,34 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
         <div>
           <span class="label"><b>03</b> · Services</span>
           <h2>What I can make for you</h2>
-          <p>One editor for the whole pipeline: the cut, the motion graphics, the grade and the sound. Your videos stay consistent from the first reel to the last ad.</p>
+          <p>One editor for the whole pipeline: the cut, the motion graphics, the VFX and the grade. Your project stays consistent from first assembly to final export.</p>
         </div>
       </div>
       <div class="services">
         <article class="svc">
-          <div class="kind"><span class="label">9:16</span><span class="label">from 24h</span></div>
-          <h3>Short-form edits</h3>
-          <p>Reels, TikToks and Shorts cut for the first three seconds and the rewatch.</p>
-          <ul><li>Hook-first structure</li><li>Animated captions</li><li>Sound design and music sync</li></ul>
+          <div class="kind"><span class="label">16:9 · 9:16</span><h3>Video Editing</h3></div>
+          <p>YouTube videos, dramas, vlogs and social content, cut for story, pacing and sound.</p>
+          <ul><li>Story and pacing pass</li><li>Music, SFX and dialogue cleanup</li><li>Exports for every platform</li></ul>
         </article>
         <article class="svc">
-          <div class="kind"><span class="label">16:9</span><span class="label">from 3 days</span></div>
-          <h3>YouTube long-form</h3>
-          <p>Vlogs, talking-head and documentary-style videos edited for retention.</p>
-          <ul><li>Story and pacing pass</li><li>B-roll, zooms and graphics</li><li>Chapters and end screens</li></ul>
+          <div class="kind"><span class="label">2D · Titles</span><h3>Motion Graphics</h3></div>
+          <p>Animation that explains, brands and adds polish to an edit.</p>
+          <ul><li>Titles and lower thirds</li><li>Logo animation</li><li>Lyrical and kinetic typography</li></ul>
         </article>
         <article class="svc">
-          <div class="kind"><span class="label">AE</span><span class="label">from 2 days</span></div>
-          <h3>Motion graphics</h3>
-          <p>2D animation that explains, brands and adds polish to your edits.</p>
-          <ul><li>Logo reveals and intros</li><li>Lower thirds and title packs</li><li>Explainer animation</li></ul>
+          <div class="kind"><span class="label">Tracking · Comp</span><h3>VFX &amp; Compositing</h3></div>
+          <p>Shots changed or fixed in post so they look like they were filmed that way.</p>
+          <ul><li>Object and vehicle replacement</li><li>Screen replacement</li><li>Cleanup and rotoscoping</li></ul>
         </article>
         <article class="svc">
-          <div class="kind"><span class="label">1:1 · 4:5 · 9:16</span><span class="label">from 2 days</span></div>
-          <h3>Ad creatives</h3>
-          <p>Product and UGC-style ads with several hooks per concept so you can test what sells.</p>
-          <ul><li>3 to 5 hook variations</li><li>Every placement size</li><li>On-brand text and CTA</li></ul>
-        </article>
-        <article class="svc">
-          <div class="kind"><span class="label">Resolve</span><span class="label">per minute</span></div>
-          <h3>Color grading</h3>
-          <p>Log footage converted, matched across cameras and given a look that suits the story.</p>
+          <div class="kind"><span class="label">Log → Rec.709</span><h3>Color Grading</h3></div>
+          <p>Footage balanced, matched across cameras and given a look that suits the story.</p>
           <ul><li>Shot matching</li><li>Skin-tone correction</li><li>Custom looks and LUTs</li></ul>
         </article>
         <article class="svc">
-          <div class="kind"><span class="label">Stereo</span><span class="label">add-on</span></div>
-          <h3>Sound design</h3>
-          <p>Clean dialogue, licensed music and effects mixed to platform loudness.</p>
-          <ul><li>Noise removal</li><li>SFX and risers</li><li>Mixed to −14 LUFS</li></ul>
+          <div class="kind"><span class="label">Trailer · Commercial</span><h3>Trailers &amp; Ads</h3></div>
+          <p>Trailers for dramas and films, and ad films that sell the product in seconds.</p>
+          <ul><li>Trailer and teaser cuts</li><li>Brand and product ads</li><li>Social cutdowns</li></ul>
         </article>
       </div>
     </div>
@@ -683,7 +641,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
       </div>
       <div class="toolkit">
         <div class="tool"><span class="ico" style="background:#2a1a4a;color:#c5a6ff">Pr</span><h3>Premiere Pro</h3><p>Editing, multicam, captions</p></div>
-        <div class="tool"><span class="ico" style="background:#1d1a4a;color:#a6a8ff">Ae</span><h3>After Effects</h3><p>Motion graphics, compositing</p></div>
+        <div class="tool"><span class="ico" style="background:#1d1a4a;color:#a6a8ff">Ae</span><h3>After Effects</h3><p>Motion graphics, VFX, compositing</p></div>
         <div class="tool"><span class="ico" style="background:#13303a;color:#7fd6e0">Dv</span><h3>DaVinci Resolve</h3><p>Color grading, Fairlight audio</p></div>
         <div class="tool"><span class="ico" style="background:#1f1f1f;color:#f0f0f0">Cc</span><h3>CapCut</h3><p>Fast social edits, templates</p></div>
         <div class="tool"><span class="ico" style="background:#10283f;color:#7cc3ff">Ps</span><h3>Photoshop</h3><p>Thumbnails, cleanup</p></div>
@@ -713,53 +671,18 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section class="block" id="pricing" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <span class="label"><b>06</b> · Pricing</span>
-          <h2>Simple packages</h2>
-          <p>Fixed prices for common jobs. Bigger projects get a custom quote after the brief.</p>
-        </div>
-      </div>
-      <div class="pricing">
-        <div class="plan">
-          <div class="name"><h3>Reel</h3></div>
-          <div class="price">$49 <small>/ video</small></div>
-          <ul><li>Up to 60 seconds</li><li>Captions and music</li><li>2 revision rounds</li><li>48-hour delivery</li></ul>
-          <a class="btn" href="#contact">Choose Reel</a>
-        </div>
-        <div class="plan featured">
-          <div class="name"><h3>YouTube</h3><span class="pill">Most booked</span></div>
-          <div class="price">$149 <small>/ video</small></div>
-          <ul><li>Up to 15 minutes</li><li>B-roll, graphics and color</li><li>Thumbnail included</li><li>2 revision rounds</li><li>4-day delivery</li></ul>
-          <a class="btn btn-primary" href="#contact">Choose YouTube</a>
-        </div>
-        <div class="plan">
-          <div class="name"><h3>Monthly</h3></div>
-          <div class="price">$599 <small>/ month</small></div>
-          <ul><li>12 reels or 4 long videos</li><li>Priority turnaround</li><li>Consistent brand template</li><li>Weekly check-in</li></ul>
-          <a class="btn" href="#contact">Choose Monthly</a>
-        </div>
-      </div>
-      <p class="note">Sample prices. Set your own, or hide this section.</p>
-    </div>
-  </section>
-
   <!-- REVIEWS -->
-  <section class="block" style="padding-top:0">
+  <section class="block" id="reviews" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <span class="label"><b>07</b> · Client words</span>
+          <span class="label"><b>06</b> · Client words</span>
           <h2>What clients say</h2>
         </div>
       </div>
       <div class="reviews">
-        <figure class="review"><blockquote>Your client's review goes here. One or two sentences about the result and what it was like to work with you.</blockquote><figcaption class="who"><span class="av" aria-hidden="true"></span><span><b>Client name</b><span>Company · Sample review</span></span></figcaption></figure>
-        <figure class="review"><blockquote>Mention a real outcome if you have one, like more views, a better retention graph, or an ad that outsold the old one.</blockquote><figcaption class="who"><span class="av" aria-hidden="true"></span><span><b>Client name</b><span>Company · Sample review</span></span></figcaption></figure>
-        <figure class="review"><blockquote>Short quotes read best. Ask happy clients on Fiverr, Upwork or WhatsApp if you can use their words here.</blockquote><figcaption class="who"><span class="av" aria-hidden="true"></span><span><b>Client name</b><span>Company · Sample review</span></span></figcaption></figure>
+        <figure class="review"><blockquote>&ldquo;Fast delivery and great quality.&rdquo;</blockquote><figcaption class="who"><span class="av" aria-hidden="true">A</span><span><b>Client A</b></span></figcaption></figure>
+        <figure class="review"><blockquote>&ldquo;Understood my idea perfectly.&rdquo;</blockquote><figcaption class="who"><span class="av" aria-hidden="true">B</span><span><b>Client B</b></span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -769,15 +692,15 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
     <div class="wrap faq-grid">
       <div class="sec-head" style="margin:0;align-self:start">
         <div>
-          <span class="label"><b>08</b> · FAQ</span>
+          <span class="label"><b>07</b> · FAQ</span>
           <h2>Common questions</h2>
           <p>Something else on your mind? Message me and I'll answer within a day.</p>
         </div>
       </div>
       <div class="faq">
         <details open><summary>How do I send my footage?</summary><p>Upload it to Google Drive, Dropbox or WeTransfer and share the link. For big shoots I can send you a folder to upload into.</p></details>
-        <details><summary>How many revisions do I get?</summary><p>Two rounds are included in every package. Leave notes with timestamps and I'll apply them all in one pass. Extra rounds are available if you need them.</p></details>
-        <details><summary>How long does a video take?</summary><p>A reel usually takes 1–2 days and a YouTube video 3–4 days. Rush delivery is possible depending on my schedule.</p></details>
+        <details><summary>How many revisions do I get?</summary><p>Two rounds are included in every project. Leave notes with timestamps and I'll apply them all in one pass. Extra rounds are available if you need them.</p></details>
+        <details><summary>How long does a video take?</summary><p>It depends on the length and how much motion graphics or VFX the project needs. I'll give you a delivery date with the quote, and rush delivery is possible depending on my schedule.</p></details>
         <details><summary>Can you match my existing style or brand?</summary><p>Yes. Send a few videos you like or your brand guide, and I'll build a template for fonts, captions, colors and transitions so every video matches.</p></details>
         <details><summary>Do you provide music?</summary><p>I use licensed tracks from stock libraries, or music you supply. Every track is cleared for the platform it's posted on.</p></details>
         <details><summary>How do payments work?</summary><p>50% to start and 50% before final delivery. Payoneer, bank transfer, or bKash for clients in Bangladesh.</p></details>
@@ -789,19 +712,18 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   <section class="block contact" id="contact">
     <div class="wrap contact-grid">
       <div class="contact-side">
-        <span class="label"><b>09</b> · Contact</span>
+        <span class="label"><b>08</b> · Contact</span>
         <h2>Let's make<br>it <span>move</span></h2>
         <p>Tell me what you're filming and where it'll be posted. I'll reply with a plan, a price and a delivery date.</p>
         <div class="channels">
-          <div class="channel"><div><span class="label">Email</span><div class="v" id="emailV">yourname@email.com</div></div><button class="copy" type="button" data-copy="emailV">Copy</button></div>
+          <div class="channel"><div><span class="label">Email</span><div class="v" id="emailV">hello@example.com</div></div><button class="copy" type="button" data-copy="emailV">Copy</button></div>
           <div class="channel"><div><span class="label">WhatsApp</span><div class="v" id="waV">+880 1XXX-XXXXXX</div></div><button class="copy" type="button" data-copy="waV">Copy</button></div>
         </div>
         <div class="socials">
           <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a>
           <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a>
-          <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="https://www.fiverr.com/" target="_blank" rel="noopener">Fiverr</a>
+                    <a href="https://www.fiverr.com/" target="_blank" rel="noopener">Fiverr</a>
         </div>
       </div>
       <form class="brief" id="brief" novalidate>
@@ -809,7 +731,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
         <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required></div>
         <div class="field"><label for="f-type">Project type</label>
           <select id="f-type" name="type">
-            <option>Short-form reels</option><option>YouTube video</option><option>Motion graphics</option><option>Ad creatives</option><option>Color grading</option><option>Something else</option>
+            <option>Video editing</option><option>Motion graphics</option><option>VFX &amp; compositing</option><option>Color grading</option><option>Trailer or ad</option><option>Something else</option>
           </select>
         </div>
         <div class="field"><label for="f-budget">Budget</label>
@@ -830,7 +752,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Your Name · Video Editor &amp; Motion Graphics Artist</span>
+    <span>© 2026 Anayet Hossain · Video Editor &amp; Motion Designer</span>
     <span class="mono">Rendered at 25 fps</span>
   </div>
 </footer>
@@ -894,7 +816,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   const hsl = (c, l) => 'hsl(' + c[0] + ' ' + c[1] + '% ' + (l ?? c[2]) + '%)';
   function drawReel(t) {
     const w = cv.width, h = cv.height;
-    const lt = t % LOOP;
+    const lt = ((t % LOOP) + LOOP) % LOOP; // rAF timestamps can precede `start`
     const idx = Math.floor(lt / (LOOP / scenes.length));
     const local = (lt % (LOOP / scenes.length)) / (LOOP / scenes.length);
     const sc = scenes[idx];
@@ -958,44 +880,44 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   drawWave(); addEventListener('resize', drawWave);
 
   /* ---- work bin ---- */
+  // Edit this list to change the projects. Put each video's real URL in `link`.
   const WORK = [
-    { t: 'Skincare launch ad', c: 'Sample brand', cat: 'ads', r: 'r916', fmt: '9:16', d: '00:30', h: 18, w: 'Glow<br>launch', tools: ['Premiere', 'After Effects'] },
-    { t: 'Travel vlog: Sylhet tea gardens', c: 'Sample creator', cat: 'youtube', r: 'r169', fmt: '16:9', d: '12:40', h: 140, w: 'Sylhet<br>diaries', tools: ['Premiere', 'Resolve'] },
-    { t: 'Logo reveal for a fintech app', c: 'Sample startup', cat: 'motion', r: 'r11', fmt: '1:1', d: '00:08', h: 260, w: 'Logo<br>reveal', tools: ['After Effects'] },
-    { t: 'Restaurant opening reel', c: 'Sample restaurant', cat: 'reels', r: 'r916', fmt: '9:16', d: '00:45', h: 28, w: 'Grand<br>opening', tools: ['CapCut', 'Premiere'] },
-    { t: 'Brand documentary', c: 'Sample company', cat: 'youtube', r: 'r169', fmt: '16:9', d: '06:20', h: 200, w: 'Made<br>by hand', tools: ['Premiere', 'Resolve'] },
-    { t: 'Podcast clip pack', c: 'Sample podcast', cat: 'reels', r: 'r916', fmt: '9:16', d: '00:59', h: 300, w: 'Clip<br>pack', tools: ['Premiere'] },
-    { t: 'App explainer animation', c: 'Sample SaaS', cat: 'motion', r: 'r169', fmt: '16:9', d: '01:30', h: 175, w: 'How it<br>works', tools: ['After Effects', 'Illustrator'] },
-    { t: 'E-commerce ad set, 5 hooks', c: 'Sample store', cat: 'ads', r: 'r11', fmt: '1:1', d: '00:15', h: 45, w: '5 hooks<br>1 offer', tools: ['Premiere', 'After Effects'] },
-    { t: 'Kinetic typography reel', c: 'Personal project', cat: 'motion', r: 'r916', fmt: '9:16', d: '00:22', h: 330, w: 'Type<br>in motion', tools: ['After Effects'] }
+    { t: 'Brand Ad Film', c: 'Client Name', cat: 'commercial', h: 22, w: 'Brand<br>ad film', tools: ['Premiere', 'After Effects', 'Resolve'], link: 'https://www.youtube.com/' },
+    { t: 'Short Drama Trailer', c: 'Studio Name', cat: 'trailer', h: 355, w: 'Drama<br>trailer', tools: ['Premiere', 'Resolve'], link: 'https://www.youtube.com/' },
+    { t: 'YouTube Vlog Edit', c: 'Creator Name', cat: 'youtube', h: 140, w: 'Vlog<br>edit', tools: ['Premiere'], link: 'https://www.youtube.com/' },
+    { t: 'VFX Car Replacement', c: 'Project Name', cat: 'vfx', h: 200, w: 'Car<br>replacement', tools: ['After Effects'], link: 'https://www.youtube.com/' },
+    { t: 'Corporate Promo', c: 'Company Name', cat: 'corporate', h: 175, w: 'Corporate<br>promo', tools: ['Premiere', 'After Effects'], link: 'https://www.youtube.com/' },
+    { t: 'Lyrical Video', c: 'Artist Name', cat: 'music', h: 300, w: 'Lyrical<br>video', tools: ['After Effects', 'Illustrator'], link: 'https://www.youtube.com/' }
   ];
-  const labels = { reels: 'Reels', youtube: 'YouTube', ads: 'Ads', motion: 'Motion' };
+  const labels = { commercial: 'Commercial', trailer: 'Trailer', youtube: 'YouTube', vfx: 'VFX', corporate: 'Corporate', music: 'Music' };
   const bin = document.getElementById('bin');
   bin.innerHTML = WORK.map(x => `
-    <a class="clipcard" data-cat="${x.cat}" href="https://www.youtube.com/" target="_blank" rel="noopener">
-      <div class="thumb ${x.r}" style="--h:${x.h}">
+    <a class="clipcard" data-cat="${x.cat}" href="${x.link}" target="_blank" rel="noopener">
+      <div class="thumb r169" style="--h:${x.h}">
         <div class="art"></div>
-        <div class="badges"><span class="badge">${labels[x.cat]} · ${x.fmt}</span><span class="badge">${x.d}</span></div>
+        <div class="badges"><span class="badge">${labels[x.cat]}</span><span class="badge">16:9</span></div>
         <div class="word" aria-hidden="true">${x.w}</div>
         <div class="hoverplay" aria-hidden="true"><span></span></div>
         <div class="scrub"><i></i></div>
       </div>
       <div class="clip-info">
-        <span class="sample-tag">Sample · replace with your video</span>
         <h3>${x.t}</h3>
-        <div class="meta"><span>${x.c}</span></div>
+        <div class="meta"><span>${x.c}</span><span>${labels[x.cat]}</span></div>
         <div class="tools">${x.tools.map(s => `<span>${s}</span>`).join('')}</div>
       </div>
     </a>`).join('');
-  const chips = document.querySelectorAll('.chip');
-  chips.forEach(ch => {
+  const filters = document.getElementById('filters');
+  const cats = ['all', ...Object.keys(labels).filter(k => WORK.some(w => w.cat === k))];
+  filters.innerHTML = cats.map(k => {
+    const n = k === 'all' ? WORK.length : WORK.filter(w => w.cat === k).length;
+    return `<button class="chip" type="button" data-filter="${k}" aria-pressed="${k === 'all'}">${k === 'all' ? 'All' : labels[k]}<span class="cnt">${n}</span></button>`;
+  }).join('');
+  const chips = filters.querySelectorAll('.chip');
+  chips.forEach(ch => ch.addEventListener('click', () => {
     const f = ch.dataset.filter;
-    ch.querySelector('.cnt').textContent = f === 'all' ? WORK.length : WORK.filter(w => w.cat === f).length;
-    ch.addEventListener('click', () => {
-      chips.forEach(c => c.setAttribute('aria-pressed', String(c === ch)));
-      bin.querySelectorAll('.clipcard').forEach(card => { card.hidden = !(f === 'all' || card.dataset.cat === f); });
-    });
-  });
+    chips.forEach(c => c.setAttribute('aria-pressed', String(c === ch)));
+    bin.querySelectorAll('.clipcard').forEach(card => { card.hidden = !(f === 'all' || card.dataset.cat === f); });
+  }));
 
   /* ---- color grade compare ---- */
   const W = 960, H = 540;
@@ -1093,15 +1015,33 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
     try { navigator.clipboard.writeText(el.textContent.trim()).then(done, select); } catch (e) { select(); }
   }));
 
-  /* ---- brief form (preview only) ---- */
+  /* ---- brief form ----
+     Paste a Formspree endpoint (https://formspree.io/f/xxxxxxx) into FORM_ENDPOINT to receive briefs by email.
+     Until then the form opens the visitor's email app with the brief filled in. */
+  const FORM_ENDPOINT = '';
+  const CONTACT_EMAIL = document.getElementById('emailV').textContent.trim();
   const form = document.getElementById('brief');
   const status = document.getElementById('formStatus');
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const missing = [...form.querySelectorAll('[required]')].filter(f => !f.value.trim() || (f.type === 'email' && !f.checkValidity()));
     if (missing.length) { status.style.color = 'var(--tungsten)'; status.textContent = 'Fill in your name, a valid email and a few words about the project.'; missing[0].focus(); return; }
+    const data = Object.fromEntries(new FormData(form));
+    if (FORM_ENDPOINT) {
+      status.style.color = 'var(--muted)'; status.textContent = 'Sending…';
+      try {
+        const res = await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (!res.ok) throw new Error(res.status);
+        form.reset(); status.style.color = 'var(--teal)'; status.textContent = 'Thanks! Your brief is in. I\'ll reply within 24 hours.';
+      } catch (err) {
+        status.style.color = 'var(--tungsten)'; status.textContent = 'The brief didn\'t send. Email me at ' + CONTACT_EMAIL + ' instead.';
+      }
+      return;
+    }
+    const body = `Name: ${data.name}\nEmail: ${data.email}\nProject: ${data.type}\nBudget: ${data.budget}\n\n${data.message}`;
+    location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent('Project brief: ' + data.type) + '&body=' + encodeURIComponent(body);
     status.style.color = 'var(--teal)';
-    status.textContent = 'This is a preview, so nothing was sent. On the live site this form will deliver to your inbox.';
+    status.textContent = 'Your email app should open with the brief filled in. If it doesn\'t, email ' + CONTACT_EMAIL + ' directly.';
   });
 })();
 </script>
