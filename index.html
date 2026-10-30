@@ -283,7 +283,7 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
 .case h3 em { font-style: normal; color: var(--muted); }
 .case h3 .bar { display: inline-block; width: 1.5px; height: .9em; background: var(--ink); margin: 0 10px; vertical-align: -0.08em; }
 .case-copy > p { color: var(--text); max-width: 44ch; }
-.meta { margin-top: auto; display: grid; gap: 14px; }
+.meta { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; }
 .meta div span { display: block; font-size: .85rem; color: var(--muted); }
 .meta div b { font-weight: 500; }
 .case-media { position: relative; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
@@ -707,9 +707,9 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
       <p>Tell me what you're filming and where it'll be posted. It takes less than a minute.</p>
       <div class="me">
         <span class="av" aria-hidden="true">AH</span>
-        <div><b>Anayet Hossain</b><span>Video Editor &amp; Motion Designer</span></div>
+        <div><b>Anayet Hossain</b><span>Video Editor &amp; Motion Designer · <span data-text="location">Dhaka, Bangladesh</span></span></div>
       </div>
-      <a class="btn btn-white" data-link="email" href="mailto:hello@example.com">Email <span data-text="email">hello@example.com</span></a>
+      <a class="btn btn-white" data-link="email" href="mailto:hello@anayethossain.com">Email <span data-text="email">hello@anayethossain.com</span></a>
       <a class="btn btn-ghost" data-link="whatsapp" href="https://wa.me/" target="_blank" rel="noopener">Message me on WhatsApp</a>
     </div>
     <form class="form-card reveal" id="brief" novalidate>
@@ -749,7 +749,7 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
       <div class="foot-cols">
         <div><h4>Quick Links</h4><ul><li><a href="#top">Home</a></li><li><a href="#about">About</a></li><li><a href="#work">Projects</a></li><li><a href="#process">Process</a></li><li><a href="#contact">Contact</a></li></ul></div>
         <div><h4>Services</h4><ul><li>Video Editing</li><li>Motion Graphics</li><li>VFX &amp; Compositing</li><li>Color Grading</li><li>Trailers &amp; Ads</li></ul></div>
-        <div><h4>Get in Touch</h4><ul><li><a data-link="email" data-text="email" href="mailto:hello@example.com">hello@example.com</a></li><li><a data-link="whatsapp" data-text="whatsapp" href="https://wa.me/" target="_blank" rel="noopener">+880 1XXX-XXXXXX</a></li></ul></div>
+        <div><h4>Get in Touch</h4><ul><li><a data-link="email" data-text="email" href="mailto:hello@anayethossain.com">hello@anayethossain.com</a></li><li><a data-link="whatsapp" data-text="whatsapp" href="https://wa.me/" target="_blank" rel="noopener">+880 1700-000000</a></li><li data-text="location">Dhaka, Bangladesh</li></ul></div>
         <div><h4>Social Media</h4><ul><li><a data-link="youtube" href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li><li><a data-link="instagram" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li><li><a data-link="behance" href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a></li><li><a data-link="fiverr" href="https://www.fiverr.com/" target="_blank" rel="noopener">Fiverr</a></li></ul></div>
       </div>
       <div class="watermark" aria-hidden="true">Anayet Hossain</div>
@@ -763,47 +763,49 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
    EDIT YOUR DETAILS HERE
    ============================================================ */
 const CONFIG = {
-  showreel: 'https://www.youtube.com/',
-  email: 'hello@example.com',
-  whatsapp: '+880 1XXX-XXXXXX',          // shown as text; its digits build the wa.me link
-  youtube: 'https://www.youtube.com/',
-  instagram: 'https://www.instagram.com/',
-  behance: 'https://www.behance.net/',
-  fiverr: 'https://www.fiverr.com/',
+  // DUMMY values for now. Replace each one with the real link or contact.
+  showreel: 'https://www.youtube.com/@anayethossain',
+  email: 'hello@anayethossain.com',
+  whatsapp: '+880 1700-000000',          // shown as text; its digits build the wa.me link
+  location: 'Dhaka, Bangladesh',
+  youtube: 'https://www.youtube.com/@anayethossain',
+  instagram: 'https://www.instagram.com/anayethossain',
+  behance: 'https://www.behance.net/anayethossain',
+  fiverr: 'https://www.fiverr.com/anayethossain',
   // Paste a Formspree endpoint (https://formspree.io/f/xxxxxxx) to receive form messages by email.
   formEndpoint: ''
 };
 
-// Projects. Put each video's real URL in `link`.
+// Projects. DUMMY clients, years, lengths and links for now; put each video's real URL in `link`.
 const PROJECTS = [
-  { title: 'Brand Ad Film', kind: 'Commercial', client: 'Client Name', tags: ['Commercial', 'Ad Film'],
+  { title: 'Brand Ad Film', kind: 'Commercial', client: 'Lumora Skincare', year: '2025', length: '01:00', tags: ['Commercial', 'Ad Film'],
     desc: 'A brand film cut for pace and emotion, finished with clean titles, sound design and a cinematic grade.',
-    role: 'Editor & Colorist', focus: 'Edit · Color · Sound Design', link: 'https://www.youtube.com/',
+    role: 'Editor & Colorist', focus: 'Edit · Color · Sound Design', link: 'https://www.youtube.com/@anayethossain',
     bg: 'linear-gradient(135deg,#ffffff 0%,#e4f0ff 45%,#8fbaf5 100%)',
     footage: 'linear-gradient(120deg,#0b1d3a,#1f4f8f 40%,#f0a35e 75%,#ffd8a8)' },
-  { title: 'Short Drama Trailer', kind: 'Trailer', client: 'Studio Name', tags: ['Trailer', 'Drama'],
+  { title: 'Short Drama Trailer', kind: 'Trailer', client: 'Nilkantha Films', year: '2025', length: '02:15', tags: ['Trailer', 'Drama'],
     desc: 'A trailer built to tease the story without giving it away, with the rhythm cut to the music.',
-    role: 'Trailer Editor', focus: 'Story · Pacing · Sound Design', link: 'https://www.youtube.com/',
+    role: 'Trailer Editor', focus: 'Story · Pacing · Sound Design', link: 'https://www.youtube.com/@anayethossain',
     bg: 'linear-gradient(135deg,#ffffff 0%,#fff0ea 45%,#ffad94 100%)',
     footage: 'linear-gradient(120deg,#12070a,#5a1520 40%,#c2452f 70%,#f7b267)' },
-  { title: 'YouTube Vlog Edit', kind: 'YouTube', client: 'Creator Name', tags: ['YouTube', 'Vlog'],
+  { title: 'YouTube Vlog Edit', kind: 'YouTube', client: 'Rafi on the Road', year: '2024', length: '14:32', tags: ['YouTube', 'Vlog'],
     desc: 'A long-form vlog shaped into a clear story, with b-roll, captions and graphics that hold attention.',
-    role: 'Editor', focus: 'Story · Retention · Graphics', link: 'https://www.youtube.com/',
+    role: 'Editor', focus: 'Story · Retention · Graphics', link: 'https://www.youtube.com/@anayethossain',
     bg: 'linear-gradient(135deg,#ffffff 0%,#e8fbf3 45%,#93e6c8 100%)',
     footage: 'linear-gradient(120deg,#062a24,#0f6b55 40%,#6fd19b 70%,#e9f7a8)' },
-  { title: 'VFX Car Replacement', kind: 'VFX', client: 'Project Name', tags: ['VFX', 'Compositing'],
+  { title: 'VFX Car Replacement', kind: 'VFX', client: 'Velocity Auto', year: '2024', length: '00:30', tags: ['VFX', 'Compositing'],
     desc: 'A car replaced in post with tracking, compositing and lighting matched to the original plate.',
-    role: 'VFX Artist', focus: 'Tracking · Compositing · Roto', link: 'https://www.youtube.com/',
+    role: 'VFX Artist', focus: 'Tracking · Compositing · Roto', link: 'https://www.youtube.com/@anayethossain',
     bg: 'linear-gradient(135deg,#ffffff 0%,#f0edff 45%,#b9a8ff 100%)',
     footage: 'linear-gradient(120deg,#0a0820,#2b1d6b 40%,#7a4dd8 70%,#59d2ff)' },
-  { title: 'Corporate Promo', kind: 'Corporate', client: 'Company Name', tags: ['Corporate', 'Promo'],
+  { title: 'Corporate Promo', kind: 'Corporate', client: 'Brightpath Solutions', year: '2024', length: '02:40', tags: ['Corporate', 'Promo'],
     desc: 'A company promo that explains what they do clearly, with motion graphics and a clean, natural grade.',
-    role: 'Editor & Motion Designer', focus: 'Edit · Motion · Color', link: 'https://www.youtube.com/',
+    role: 'Editor & Motion Designer', focus: 'Edit · Motion · Color', link: 'https://www.youtube.com/@anayethossain',
     bg: 'linear-gradient(135deg,#ffffff 0%,#fbfbe6 45%,#e3ef8f 100%)',
     footage: 'linear-gradient(120deg,#0d1620,#284456 40%,#8fb0a0 70%,#e7e1b9)' },
-  { title: 'Lyrical Video', kind: 'Music', client: 'Artist Name', tags: ['Music', 'Typography'],
+  { title: 'Lyrical Video', kind: 'Music', client: 'Shohag Rahman', year: '2023', length: '03:48', tags: ['Music', 'Typography'],
     desc: "Lyrics animated in time with the track, with kinetic typography that follows the song's mood.",
-    role: 'Motion Designer', focus: 'Typography · Animation · Sync', link: 'https://www.youtube.com/',
+    role: 'Motion Designer', focus: 'Typography · Animation · Sync', link: 'https://www.youtube.com/@anayethossain',
     bg: 'linear-gradient(135deg,#ffffff 0%,#ffeefa 45%,#f5a3dc 100%)',
     footage: 'linear-gradient(120deg,#1a0618,#5e1458 40%,#e04fa8 70%,#ffc56b)' }
 ];
@@ -839,6 +841,7 @@ const PROJECTS = [
           <div class="meta">
             <div><span>Role</span><b>${esc(p.role)}</b></div>
             <div><span>Focus</span><b>${esc(p.focus)}</b></div>
+            <div><span>Year</span><b>${esc(p.year)}</b></div>
           </div>
         </div>
         <div class="case-media">
@@ -848,7 +851,7 @@ const PROJECTS = [
             <span class="grain"></span>
             <span class="title-card"><small>${esc(p.kind.toUpperCase())} · ${esc(p.client.toUpperCase())}</small><strong>${esc(p.title)}</strong></span>
             <span class="frame-play" aria-hidden="true"></span>
-            <span class="controls" aria-hidden="true"><span>▶</span><span class="track"><i></i></span><span>4K</span></span>
+            <span class="controls" aria-hidden="true"><span>▶</span><span class="track"><i></i></span><span>${esc(p.length)} · 4K</span></span>
           </a>
         </div>
       </div>
