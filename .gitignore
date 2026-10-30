@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+# gflow sessions, cookies and tokens: never commit
+.gflow/
+*.cookies
+*.cookie
+cookies*.json
+storage_state*.json
+.env
+_concepts/
+_websites/
+_design/
+_portraits/
