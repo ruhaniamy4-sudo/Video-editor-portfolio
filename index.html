@@ -444,6 +444,27 @@ a:hover .arrow, button:hover .arrow { transform: translate(2px, -2px); }
 button.frame, button.watch { border: 0; cursor: pointer; font: inherit; text-align: left; padding: 0; }
 button.watch { padding: 0 18px; }
 
+/* category jump bar above the featured cards */
+.jump { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: -20px 0 44px; }
+.jump button { all: unset; box-sizing: border-box; cursor: pointer; border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; background: var(--white); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 2px; transition: transform .25s, border-color .25s, background .25s; }
+.jump button:hover { transform: translateY(-3px); border-color: var(--ink-2); }
+.jump button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.jump b { font-size: 2rem; font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; color: var(--ink); }
+.jump span { font-size: .88rem; color: var(--muted); }
+.jump .all { background: var(--ink-2); border-color: var(--ink-2); }
+.jump .all b { color: var(--lime); }
+.jump .all span { color: rgba(255,255,255,.75); }
+.feat-label { font: 500 .74rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+@media (max-width: 860px) { .jump { grid-template-columns: repeat(2, 1fr); } .jump .all { grid-column: 1 / -1; } }
+@media (max-width: 560px) {
+  .all-work .vgrid { grid-template-columns: 1fr 1fr; gap: 18px 12px; }
+  .all-work .vthumb { border-radius: 14px; }
+  .all-work .vthumb .vb { font-size: .56rem; padding: 3px 6px; top: 7px; left: 7px; }
+  .all-work .vthumb .vr { left: auto; right: 7px; }
+  .all-work .vthumb .vp { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
+  .all-work .vcard h4 { font-size: .92rem; }
+}
+
 /* all projects grid */
 .all-work { margin-top: 96px; }
 .all-head { display: flex; justify-content: space-between; align-items: end; gap: 18px; flex-wrap: wrap; margin-bottom: 28px; }
@@ -910,6 +931,8 @@ button.watch { padding: 0 18px; }
       </div>
       <a class="btn btn-dark" data-link="portfolio" href="https://drive.google.com/drive/folders/1McyJHi5xfnsM-UTXfX-EhLaPAuJANV4v" target="_blank" rel="noopener">Open Full Portfolio ↗</a>
     </div>
+    <div class="jump reveal" id="jump"></div>
+    <p class="feat-label reveal">Featured · one from each category</p>
     <div class="cases" id="cases"></div>
 
     <div class="all-work" id="all-work">
@@ -1251,10 +1274,19 @@ const PROJECTS = [
     </a>`).join('');
   const fkeys = ['all', ...Object.keys(CATS)];
   vfilters.innerHTML = fkeys.map(k => `<button class="vchip" type="button" data-f="${k}" aria-pressed="${k === 'all'}">${k === 'all' ? 'All' : esc(CATS[k])}<i>${k === 'all' ? WORK.length : WORK.filter(w => w.cat === k).length}</i></button>`).join('');
-  vfilters.addEventListener('click', e => {
-    const b = e.target.closest('.vchip'); if (!b) return;
-    vfilters.querySelectorAll('.vchip').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    vgrid.querySelectorAll('.vcard').forEach(c => { c.hidden = !(b.dataset.f === 'all' || c.dataset.cat === b.dataset.f); });
+  const applyFilter = f => {
+    vfilters.querySelectorAll('.vchip').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.f === f)));
+    vgrid.querySelectorAll('.vcard').forEach(c => { c.hidden = !(f === 'all' || c.dataset.cat === f); });
+  };
+  vfilters.addEventListener('click', e => { const b = e.target.closest('.vchip'); if (b) applyFilter(b.dataset.f); });
+  // jump bar: total + one tile per category, each opens the grid filtered
+  const jump = document.getElementById('jump');
+  jump.innerHTML = `<button type="button" class="all" data-f="all"><b>${WORK.length}</b><span>All projects ↓</span></button>` +
+    Object.keys(CATS).map(k => `<button type="button" data-f="${k}"><b>${WORK.filter(w => w.cat === k).length}</b><span>${esc(CATS[k])}</span></button>`).join('');
+  jump.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    applyFilter(b.dataset.f);
+    document.getElementById('all-work').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
   });
 
   /* ---- video player (Google Drive preview) ---- */
