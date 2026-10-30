@@ -1,58 +1,27 @@
-# Next steps (handoff for a local Claude Code session on Windows)
+# Next steps (handoff for a new Claude Code session)
 
-Portfolio site for **Anayet Hossain**, video editor & motion designer. Single page: `index.html`, images in `assets/`.
-Content to edit lives at the bottom of `index.html`: `CONFIG` (links, contact), `WORK` (22 real projects from Google Drive), `PROJECTS` (4 featured cards), `CLIPS` (the "Inside My Timeline" section).
+Portfolio for **Anayet Hossain**, video editor & motion designer. One page: `index.html` (CSS + JS inline), images in `assets/`.
+Talk to Anayet in Banglish, short and clear. Show a screenshot before asking to commit; commit/push to `main` only after he approves.
 
-## Tool: gflow-cli (Google Flow, unofficial)
+## Live site
+- Cloudflare Pages project `anayet-hossain` → https://anayet-hossain.pages.dev, auto-deploys on every push to `main`.
+- Repo: https://github.com/ruhaniamy4-sudo/Video-editor-portfolio (git author is set per-repo to the GitHub noreply email).
 
-Anayet has a **Google AI Pro** subscription, so Flow (Nano Banana / Imagen images, Veo video) can be driven with
-[gflow-cli](https://github.com/ffroliva/gflow-cli). Set it up once:
+## Where things are in index.html
+- `CONFIG` (bottom `<script>`): email, WhatsApp, Facebook, stats, links (empty links are hidden), `formEndpoint`.
+- `WORK` (22 Drive projects), `REEL` (Now playing fan), `CASES` (4 featured cover cards with tabs + flip + mouse tilt).
+- Hero photo: `assets/hero-me.webp` (Anayet's own Photoshop cut-out). Position: `.op` `--hy` (desktop/tablet/mobile). Fades: `.op-me` `mask-image`.
+- "Who am I": bg `assets/why-me.webp` + cut-out `assets/why-me-cut.webp`; 4 pills on the left launch 4 big 3D cards (motion-graphic "shape shift" inside) — `.kfly` / `.kcard` / `.mg-shift`.
 
-```powershell
-uv tool install gflow-cli
-gflow auth login --browser chrome   # log in with the AI Pro Google account
-gflow --help
-```
+## Not yet verified
+- Live animations (pill → card flight, card flip, mouse tilt) were only checked as headless stills. Check in a real browser.
 
-Every generation spends Flow credits, so generate only what is listed below and show results before adding more.
-It is unofficial and can break when Google changes Flow; if a command fails, check `gflow --help` and the project README.
-
-## 1. Sci-fi hero (top priority)
-
-The hero currently shows a graded rooftop photo inside a camera frame, with a cut-out of Anayet whose head breaks
-out of the top of the frame, the word EDITOR behind him, a lime face-track box, REC timecode and audio meters.
-**Keep that whole design**; only the image changes.
-
-- Source photo: the rooftop portrait (white sweater, sitting at a black table, greenery behind). Ask Anayet for the original file.
-- Generate a sci-fi / futuristic-film version (space station or film-studio spaceship, holographic film strips,
-  nebula), keeping his face, beard, hair and pose exactly. Keep skin tones natural (he asked for less face saturation).
-- Replace `assets/hero-plate.webp` (1120x1060) with the new image cropped the same way, and rebuild
-  `assets/hero-cut.webp` as a cut-out of him from **the same crop**, so the two line up pixel for pixel.
-  Background removal: `rembg` (`pip install "rembg[cpu]"`, model `isnet-general-use`) worked well.
-- The frame top sits at 30% of the image height (`.pop-frame` clip-path and `.pop-cut` clip-path in `index.html`);
-  his head must be above that line. Adjust the crop rather than the CSS if needed.
-- Optional: a short Veo clip of the same scene as a looping hero background (muted, small file).
-
-## 2. Remaining sci-fi images
-
-Done already: `assets/about-scifi.webp` (About slider) and `assets/scifi-studio.webp` (first timeline clip).
-Still the old color-graded versions: `assets/clip-1.webp` … `clip-5.webp` (timeline), `assets/contact-night.webp`
-(contact card), `assets/sit-cut.webp` (cut-out sitting on the footer card). Same style, 4:5 for clips.
-
-## 3. Hover previews for the 22 projects
-
-Goal: a 5–6 s muted clip of the **best moment** (strongest scene or text animation) of each video, played when
-hovering a project card. Videos are in the public Drive folder
-https://drive.google.com/drive/folders/1McyJHi5xfnsM-UTXfX-EhLaPAuJANV4v (file ids are in `WORK`).
-**Careful:** sampling many frames over HTTP tripped Google Drive's download quota once. Work from local copies
-of the videos (download each once, or use the files already on this PC), pick moments, then cut with ffmpeg:
-`ffmpeg -ss <t> -t 6 -i in.mp4 -an -vf scale=640:-2 -c:v libx264 -crf 30 -movflags +faststart assets/previews/<slug>.mp4`.
-
-## 4. Still dummy
-
-Email, WhatsApp, location and social links in `CONFIG`; role/focus text on the featured cards; title "Mongol MC".
-
-## Publishing
-
-Commit and push to `main`. The live site needs GitHub Pages turned on once:
-repo Settings → Pages → Deploy from a branch → `main` / root.
+## Open items (from the audit)
+1. Reviews in "What clients say" are `[placeholder]` text — fill with real quotes or remove the two `<figure>`s.
+2. Stats in `CONFIG` (`5+ / 200+ / 1M+ / 50+`) are placeholders — confirm real numbers.
+3. One Escape key closes both the video player and the project folder — merge the two keydown handlers.
+4. Contact form: set `CONFIG.formEndpoint` (Formspree) so messages arrive.
+5. Add `og:title` / `og:description` / `og:image` for link previews.
+6. Type-strip loop reads `scrollWidth` every frame — cache it and pause off-screen.
+7. Delete unused assets: avatar, clip-1..5, hero-cut, hero-plate, scifi-studio, sit-cut; move `assets/49764.png` (2 MB source) out of the repo; delete `hero-room.webp`.
+8. README is outdated; `PC_SETUP_PROMPT.md` can go.
