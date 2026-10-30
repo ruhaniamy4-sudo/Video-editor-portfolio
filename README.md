@@ -7,7 +7,10 @@ Single-page portfolio website for Anayet Hossain, video editor and motion design
 Everything lives in `index.html`. Near the bottom, in the `<script>`:
 
 - `CONFIG`: showreel link, email, WhatsApp number, social links and an optional Formspree endpoint for the contact form
-- `PROJECTS`: the case-study cards (title, client, description, role, focus, video link and card colors)
+- `WORK`: every project from the Google Drive portfolio (Drive file id, thumbnail slug, category, title, `tall` for 9:16)
+- `PROJECTS`: the four featured case-study cards picked from `WORK` (description, role, focus, format, card colors)
+
+Videos play in a pop-up using Google Drive's preview player, so each Drive file must stay shared as "Anyone with the link". Thumbnails are in `assets/work/`.
 
 Text such as the hero headline, services, process steps, reviews and FAQ is plain HTML in the page.
 
