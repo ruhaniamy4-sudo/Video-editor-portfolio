@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cutroom Portfolio</title>
+<meta name="description" content="Video editor and motion graphics artist. Reels, YouTube, ads, motion design and color grading.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an edit suite. A viewer monitor up top, a timeline that runs the length of the page, bins of clips below. */
+:root {
+  --ink: #0c0e12;
+  --panel: #14171d;
+  --panel-2: #1b1f27;
+  --line: #2a2f39;
+  --fg: #eee9e1;
+  --muted: #959aa5;
+  --tungsten: #ff8a3d;
+  --tungsten-soft: rgba(255, 138, 61, 0.14);
+  --teal: #43c9c1;
+  --rec: #ff4d4d;
+  --on-accent: #1a0d03;
+
+  --display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+  --body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.75rem;
+  --step-3: clamp(2.4rem, 5vw, 3.6rem);
+  --step-4: clamp(3.2rem, 9vw, 7.4rem);
+
+  --radius: 6px;
+  --wrap: 1240px;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--ink);
+}
+a { color: inherit; }
+img, canvas { max-width: 100%; }
+:focus-visible { outline: 2px solid var(--tungsten); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.wrap {
+  max-width: var(--wrap); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 720px) {
+  .wrap {
+    padding-left: max(32px, env(safe-area-inset-left, 0px));
+    padding-right: max(32px, env(safe-area-inset-right, 0px));
+  }
+}
+
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.label {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.label b { color: var(--tungsten); font-weight: 500; }
+
+/* ---------- preview banner ---------- */
+.draft {
+  background: var(--tungsten-soft); border-bottom: 1px solid var(--line);
+  font-size: 0.85rem; color: var(--fg);
+}
+.draft .wrap { padding-block: 8px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.draft strong { color: var(--tungsten); font-weight: 600; }
+
+/* ---------- header + scroll timeline ---------- */
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: rgba(12, 14, 18, 0.86);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.nav { display: flex; align-items: center; gap: 24px; padding-block: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+.brand-mark {
+  width: 34px; height: 34px; border-radius: 50%; flex: none;
+  background: conic-gradient(from 200deg, var(--tungsten), var(--teal), var(--tungsten));
+  display: grid; place-items: center;
+}
+.brand-mark::after { content: ""; width: 0; height: 0; border-left: 10px solid var(--ink); border-top: 6px solid transparent; border-bottom: 6px solid transparent; margin-left: 3px; }
+.brand-name { font-family: var(--display); font-weight: 800; font-size: 1.35rem; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; }
+.brand-role { display: block; font-family: var(--mono); font-size: 0.66rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+.nav-links { display: flex; gap: 22px; margin-left: auto; font-size: 0.92rem; }
+.nav-links a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.nav-links a:hover { color: var(--fg); }
+.tc-readout { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.tc-readout .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rec); animation: blink 1.6s infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; justify-content: center;
+  font: 600 0.95rem var(--body); text-decoration: none; cursor: pointer;
+  padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line);
+  background: transparent; color: var(--fg); transition: transform .2s, background .2s, border-color .2s;
+}
+.btn:hover { border-color: var(--fg); }
+.btn-primary { background: var(--tungsten); color: var(--on-accent); border-color: var(--tungsten); }
+.btn-primary:hover { background: #ffa163; border-color: #ffa163; transform: translateY(-1px); }
+.btn .tri { width: 0; height: 0; border-left: 9px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
+
+.ruler { position: relative; height: 14px; border-top: 1px solid var(--line); overflow: hidden; }
+.ruler-ticks {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 100px),
+    repeating-linear-gradient(90deg, rgba(149,154,165,.18) 0 1px, transparent 1px 20px);
+  background-size: 100% 100%, 100% 6px; background-repeat: no-repeat;
+  background-position: 0 0, 0 100%;
+}
+.ruler-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--tungsten-soft); }
+.playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--tungsten); left: 0; }
+.playhead::before { content: ""; position: absolute; top: 0; left: -4px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--tungsten); }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .tc-readout { margin-left: auto; }
+}
+@media (max-width: 480px) {
+  .tc-readout { display: none; }
+  .nav .btn { margin-left: auto; padding: 10px 16px; }
+}
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(40px, 7vw, 88px) 56px; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(28px, 4vw, 56px); align-items: center; }
+.hero-copy { min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+.hero h1 {
+  font-family: var(--display); font-weight: 900; font-size: var(--step-4);
+  line-height: 0.88; letter-spacing: -0.005em; text-transform: uppercase;
+}
+.hero h1 .cut { color: var(--tungsten); }
+.hero h1 .outline { color: transparent; -webkit-text-stroke: 1.5px var(--fg); }
+.hero-lede { color: var(--muted); max-width: 46ch; font-size: 1.08rem; }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.availability { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--muted); }
+.availability i { width: 9px; height: 9px; border-radius: 50%; background: #47d16c; box-shadow: 0 0 0 4px rgba(71,209,108,.15); }
+
+.monitor { min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.viewer {
+  position: relative; aspect-ratio: 16 / 9; max-width: 100%;
+  background: #000; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line);
+}
+.viewer canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.viewer .safe { position: absolute; inset: 7%; pointer-events: none; }
+.viewer .safe span { position: absolute; width: 22px; height: 22px; border-color: rgba(238,233,225,.7); border-style: solid; border-width: 0; }
+.viewer .safe span:nth-child(1) { top: 0; left: 0; border-top-width: 2px; border-left-width: 2px; }
+.viewer .safe span:nth-child(2) { top: 0; right: 0; border-top-width: 2px; border-right-width: 2px; }
+.viewer .safe span:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 2px; border-left-width: 2px; }
+.viewer .safe span:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
+.viewer .hud {
+  position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between;
+  padding: 12px 14px; font-family: var(--mono); font-size: 0.72rem; color: rgba(238,233,225,.85); letter-spacing: .06em;
+}
+.viewer .hud .rec { display: flex; align-items: center; gap: 6px; }
+.viewer .hud .rec::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rec); animation: blink 1.2s infinite; }
+.viewer .play-reel {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 12px; text-decoration: none;
+  background: rgba(12,14,18,.6); border: 1px solid rgba(238,233,225,.3);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  padding: 10px 20px 10px 10px; border-radius: 999px; font-weight: 600; white-space: nowrap;
+  transition: background .2s, transform .2s;
+}
+.viewer .play-reel:hover { background: rgba(12,14,18,.85); transform: translate(-50%, -50%) scale(1.03); }
+.viewer .play-reel .circle { width: 40px; height: 40px; border-radius: 50%; background: var(--tungsten); display: grid; place-items: center; }
+.viewer .play-reel .circle .tri { border-left-color: var(--on-accent); border-left: 12px solid var(--on-accent); border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 3px; width: 0; height: 0; }
+.viewer .lower {
+  position: absolute; left: 7%; bottom: 9%;
+  font-family: var(--display); text-transform: uppercase; font-weight: 800; letter-spacing: .04em;
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem); line-height: 1.1;
+}
+.viewer .lower small { display: block; font-family: var(--mono); font-weight: 400; font-size: .62rem; letter-spacing: .14em; color: var(--tungsten); }
+
+.timeline {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 10px 12px; position: relative; overflow: hidden;
+}
+.timeline-row { display: grid; grid-template-columns: 30px 1fr; gap: 8px; align-items: center; height: 24px; }
+.timeline-row + .timeline-row { margin-top: 5px; }
+.timeline-row .trk { font-family: var(--mono); font-size: .66rem; color: var(--muted); }
+.lane { position: relative; height: 100%; }
+.clip { position: absolute; top: 2px; bottom: 2px; border-radius: 3px; font-family: var(--mono); font-size: .6rem; padding: 2px 6px; overflow: hidden; white-space: nowrap; color: rgba(12,14,18,.85); }
+.clip.v { background: #6f8fd8; }
+.clip.v.alt { background: #8aa6e6; }
+.clip.t { background: #c58be0; }
+.clip.a { background: #4fb57e; }
+.lane .wave { position: absolute; inset: 2px 0; }
+.timeline .tl-head { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--tungsten); left: 50px; pointer-events: none; }
+.timeline .tl-head::before { content: ""; position: absolute; top: 0; left: -5px; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid var(--tungsten); }
+.monitor-meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- client strip ---------- */
+.clients { border-block: 1px solid var(--line); padding-block: 22px; overflow: hidden; }
+.clients .wrap { display: flex; align-items: center; gap: 28px; }
+.clients .label { flex: none; }
+.marquee { overflow: hidden; flex: 1; min-width: 0; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-track { display: flex; gap: 48px; width: max-content; animation: slide 36s linear infinite; }
+.marquee-track span { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: .06em; text-transform: uppercase; color: #5b606b; white-space: nowrap; }
+@keyframes slide { to { transform: translateX(-50%); } }
+@media (max-width: 640px) { .clients .wrap { flex-direction: column; align-items: flex-start; gap: 12px; } .marquee { width: 100%; } }
+
+/* ---------- sections ---------- */
+section.block { padding-block: clamp(64px, 9vw, 120px); }
+.sec-head { display: grid; grid-template-columns: 1fr auto; gap: 16px 32px; align-items: end; margin-bottom: clamp(32px, 5vw, 56px); }
+.sec-head > div { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.sec-head h2 { font-family: var(--display); font-weight: 900; font-size: var(--step-3); line-height: .95; text-transform: uppercase; }
+.sec-head p { color: var(--muted); max-width: 56ch; }
+@media (max-width: 720px) { .sec-head { grid-template-columns: 1fr; } }
+
+/* ---------- stats ---------- */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: var(--radius); }
+.stat { padding: 26px 24px; display: flex; flex-direction: column; gap: 6px; }
+.stat + .stat { border-left: 1px solid var(--line); }
+.stat .n { font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 4.5vw, 3.4rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.stat .n em { font-style: normal; color: var(--tungsten); }
+.stat .k { color: var(--muted); font-size: .92rem; }
+@media (max-width: 760px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(3) { border-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* ---------- work bin ---------- */
+.sec-head.stacked { grid-template-columns: 1fr; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  font: 500 .88rem var(--body); color: var(--muted); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.chip:hover { color: var(--fg); border-color: var(--muted); }
+.chip[aria-pressed="true"] { color: var(--on-accent); background: var(--tungsten); border-color: var(--tungsten); }
+.chip .cnt { font-family: var(--mono); font-size: .72rem; margin-left: 4px; opacity: .7; }
+
+.bin { columns: 3 300px; column-gap: 20px; }
+.clipcard {
+  break-inside: avoid; margin-bottom: 20px; display: block; text-decoration: none;
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  transition: border-color .25s, transform .25s;
+}
+.clipcard:hover { border-color: #4a505c; transform: translateY(-3px); }
+.thumb { position: relative; overflow: hidden; max-width: 100%; }
+.thumb.r169 { aspect-ratio: 16 / 9; }
+.thumb.r916 { aspect-ratio: 4 / 5; }
+.thumb.r11 { aspect-ratio: 1 / 1; }
+.thumb .art {
+  position: absolute; inset: -20%;
+  background:
+    radial-gradient(40% 50% at 30% 35%, hsl(var(--h) 85% 62% / .95), transparent 70%),
+    radial-gradient(45% 55% at 75% 70%, hsl(calc(var(--h) + 150) 70% 45% / .85), transparent 70%),
+    radial-gradient(60% 60% at 60% 20%, hsl(calc(var(--h) + 40) 80% 55% / .6), transparent 70%),
+    linear-gradient(160deg, hsl(var(--h) 30% 12%), hsl(calc(var(--h) + 180) 30% 8%));
+  transition: transform 1.6s cubic-bezier(.2,.7,.2,1), filter .4s;
+  filter: saturate(.85) brightness(.85);
+}
+.thumb .word {
+  position: absolute; left: 14px; bottom: 10px; right: 14px;
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: .9; color: rgba(255,255,255,.92);
+  text-shadow: 0 2px 20px rgba(0,0,0,.4);
+}
+.thumb .badges { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between; gap: 8px; }
+.badge { font-family: var(--mono); font-size: .66rem; letter-spacing: .06em; background: rgba(12,14,18,.7); padding: 3px 7px; border-radius: 3px; color: var(--fg); }
+.thumb .scrub { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.15); }
+.thumb .scrub i { display: block; height: 100%; width: 0; background: var(--tungsten); }
+.thumb .hoverplay {
+  position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transition: opacity .3s;
+  background: rgba(12,14,18,.25);
+}
+.thumb .hoverplay span { width: 54px; height: 54px; border-radius: 50%; background: var(--tungsten); display: grid; place-items: center; }
+.thumb .hoverplay span::after { content: ""; border-left: 14px solid var(--on-accent); border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 4px; }
+.clipcard:hover .art { transform: scale(1.08) translate(4%, -3%) rotate(2deg); filter: saturate(1.1) brightness(1); }
+.clipcard:hover .hoverplay { opacity: 1; }
+.clipcard:hover .scrub i { width: 100%; transition: width 3.2s linear; }
+.clip-info { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; }
+.clip-info h3 { font-size: 1.08rem; font-weight: 600; line-height: 1.3; }
+.clip-info .meta { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .85rem; flex-wrap: wrap; }
+.clip-info .tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.clip-info .tools span { font-family: var(--mono); font-size: .68rem; color: var(--muted); border: 1px solid var(--line); padding: 2px 7px; border-radius: 3px; }
+.sample-tag { color: var(--tungsten); font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; }
+
+/* ---------- grade compare ---------- */
+.grade { display: grid; grid-template-columns: 1fr 340px; gap: clamp(24px, 4vw, 48px); align-items: center; }
+.compare { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #000; user-select: none; touch-action: pan-y; cursor: ew-resize; }
+.compare canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.compare #gradeAfter { clip-path: inset(0 0 0 50%); }
+.compare .divider { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--fg); transform: translateX(-1px); pointer-events: none; }
+.compare .knob { position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--fg); color: var(--ink); display: grid; place-items: center; font-family: var(--mono); font-size: .8rem; font-weight: 500; pointer-events: none; box-shadow: 0 4px 20px rgba(0,0,0,.5); }
+.compare .tag { position: absolute; top: 12px; font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; background: rgba(12,14,18,.75); padding: 4px 8px; border-radius: 3px; }
+.compare .tag.l { left: 12px; }
+.compare .tag.r { right: 12px; color: var(--tungsten); }
+.compare input[type="range"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.grade-notes { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.grade-notes h3 { font-family: var(--display); font-weight: 800; font-size: var(--step-2); text-transform: uppercase; line-height: 1; }
+.grade-notes p { color: var(--muted); }
+.scopes { display: grid; grid-template-columns: auto 1fr; gap: 8px 14px; font-family: var(--mono); font-size: .78rem; }
+.scopes dt { color: var(--muted); }
+.scopes dd { margin: 0; }
+.swatches { display: flex; gap: 6px; }
+.swatches i { width: 28px; height: 28px; border-radius: 3px; display: block; }
+@media (max-width: 900px) { .grade { grid-template-columns: 1fr; } }
+
+/* ---------- services ---------- */
+.services { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.svc { padding: 28px 28px 32px 0; display: flex; flex-direction: column; gap: 14px; border-bottom: 1px solid var(--line); min-width: 0; }
+.svc:not(:nth-child(3n+1)) { padding-left: 28px; border-left: 1px solid var(--line); }
+.svc .kind { display: flex; justify-content: space-between; gap: 10px; }
+.svc h3 { font-family: var(--display); font-weight: 800; font-size: 1.7rem; line-height: 1; text-transform: uppercase; }
+.svc p { color: var(--muted); font-size: .95rem; }
+.svc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: .92rem; }
+.svc li { display: flex; gap: 10px; }
+.svc li::before { content: ""; width: 10px; height: 2px; background: var(--tungsten); margin-top: .72em; flex: none; }
+@media (max-width: 960px) {
+  .services { grid-template-columns: 1fr 1fr; }
+  .svc, .svc:not(:nth-child(3n+1)) { padding: 26px 24px 28px 0; border-left: 0; }
+  .svc:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--line); }
+}
+@media (max-width: 600px) {
+  .services { grid-template-columns: 1fr; }
+  .svc:nth-child(even) { padding-left: 0; border-left: 0; }
+}
+
+/* ---------- toolkit ---------- */
+.toolkit { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.tool { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.tool .ico { width: 42px; height: 42px; border-radius: 8px; display: grid; place-items: center; font-family: var(--body); font-weight: 600; font-size: 1.05rem; }
+.tool h3 { font-size: 1rem; font-weight: 600; }
+.tool p { color: var(--muted); font-size: .85rem; }
+
+/* ---------- process ---------- */
+.process { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
+.process::before { content: ""; position: absolute; left: 0; right: 0; top: 22px; height: 2px; background: repeating-linear-gradient(90deg, var(--line) 0 10px, transparent 10px 16px); }
+.step { position: relative; padding-right: 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.step .marker { width: 46px; height: 46px; border-radius: 50%; background: var(--ink); border: 2px solid var(--tungsten); display: grid; place-items: center; font-family: var(--mono); font-size: .8rem; color: var(--tungsten); position: relative; }
+.step h3 { font-size: 1.1rem; font-weight: 600; }
+.step p { color: var(--muted); font-size: .92rem; }
+.step .dur { font-family: var(--mono); font-size: .72rem; color: var(--teal); }
+@media (max-width: 960px) {
+  .process { grid-template-columns: 1fr; gap: 26px; }
+  .process::before { left: 22px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; background: repeating-linear-gradient(180deg, var(--line) 0 10px, transparent 10px 16px); }
+  .step { display: grid; grid-template-columns: 46px 1fr; column-gap: 18px; row-gap: 6px; padding-right: 0; }
+  .step .marker { grid-row: span 3; }
+}
+
+/* ---------- pricing ---------- */
+.pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+.plan { border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 18px; background: var(--panel); }
+.plan.featured { border-color: var(--tungsten); background: linear-gradient(180deg, var(--tungsten-soft), var(--panel) 45%); }
+.plan .name { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.plan .name h3 { font-family: var(--display); font-weight: 800; font-size: 1.6rem; text-transform: uppercase; }
+.plan .price { font-family: var(--display); font-weight: 900; font-size: 3rem; line-height: 1; }
+.plan .price small { font-family: var(--body); font-weight: 500; font-size: .9rem; color: var(--muted); }
+.plan ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: .93rem; flex: 1; }
+.plan li { display: flex; gap: 10px; }
+.plan li::before { content: "✓"; color: var(--teal); font-weight: 600; }
+.pill { font-family: var(--mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; padding: 4px 8px; border-radius: 999px; background: var(--tungsten); color: var(--on-accent); }
+.note { color: var(--muted); font-size: .85rem; margin-top: 16px; }
+@media (max-width: 900px) { .pricing { grid-template-columns: 1fr; } }
+
+/* ---------- reviews ---------- */
+.reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.review { border-left: 2px solid var(--tungsten); padding: 4px 0 4px 22px; display: flex; flex-direction: column; gap: 16px; }
+.review blockquote { margin: 0; font-size: 1.12rem; line-height: 1.5; }
+.review .who { display: flex; align-items: center; gap: 12px; }
+.review .av { width: 40px; height: 40px; border-radius: 50%; background: var(--panel-2); border: 1px dashed var(--muted); flex: none; }
+.review .who b { display: block; font-weight: 600; }
+.review .who span { color: var(--muted); font-size: .85rem; }
+@media (max-width: 900px) { .reviews { grid-template-columns: 1fr; gap: 28px; } }
+
+/* ---------- faq ---------- */
+.faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(24px, 5vw, 72px); }
+.faq { border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; padding: 20px 0; display: flex; justify-content: space-between; gap: 16px; font-weight: 600; font-size: 1.05rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--mono); color: var(--tungsten); font-size: 1.2rem; line-height: 1; transition: transform .25s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--muted); padding-bottom: 20px; max-width: 62ch; }
+@media (max-width: 860px) { .faq-grid { grid-template-columns: 1fr; } }
+
+/* ---------- contact ---------- */
+.contact { background: var(--panel); border-block: 1px solid var(--line); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(28px, 5vw, 72px); }
+.contact h2 { font-family: var(--display); font-weight: 900; font-size: var(--step-4); line-height: .88; text-transform: uppercase; }
+.contact h2 span { color: var(--tungsten); }
+.contact-side { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.contact-side > p { color: var(--muted); max-width: 44ch; }
+.channels { display: flex; flex-direction: column; gap: 10px; }
+.channel { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; background: var(--ink); min-width: 0; }
+.channel div { min-width: 0; }
+.channel .v { font-family: var(--mono); font-size: .92rem; overflow-wrap: anywhere; }
+.copy { font: 500 .78rem var(--mono); color: var(--fg); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 6px 10px; cursor: pointer; flex: none; }
+.copy:hover { border-color: var(--fg); }
+.socials { display: flex; gap: 8px; flex-wrap: wrap; }
+.socials a { font-size: .88rem; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--muted); }
+.socials a:hover { color: var(--fg); border-color: var(--fg); }
+
+form.brief { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; min-width: 0; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select, .field textarea {
+  font: 400 1rem var(--body); color: var(--fg); background: var(--ink);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; width: 100%;
+}
+.field textarea { min-height: 130px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--tungsten); }
+.form-status { grid-column: 1 / -1; font-size: .9rem; color: var(--teal); min-height: 1.4em; }
+@media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { form.brief { grid-template-columns: 1fr; } }
+
+/* ---------- footer ---------- */
+footer { padding-block: 40px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: .88rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<div class="draft" role="note">
+  <div class="wrap">
+    <strong>Draft preview</strong>
+    <span>Name, videos, prices and reviews are placeholders. Send your details and they get replaced.</span>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>
+        <span class="brand-name">Your Name</span>
+        <span class="brand-role">Editor · Motion Designer</span>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#grade">Color</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="tc-readout" aria-hidden="true"><span class="dot"></span><span id="tc">00:00:00:00</span></div>
+    <a class="btn btn-primary" href="#contact">Hire me</a>
+  </div>
+  <div class="ruler" aria-hidden="true">
+    <div class="ruler-ticks"></div>
+    <div class="ruler-fill" id="rulerFill"></div>
+    <div class="playhead" id="rulerHead"></div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="label"><b>●</b> Video Editor &amp; Motion Graphics Artist</span>
+        <h1>Every <span class="cut">cut</span><br>keeps them <span class="outline">watching</span></h1>
+        <p class="hero-lede">I edit short-form, YouTube and ad videos with tight pacing, clean motion graphics and a color grade that fits your brand. You send raw footage; you get back a video people finish.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#contact">Start a project</a>
+          <a class="btn" href="#work"><span class="tri" aria-hidden="true"></span>See my work</a>
+        </div>
+        <span class="availability"><i aria-hidden="true"></i>Booking projects for November 2026</span>
+      </div>
+
+      <div class="monitor">
+        <div class="viewer">
+          <canvas id="reelCanvas" aria-hidden="true"></canvas>
+          <div class="safe" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          <div class="hud" aria-hidden="true"><span class="rec">REC</span><span id="reelTc">00:00:00:00</span><span>4K · 25p</span></div>
+          <a class="play-reel" href="https://www.youtube.com/" target="_blank" rel="noopener">
+            <span class="circle"><span class="tri"></span></span>Watch showreel
+          </a>
+          <div class="lower" aria-hidden="true"><small>Showreel 2026</small>Your Name</div>
+        </div>
+        <div class="timeline" aria-hidden="true">
+          <div class="timeline-row"><span class="trk">V2</span>
+            <div class="lane">
+              <span class="clip t" style="left:4%;width:18%">TITLE</span>
+              <span class="clip t" style="left:48%;width:14%">LOWER 3RD</span>
+              <span class="clip t" style="left:82%;width:16%">LOGO</span>
+            </div>
+          </div>
+          <div class="timeline-row"><span class="trk">V1</span>
+            <div class="lane">
+              <span class="clip v" style="left:0;width:15%">A001</span>
+              <span class="clip v alt" style="left:15.4%;width:9%">B-roll</span>
+              <span class="clip v" style="left:24.8%;width:21%">A004_interview</span>
+              <span class="clip v alt" style="left:46.2%;width:7%">C2</span>
+              <span class="clip v" style="left:53.6%;width:18%">A007</span>
+              <span class="clip v alt" style="left:72%;width:11%">drone</span>
+              <span class="clip v" style="left:83.4%;width:16.6%">A012_end</span>
+            </div>
+          </div>
+          <div class="timeline-row"><span class="trk">A1</span>
+            <div class="lane"><canvas class="wave" id="wave" height="40"></canvas></div>
+          </div>
+          <div class="tl-head" id="tlHead"></div>
+        </div>
+        <div class="monitor-meta">
+          <span class="label">Seq_Showreel_v07_FINAL</span>
+          <span class="label"><b>01:30</b> runtime</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <div class="clients">
+    <div class="wrap">
+      <span class="label">Clients · placeholders</span>
+      <div class="marquee">
+        <div class="marquee-track" aria-label="Client names">
+          <span>Client One</span><span>Studio Two</span><span>Brand Three</span><span>Agency Four</span><span>Creator Five</span><span>Shop Six</span>
+          <span aria-hidden="true">Client One</span><span aria-hidden="true">Studio Two</span><span aria-hidden="true">Brand Three</span><span aria-hidden="true">Agency Four</span><span aria-hidden="true">Creator Five</span><span aria-hidden="true">Shop Six</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="block" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><span class="n" data-count="4">0<em>+</em></span><span class="k">Years editing</span></div>
+        <div class="stat"><span class="n" data-count="600">0<em>+</em></span><span class="k">Videos delivered</span></div>
+        <div class="stat"><span class="n" data-count="25" data-suffix="M">0<em>+</em></span><span class="k">Views on client videos</span></div>
+        <div class="stat"><span class="n" data-count="80">0<em>+</em></span><span class="k">Clients served</span></div>
+      </div>
+      <p class="note">Sample numbers. Replace them with your own.</p>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="block" id="work">
+    <div class="wrap">
+      <div class="sec-head stacked">
+        <div>
+          <span class="label"><b>01</b> · Selected work</span>
+          <h2>Edits that hold attention</h2>
+          <p>Hover a clip to preview it, click to watch the full video. Vertical cuts sit next to widescreen ones, the way they're actually delivered.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter work">
+          <button class="chip" type="button" data-filter="all" aria-pressed="true">All<span class="cnt"></span></button>
+          <button class="chip" type="button" data-filter="reels" aria-pressed="false">Reels<span class="cnt"></span></button>
+          <button class="chip" type="button" data-filter="youtube" aria-pressed="false">YouTube<span class="cnt"></span></button>
+          <button class="chip" type="button" data-filter="ads" aria-pressed="false">Ads<span class="cnt"></span></button>
+          <button class="chip" type="button" data-filter="motion" aria-pressed="false">Motion<span class="cnt"></span></button>
+        </div>
+      </div>
+      <div class="bin" id="bin"></div>
+    </div>
+  </section>
+
+  <!-- GRADE -->
+  <section class="block" id="grade" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label"><b>02</b> · Color grading</span>
+          <h2>From flat log to finished look</h2>
+          <p>Drag across the frame. Left is the camera's flat log footage, right is the final grade.</p>
+        </div>
+      </div>
+      <div class="grade">
+        <div class="compare" id="compare">
+          <canvas id="gradeBefore" width="960" height="540" aria-hidden="true"></canvas>
+          <canvas id="gradeAfter" width="960" height="540" aria-hidden="true"></canvas>
+          <span class="tag l">S-LOG3 · RAW</span>
+          <span class="tag r">GRADED</span>
+          <div class="divider" id="divider"></div>
+          <div class="knob" id="knob" aria-hidden="true">⇆</div>
+          <input type="range" id="gradeRange" min="0" max="100" value="50" aria-label="Before and after comparison">
+        </div>
+        <div class="grade-notes">
+          <h3>Teal &amp; tungsten</h3>
+          <p>A warm sunset look: shadows pushed toward teal, skin and highlights toward amber, contrast lifted with a soft S-curve so the blacks stay rich without crushing.</p>
+          <dl class="scopes">
+            <dt>Input</dt><dd>S-Log3 / S-Gamut3.Cine</dd>
+            <dt>Output</dt><dd>Rec.709 · 2.4 gamma</dd>
+            <dt>Nodes</dt><dd>CST → balance → curve → look → grain</dd>
+            <dt>Palette</dt><dd class="swatches"><i style="background:#173b44"></i><i style="background:#2f6f6e"></i><i style="background:#c9864a"></i><i style="background:#f3c48a"></i></dd>
+          </dl>
+          <span class="sample-tag">Demo frame. Swap in your own before/after stills.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="block" id="services" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label"><b>03</b> · Services</span>
+          <h2>What I can make for you</h2>
+          <p>One editor for the whole pipeline: the cut, the motion graphics, the grade and the sound. Your videos stay consistent from the first reel to the last ad.</p>
+        </div>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <div class="kind"><span class="label">9:16</span><span class="label">from 24h</span></div>
+          <h3>Short-form edits</h3>
+          <p>Reels, TikToks and Shorts cut for the first three seconds and the rewatch.</p>
+          <ul><li>Hook-first structure</li><li>Animated captions</li><li>Sound design and music sync</li></ul>
+        </article>
+        <article class="svc">
+          <div class="kind"><span class="label">16:9</span><span class="label">from 3 days</span></div>
+          <h3>YouTube long-form</h3>
+          <p>Vlogs, talking-head and documentary-style videos edited for retention.</p>
+          <ul><li>Story and pacing pass</li><li>B-roll, zooms and graphics</li><li>Chapters and end screens</li></ul>
+        </article>
+        <article class="svc">
+          <div class="kind"><span class="label">AE</span><span class="label">from 2 days</span></div>
+          <h3>Motion graphics</h3>
+          <p>2D animation that explains, brands and adds polish to your edits.</p>
+          <ul><li>Logo reveals and intros</li><li>Lower thirds and title packs</li><li>Explainer animation</li></ul>
+        </article>
+        <article class="svc">
+          <div class="kind"><span class="label">1:1 · 4:5 · 9:16</span><span class="label">from 2 days</span></div>
+          <h3>Ad creatives</h3>
+          <p>Product and UGC-style ads with several hooks per concept so you can test what sells.</p>
+          <ul><li>3 to 5 hook variations</li><li>Every placement size</li><li>On-brand text and CTA</li></ul>
+        </article>
+        <article class="svc">
+          <div class="kind"><span class="label">Resolve</span><span class="label">per minute</span></div>
+          <h3>Color grading</h3>
+          <p>Log footage converted, matched across cameras and given a look that suits the story.</p>
+          <ul><li>Shot matching</li><li>Skin-tone correction</li><li>Custom looks and LUTs</li></ul>
+        </article>
+        <article class="svc">
+          <div class="kind"><span class="label">Stereo</span><span class="label">add-on</span></div>
+          <h3>Sound design</h3>
+          <p>Clean dialogue, licensed music and effects mixed to platform loudness.</p>
+          <ul><li>Noise removal</li><li>SFX and risers</li><li>Mixed to −14 LUFS</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLKIT -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label"><b>04</b> · Toolkit</span>
+          <h2>Software I work in</h2>
+        </div>
+      </div>
+      <div class="toolkit">
+        <div class="tool"><span class="ico" style="background:#2a1a4a;color:#c5a6ff">Pr</span><h3>Premiere Pro</h3><p>Editing, multicam, captions</p></div>
+        <div class="tool"><span class="ico" style="background:#1d1a4a;color:#a6a8ff">Ae</span><h3>After Effects</h3><p>Motion graphics, compositing</p></div>
+        <div class="tool"><span class="ico" style="background:#13303a;color:#7fd6e0">Dv</span><h3>DaVinci Resolve</h3><p>Color grading, Fairlight audio</p></div>
+        <div class="tool"><span class="ico" style="background:#1f1f1f;color:#f0f0f0">Cc</span><h3>CapCut</h3><p>Fast social edits, templates</p></div>
+        <div class="tool"><span class="ico" style="background:#10283f;color:#7cc3ff">Ps</span><h3>Photoshop</h3><p>Thumbnails, cleanup</p></div>
+        <div class="tool"><span class="ico" style="background:#3a2810;color:#ffb35c">Ai</span><h3>Illustrator</h3><p>Vector assets for animation</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="block" id="process" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label"><b>05</b> · Process</span>
+          <h2>From raw footage to final export</h2>
+          <p>Five steps, the same on every project. You always know what's next and when you'll see it.</p>
+        </div>
+        <a class="btn" href="#contact">Send your footage</a>
+      </div>
+      <div class="process">
+        <div class="step"><span class="marker">01</span><h3>Brief</h3><p>We talk about the goal, the audience, references you like and where the video will run.</p><span class="dur">Day 0</span></div>
+        <div class="step"><span class="marker">02</span><h3>Footage &amp; plan</h3><p>You share files by Google Drive or WeTransfer. I review everything and plan the structure.</p><span class="dur">Day 1</span></div>
+        <div class="step"><span class="marker">03</span><h3>First cut</h3><p>A complete edit with music, graphics and a first grade, sent as a private review link.</p><span class="dur">Day 2–4</span></div>
+        <div class="step"><span class="marker">04</span><h3>Revisions</h3><p>Leave timestamped notes. I make the changes and send a new version, usually within 24 hours.</p><span class="dur">2 rounds included</span></div>
+        <div class="step"><span class="marker">05</span><h3>Delivery</h3><p>Final exports in every size you need, plus project files on request.</p><span class="dur">Final day</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="block" id="pricing" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label"><b>06</b> · Pricing</span>
+          <h2>Simple packages</h2>
+          <p>Fixed prices for common jobs. Bigger projects get a custom quote after the brief.</p>
+        </div>
+      </div>
+      <div class="pricing">
+        <div class="plan">
+          <div class="name"><h3>Reel</h3></div>
+          <div class="price">$49 <small>/ video</small></div>
+          <ul><li>Up to 60 seconds</li><li>Captions and music</li><li>2 revision rounds</li><li>48-hour delivery</li></ul>
+          <a class="btn" href="#contact">Choose Reel</a>
+        </div>
+        <div class="plan featured">
+          <div class="name"><h3>YouTube</h3><span class="pill">Most booked</span></div>
+          <div class="price">$149 <small>/ video</small></div>
+          <ul><li>Up to 15 minutes</li><li>B-roll, graphics and color</li><li>Thumbnail included</li><li>2 revision rounds</li><li>4-day delivery</li></ul>
+          <a class="btn btn-primary" href="#contact">Choose YouTube</a>
+        </div>
+        <div class="plan">
+          <div class="name"><h3>Monthly</h3></div>
+          <div class="price">$599 <small>/ month</small></div>
+          <ul><li>12 reels or 4 long videos</li><li>Priority turnaround</li><li>Consistent brand template</li><li>Weekly check-in</li></ul>
+          <a class="btn" href="#contact">Choose Monthly</a>
+        </div>
+      </div>
+      <p class="note">Sample prices. Set your own, or hide this section.</p>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="label"><b>07</b> · Client words</span>
+          <h2>What clients say</h2>
+        </div>
+      </div>
+      <div class="reviews">
+        <figure class="review"><blockquote>Your client's review goes here. One or two sentences about the result and what it was like to work with you.</blockquote><figcaption class="who"><span class="av" aria-hidden="true"></span><span><b>Client name</b><span>Company · Sample review</span></span></figcaption></figure>
+        <figure class="review"><blockquote>Mention a real outcome if you have one, like more views, a better retention graph, or an ad that outsold the old one.</blockquote><figcaption class="who"><span class="av" aria-hidden="true"></span><span><b>Client name</b><span>Company · Sample review</span></span></figcaption></figure>
+        <figure class="review"><blockquote>Short quotes read best. Ask happy clients on Fiverr, Upwork or WhatsApp if you can use their words here.</blockquote><figcaption class="who"><span class="av" aria-hidden="true"></span><span><b>Client name</b><span>Company · Sample review</span></span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="block" id="faq" style="padding-top:0">
+    <div class="wrap faq-grid">
+      <div class="sec-head" style="margin:0;align-self:start">
+        <div>
+          <span class="label"><b>08</b> · FAQ</span>
+          <h2>Common questions</h2>
+          <p>Something else on your mind? Message me and I'll answer within a day.</p>
+        </div>
+      </div>
+      <div class="faq">
+        <details open><summary>How do I send my footage?</summary><p>Upload it to Google Drive, Dropbox or WeTransfer and share the link. For big shoots I can send you a folder to upload into.</p></details>
+        <details><summary>How many revisions do I get?</summary><p>Two rounds are included in every package. Leave notes with timestamps and I'll apply them all in one pass. Extra rounds are available if you need them.</p></details>
+        <details><summary>How long does a video take?</summary><p>A reel usually takes 1–2 days and a YouTube video 3–4 days. Rush delivery is possible depending on my schedule.</p></details>
+        <details><summary>Can you match my existing style or brand?</summary><p>Yes. Send a few videos you like or your brand guide, and I'll build a template for fonts, captions, colors and transitions so every video matches.</p></details>
+        <details><summary>Do you provide music?</summary><p>I use licensed tracks from stock libraries, or music you supply. Every track is cleared for the platform it's posted on.</p></details>
+        <details><summary>How do payments work?</summary><p>50% to start and 50% before final delivery. Payoneer, bank transfer, or bKash for clients in Bangladesh.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-side">
+        <span class="label"><b>09</b> · Contact</span>
+        <h2>Let's make<br>it <span>move</span></h2>
+        <p>Tell me what you're filming and where it'll be posted. I'll reply with a plan, a price and a delivery date.</p>
+        <div class="channels">
+          <div class="channel"><div><span class="label">Email</span><div class="v" id="emailV">yourname@email.com</div></div><button class="copy" type="button" data-copy="emailV">Copy</button></div>
+          <div class="channel"><div><span class="label">WhatsApp</span><div class="v" id="waV">+880 1XXX-XXXXXX</div></div><button class="copy" type="button" data-copy="waV">Copy</button></div>
+        </div>
+        <div class="socials">
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.fiverr.com/" target="_blank" rel="noopener">Fiverr</a>
+        </div>
+      </div>
+      <form class="brief" id="brief" novalidate>
+        <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" placeholder="Rahim Ahmed" required></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required></div>
+        <div class="field"><label for="f-type">Project type</label>
+          <select id="f-type" name="type">
+            <option>Short-form reels</option><option>YouTube video</option><option>Motion graphics</option><option>Ad creatives</option><option>Color grading</option><option>Something else</option>
+          </select>
+        </div>
+        <div class="field"><label for="f-budget">Budget</label>
+          <select id="f-budget" name="budget">
+            <option>Under $100</option><option>$100 – $300</option><option>$300 – $1,000</option><option>$1,000+</option><option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field full"><label for="f-msg">About the project</label><textarea id="f-msg" name="message" placeholder="What are you filming, how long should it be, and when do you need it?" required></textarea></div>
+        <div class="field full" style="flex-direction:row;gap:12px;align-items:center;flex-wrap:wrap">
+          <button class="btn btn-primary" type="submit">Send brief</button>
+          <span class="label">Reply within 24 hours</span>
+        </div>
+        <p class="form-status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Your Name · Video Editor &amp; Motion Graphics Artist</span>
+    <span class="mono">Rendered at 25 fps</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const FPS = 25;
+  const tc = (sec) => {
+    const f = Math.floor((sec % 1) * FPS);
+    const s = Math.floor(sec) % 60, m = Math.floor(sec / 60) % 60, h = Math.floor(sec / 3600);
+    return [h, m, s, f].map(n => String(n).padStart(2, '0')).join(':');
+  };
+
+  /* ---- scroll timeline in the header ---- */
+  const tcEl = document.getElementById('tc');
+  const fill = document.getElementById('rulerFill');
+  const head = document.getElementById('rulerHead');
+  const RUNTIME = 150; // page runs as a 2:30 sequence
+  function onScroll() {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    fill.style.width = (p * 100) + '%';
+    head.style.left = 'calc(' + (p * 100) + '% - ' + (p * 2) + 'px)';
+    tcEl.textContent = tc(p * RUNTIME);
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  onScroll();
+
+  /* ---- hero "showreel" canvas ---- */
+  const cv = document.getElementById('reelCanvas');
+  const ctx = cv.getContext('2d');
+  const reelTc = document.getElementById('reelTc');
+  const tlHead = document.getElementById('tlHead');
+  const tlBox = tlHead.parentElement;
+  const LOOP = 12;
+  const scenes = [
+    { a: [24, 90, 60], b: [190, 60, 30] },
+    { a: [200, 70, 55], b: [260, 70, 20] },
+    { a: [330, 75, 58], b: [20, 80, 25] },
+    { a: [160, 60, 45], b: [30, 85, 55] }
+  ];
+  function sizeCanvas() {
+    const r = cv.getBoundingClientRect();
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width = Math.max(1, Math.round(r.width * dpr));
+    cv.height = Math.max(1, Math.round(r.height * dpr));
+  }
+  sizeCanvas();
+  addEventListener('resize', sizeCanvas);
+
+  const grain = document.createElement('canvas');
+  grain.width = grain.height = 128;
+  (function () {
+    const g = grain.getContext('2d'), d = g.createImageData(128, 128);
+    for (let i = 0; i < d.data.length; i += 4) { const v = Math.random() * 255; d.data[i] = d.data[i+1] = d.data[i+2] = v; d.data[i+3] = 22; }
+    g.putImageData(d, 0, 0);
+  })();
+
+  const hsl = (c, l) => 'hsl(' + c[0] + ' ' + c[1] + '% ' + (l ?? c[2]) + '%)';
+  function drawReel(t) {
+    const w = cv.width, h = cv.height;
+    const lt = t % LOOP;
+    const idx = Math.floor(lt / (LOOP / scenes.length));
+    const local = (lt % (LOOP / scenes.length)) / (LOOP / scenes.length);
+    const sc = scenes[idx];
+    const bg = ctx.createLinearGradient(0, 0, w, h);
+    bg.addColorStop(0, hsl(sc.b, 8)); bg.addColorStop(1, hsl(sc.b, 18));
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < 4; i++) {
+      const ang = t * (0.25 + i * 0.07) + i * 1.7;
+      const x = w * (0.5 + 0.32 * Math.cos(ang)), y = h * (0.5 + 0.3 * Math.sin(ang * 1.3));
+      const r = Math.max(w, h) * (0.32 + 0.06 * i);
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      const c = i % 2 ? sc.a : sc.b;
+      g.addColorStop(0, 'hsla(' + c[0] + ',' + c[1] + '%,' + c[2] + '%,0.55)');
+      g.addColorStop(1, 'hsla(' + c[0] + ',' + c[1] + '%,' + c[2] + '%,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    // light leak on cut
+    if (local < 0.08) { ctx.fillStyle = 'rgba(255,170,90,' + (0.35 * (1 - local / 0.08)) + ')'; ctx.fillRect(0, 0, w, h); }
+    // letterbox
+    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+    const bar = h * 0.06; ctx.fillRect(0, 0, w, bar); ctx.fillRect(0, h - bar, w, bar);
+    // grain
+    ctx.globalAlpha = 1;
+    const ox = (Math.random() * 128) | 0, oy = (Math.random() * 128) | 0;
+    ctx.save(); ctx.translate(-ox, -oy);
+    ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, w + 128, h + 128);
+    ctx.restore();
+    // vignette
+    const v = ctx.createRadialGradient(w / 2, h / 2, h * 0.3, w / 2, h / 2, w * 0.75);
+    v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,0.6)');
+    ctx.fillStyle = v; ctx.fillRect(0, 0, w, h);
+
+    reelTc.textContent = tc(lt);
+    const laneLeft = 50, laneW = tlBox.clientWidth - laneLeft - 12;
+    tlHead.style.left = (laneLeft + laneW * (lt / LOOP)) + 'px';
+  }
+  let start = performance.now(), visible = true;
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(cv);
+  function loop(now) {
+    if (visible) drawReel((now - start) / 1000);
+    requestAnimationFrame(loop);
+  }
+  if (reduce) drawReel(2.2); else requestAnimationFrame(loop);
+
+  /* ---- audio waveform on A1 ---- */
+  const wave = document.getElementById('wave');
+  function drawWave() {
+    const w = wave.clientWidth; if (!w) return;
+    wave.width = w * 2; wave.height = 40;
+    const g = wave.getContext('2d');
+    g.fillStyle = '#4fb57e'; g.globalAlpha = 0.9;
+    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    for (let x = 0; x < wave.width; x += 3) {
+      const env = 0.35 + 0.65 * Math.abs(Math.sin(x / 70)) * (0.6 + 0.4 * Math.sin(x / 17));
+      const a = (0.2 + rnd() * 0.8) * env * 18;
+      g.fillRect(x, 20 - a, 2, a * 2);
+    }
+  }
+  drawWave(); addEventListener('resize', drawWave);
+
+  /* ---- work bin ---- */
+  const WORK = [
+    { t: 'Skincare launch ad', c: 'Sample brand', cat: 'ads', r: 'r916', fmt: '9:16', d: '00:30', h: 18, w: 'Glow<br>launch', tools: ['Premiere', 'After Effects'] },
+    { t: 'Travel vlog: Sylhet tea gardens', c: 'Sample creator', cat: 'youtube', r: 'r169', fmt: '16:9', d: '12:40', h: 140, w: 'Sylhet<br>diaries', tools: ['Premiere', 'Resolve'] },
+    { t: 'Logo reveal for a fintech app', c: 'Sample startup', cat: 'motion', r: 'r11', fmt: '1:1', d: '00:08', h: 260, w: 'Logo<br>reveal', tools: ['After Effects'] },
+    { t: 'Restaurant opening reel', c: 'Sample restaurant', cat: 'reels', r: 'r916', fmt: '9:16', d: '00:45', h: 28, w: 'Grand<br>opening', tools: ['CapCut', 'Premiere'] },
+    { t: 'Brand documentary', c: 'Sample company', cat: 'youtube', r: 'r169', fmt: '16:9', d: '06:20', h: 200, w: 'Made<br>by hand', tools: ['Premiere', 'Resolve'] },
+    { t: 'Podcast clip pack', c: 'Sample podcast', cat: 'reels', r: 'r916', fmt: '9:16', d: '00:59', h: 300, w: 'Clip<br>pack', tools: ['Premiere'] },
+    { t: 'App explainer animation', c: 'Sample SaaS', cat: 'motion', r: 'r169', fmt: '16:9', d: '01:30', h: 175, w: 'How it<br>works', tools: ['After Effects', 'Illustrator'] },
+    { t: 'E-commerce ad set, 5 hooks', c: 'Sample store', cat: 'ads', r: 'r11', fmt: '1:1', d: '00:15', h: 45, w: '5 hooks<br>1 offer', tools: ['Premiere', 'After Effects'] },
+    { t: 'Kinetic typography reel', c: 'Personal project', cat: 'motion', r: 'r916', fmt: '9:16', d: '00:22', h: 330, w: 'Type<br>in motion', tools: ['After Effects'] }
+  ];
+  const labels = { reels: 'Reels', youtube: 'YouTube', ads: 'Ads', motion: 'Motion' };
+  const bin = document.getElementById('bin');
+  bin.innerHTML = WORK.map(x => `
+    <a class="clipcard" data-cat="${x.cat}" href="https://www.youtube.com/" target="_blank" rel="noopener">
+      <div class="thumb ${x.r}" style="--h:${x.h}">
+        <div class="art"></div>
+        <div class="badges"><span class="badge">${labels[x.cat]} · ${x.fmt}</span><span class="badge">${x.d}</span></div>
+        <div class="word" aria-hidden="true">${x.w}</div>
+        <div class="hoverplay" aria-hidden="true"><span></span></div>
+        <div class="scrub"><i></i></div>
+      </div>
+      <div class="clip-info">
+        <span class="sample-tag">Sample · replace with your video</span>
+        <h3>${x.t}</h3>
+        <div class="meta"><span>${x.c}</span></div>
+        <div class="tools">${x.tools.map(s => `<span>${s}</span>`).join('')}</div>
+      </div>
+    </a>`).join('');
+  const chips = document.querySelectorAll('.chip');
+  chips.forEach(ch => {
+    const f = ch.dataset.filter;
+    ch.querySelector('.cnt').textContent = f === 'all' ? WORK.length : WORK.filter(w => w.cat === f).length;
+    ch.addEventListener('click', () => {
+      chips.forEach(c => c.setAttribute('aria-pressed', String(c === ch)));
+      bin.querySelectorAll('.clipcard').forEach(card => { card.hidden = !(f === 'all' || card.dataset.cat === f); });
+    });
+  });
+
+  /* ---- color grade compare ---- */
+  const W = 960, H = 540;
+  const src = document.createElement('canvas'); src.width = W; src.height = H;
+  const s = src.getContext('2d');
+  // sky
+  let g = s.createLinearGradient(0, 0, 0, H * 0.62);
+  g.addColorStop(0, '#6d7fa8'); g.addColorStop(0.55, '#d9a37a'); g.addColorStop(1, '#f2c48f');
+  s.fillStyle = g; s.fillRect(0, 0, W, H);
+  // sun
+  g = s.createRadialGradient(W * 0.62, H * 0.5, 0, W * 0.62, H * 0.5, 160);
+  g.addColorStop(0, 'rgba(255,240,210,1)'); g.addColorStop(0.18, 'rgba(255,220,170,.95)'); g.addColorStop(1, 'rgba(255,200,150,0)');
+  s.fillStyle = g; s.fillRect(0, 0, W, H);
+  // hill layers
+  const ridge = (base, amp, freq, color, seedOff) => {
+    s.beginPath(); s.moveTo(0, H);
+    for (let x = 0; x <= W; x += 8) {
+      const y = base + Math.sin(x * freq + seedOff) * amp + Math.sin(x * freq * 2.7 + seedOff * 2) * amp * 0.35;
+      s.lineTo(x, y);
+    }
+    s.lineTo(W, H); s.closePath(); s.fillStyle = color; s.fill();
+  };
+  ridge(H * 0.56, 18, 0.008, '#8a7f86', 1);
+  ridge(H * 0.62, 24, 0.006, '#5f5c66', 3);
+  // water
+  g = s.createLinearGradient(0, H * 0.66, 0, H);
+  g.addColorStop(0, '#c99a78'); g.addColorStop(1, '#3d4656');
+  s.fillStyle = g; s.fillRect(0, H * 0.66, W, H * 0.34);
+  // sun reflection
+  for (let i = 0; i < 26; i++) {
+    const y = H * 0.67 + i * 7, wdt = 120 - i * 3.5 + Math.random() * 30;
+    s.fillStyle = 'rgba(255,225,185,' + (0.5 - i * 0.017) + ')';
+    s.fillRect(W * 0.62 - wdt / 2, y, wdt, 2);
+  }
+  // foreground shore + figure
+  ridge(H * 0.86, 10, 0.012, '#2b2a30', 5);
+  s.fillStyle = '#1d1c21';
+  s.beginPath(); s.ellipse(W * 0.3, H * 0.745, 11, 13, 0, 0, Math.PI * 2); s.fill();
+  s.fillRect(W * 0.3 - 13, H * 0.765, 26, 58);
+  s.fillRect(W * 0.3 - 11, H * 0.86, 9, 30); s.fillRect(W * 0.3 + 2, H * 0.86, 9, 30);
+
+  const base = s.getImageData(0, 0, W, H);
+  const before = new ImageData(W, H), after = new ImageData(W, H);
+  const clamp = v => v < 0 ? 0 : v > 255 ? 255 : v;
+  for (let i = 0; i < base.data.length; i += 4) {
+    const r = base.data[i] / 255, gg = base.data[i + 1] / 255, b = base.data[i + 2] / 255;
+    const L = 0.2126 * r + 0.7152 * gg + 0.0722 * b;
+    // log: lifted blacks, compressed highlights, low saturation
+    const sat = 0.45;
+    const lr = L + (r - L) * sat, lg = L + (gg - L) * sat, lb = L + (b - L) * sat;
+    const logc = x => 0.26 + 0.5 * x;
+    before.data[i] = clamp(logc(lr) * 255); before.data[i + 1] = clamp(logc(lg) * 255); before.data[i + 2] = clamp(logc(lb) * 255); before.data[i + 3] = 255;
+    // grade: S-curve, teal shadows, warm highlights, extra saturation
+    const curve = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x) * 0.92 + x * 0.08; };
+    const sat2 = 1.25;
+    let ar = L + (r - L) * sat2, ag = L + (gg - L) * sat2, ab = L + (b - L) * sat2;
+    const sh = Math.max(0, 1 - L * 1.8), hi = Math.max(0, L * 1.6 - 0.6);
+    ar += -0.07 * sh + 0.09 * hi; ag += 0.03 * sh + 0.03 * hi; ab += 0.07 * sh - 0.08 * hi;
+    after.data[i] = clamp(curve(ar) * 255); after.data[i + 1] = clamp(curve(ag) * 255); after.data[i + 2] = clamp(curve(ab) * 255); after.data[i + 3] = 255;
+  }
+  document.getElementById('gradeBefore').getContext('2d').putImageData(before, 0, 0);
+  document.getElementById('gradeAfter').getContext('2d').putImageData(after, 0, 0);
+
+  const range = document.getElementById('gradeRange');
+  const afterCv = document.getElementById('gradeAfter');
+  const divider = document.getElementById('divider');
+  const knob = document.getElementById('knob');
+  function setSplit(v) {
+    afterCv.style.clipPath = 'inset(0 0 0 ' + v + '%)';
+    divider.style.left = v + '%'; knob.style.left = v + '%';
+  }
+  range.addEventListener('input', () => setSplit(range.value));
+  setSplit(50);
+
+  /* ---- stat counters ---- */
+  const stats = document.querySelectorAll('.stat .n');
+  const setStat = (el, v) => { el.innerHTML = Math.round(v) + (el.dataset.suffix || '') + '<em>+</em>'; };
+  stats.forEach(el => setStat(el, +el.dataset.count));
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      const el = e.target, target = +el.dataset.count, t0 = performance.now();
+      const step = now => { const p = Math.min(1, (now - t0) / 1200); setStat(el, target * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }), { threshold: 0.6 });
+    stats.forEach(el => io.observe(el));
+  }
+
+  /* ---- copy buttons ---- */
+  document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', () => {
+    const el = document.getElementById(btn.dataset.copy);
+    const done = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1500); };
+    const select = () => { const r = document.createRange(); r.selectNodeContents(el); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = 'Selected'; setTimeout(() => btn.textContent = 'Copy', 1500); };
+    try { navigator.clipboard.writeText(el.textContent.trim()).then(done, select); } catch (e) { select(); }
+  }));
+
+  /* ---- brief form (preview only) ---- */
+  const form = document.getElementById('brief');
+  const status = document.getElementById('formStatus');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const missing = [...form.querySelectorAll('[required]')].filter(f => !f.value.trim() || (f.type === 'email' && !f.checkValidity()));
+    if (missing.length) { status.style.color = 'var(--tungsten)'; status.textContent = 'Fill in your name, a valid email and a few words about the project.'; missing[0].focus(); return; }
+    status.style.color = 'var(--teal)';
+    status.textContent = 'This is a preview, so nothing was sent. On the live site this form will deliver to your inbox.';
+  });
+})();
+</script>
+</body>
+</html>
