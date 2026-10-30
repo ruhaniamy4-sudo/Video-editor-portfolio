@@ -8,6 +8,20 @@
 <meta name="theme-color" content="#0b0b0c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="canonical" href="https://anayet-hossain.pages.dev/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23141416'/%3E%3Cpath d='M12 9.5v13l11-6.5z' fill='%23c6f24e'/%3E%3C/svg%3E">
+<!-- link previews (WhatsApp, Facebook, X): image must be an absolute URL -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anayet-hossain.pages.dev/">
+<meta property="og:title" content="Anayet Hossain | Video Editor &amp; Motion Designer">
+<meta property="og:description" content="Documentaries, YouTube, OVCs and reels: editing, motion graphics, VFX, color and sound.">
+<meta property="og:image" content="https://anayet-hossain.pages.dev/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- the opening frame: start fetching its two images before the CSS and fonts arrive -->
+<link rel="preload" as="image" href="assets/hero-set.webp">
+<link rel="preload" as="image" href="assets/hero-me.webp">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* A film in seven scenes. One palette on every scene: ink ground, bone text, lime for anything you can act on.
@@ -35,7 +49,7 @@
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body { margin: 0; background: var(--ink); color: var(--bone); font: 400 17px/1.55 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
@@ -117,7 +131,7 @@ button { font: inherit; color: inherit; }
 .op { --hx: 50%; --hy: 43.5%; --hw: min(780px, 120vw); position: relative; min-height: max(100svh, 820px); overflow: hidden; isolation: isolate; background: #0d0b09; padding-top: calc(env(safe-area-inset-top, 0px) + 140px); }
 .op-set { position: absolute; z-index: 0; inset: -3%; width: 106%; max-width: none; height: 106%; object-fit: cover; object-position: 50% 45%; transform: translate(calc(var(--px, 0px) * .4), calc(var(--py, 0px) * .4)); transition: transform .8s var(--ease); animation: setIn 2.4s .2s var(--ease) both; }
 @keyframes setIn { from { opacity: 0; scale: 1.08; } to { opacity: 1; scale: 1; } }
-.op-shade { position: absolute; z-index: 0; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10,8,6,.55) 0%, rgba(10,8,6,.15) 38%, rgba(10,8,6,.2) 70%, rgba(10,8,6,.85) 100%), radial-gradient(70% 60% at 50% 50%, transparent 40%, rgba(0,0,0,.5)); }
+.op-shade { position: absolute; z-index: 0; inset: 0; pointer-events: none; }
 /* cinematic light: deep vignette */
 .op-shade { background: linear-gradient(180deg, rgba(6,5,4,.7) 0%, rgba(6,5,4,.2) 34%, rgba(6,5,4,.25) 66%, var(--ink) 100%), radial-gradient(75% 70% at 52% 48%, transparent 30%, rgba(0,0,0,.82)); }
 /* seams between scenes: a soft fade from black and a light leak that sweeps across once the scene arrives */
@@ -194,11 +208,12 @@ button { font: inherit; color: inherit; }
 .op-corner { position: absolute; z-index: 6; right: 6%; bottom: 12%; text-align: right; color: rgba(242,239,233,.8); }
 .op-corner::before { content: ""; display: block; width: 28px; height: 1px; background: rgba(242,239,233,.5); margin: 0 0 12px auto; }
 @media (max-width: 1200px) { .op-note, .op-corner { display: none; } }
+@media (max-width: 1100px) { .op-badge { display: none; } }
 @media (max-width: 960px) {
   .op { --hy: 42%; min-height: max(100svh, 760px); }
   .op-sub { left: 0; right: 0; bottom: 5%; max-width: none; align-items: center; text-align: center; padding: 0 20px; }
   .op-sub .row { justify-content: center; }
-  .op-vf .tr, .op-vf .br, .op-badge { display: none; }
+  .op-vf .tr, .op-vf .br { display: none; }
 }
 @media (max-width: 760px) {
   .op { --hw: 150vw; --hy: 30%; padding-top: calc(env(safe-area-inset-top, 0px) + 120px); }
@@ -232,10 +247,7 @@ button { font: inherit; color: inherit; }
 .fcard b { display: block; font-weight: 600; font-size: 16px; line-height: 1.25; }
 .fcard small { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: rgba(242,239,233,.6); }
 .fcard.on { border-color: rgba(255,236,190,.7); box-shadow: 0 40px 90px -20px rgba(0,0,0,.9), 0 0 0 6px rgba(227,169,42,.18); }
-.reel .me { position: absolute; z-index: 3; right: 2%; bottom: 0; height: 380px; width: auto; max-width: none; pointer-events: none; filter: drop-shadow(0 20px 30px rgba(0,0,0,.5));
-  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 98%), linear-gradient(90deg, #000 80%, transparent); -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(180deg, #000 72%, transparent 98%), linear-gradient(90deg, #000 80%, transparent); mask-composite: intersect; }
-.deck { position: relative; z-index: 4; display: flex; align-items: center; gap: 14px; margin: 8px 32px 32px; max-width: 760px; padding: 10px 18px; border-radius: 999px; background: rgba(255,240,205,.12); border: 1px solid rgba(255,245,220,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 20px 50px rgba(0,0,0,.35); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.deck { position: relative; z-index: 4; display: flex; align-items: center; gap: 14px; margin: 8px auto 32px; width: calc(100% - 64px); max-width: 980px; padding: 10px 14px 10px 18px; border-radius: 999px; background: rgba(255,240,205,.12); border: 1px solid rgba(255,245,220,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 20px 50px rgba(0,0,0,.35); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
 .deck button { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 0; background: none; color: var(--bone); cursor: pointer; display: grid; place-items: center; }
 .deck button:hover { background: rgba(255,255,255,.1); }
 .deck .playbtn { background: var(--lime); color: var(--ink); }
@@ -246,6 +258,17 @@ button { font: inherit; color: inherit; }
 .deck .np small { font-size: 12px; color: var(--muted); }
 .deck .bar { height: 3px; border-radius: 3px; background: rgba(255,255,255,.2); margin-top: 6px; overflow: hidden; }
 .deck .bar i { display: block; height: 100%; width: 0; background: var(--lime); }
+/* play/pause shows the state; the waveform only dances while the reel is auto-playing */
+.deck .playbtn .i-play, .deck.paused .playbtn .i-pause { display: none; }
+.deck.paused .playbtn .i-play { display: block; }
+.deck .wave { display: flex; align-items: flex-end; gap: 3px; height: 22px; flex: none; }
+.deck .wave i { width: 3px; border-radius: 2px; background: var(--lime); animation: meter .7s ease-in-out infinite alternate; }
+.deck .wave i:nth-child(2) { animation-delay: -.3s; } .deck .wave i:nth-child(3) { animation-delay: -.5s; } .deck .wave i:nth-child(4) { animation-delay: -.15s; } .deck .wave i:nth-child(5) { animation-delay: -.4s; }
+.deck.paused .wave i { animation-play-state: paused; opacity: .4; }
+.deck .watch { width: auto; border-radius: 999px; padding: 0 16px; gap: 8px; display: inline-flex; align-items: center; font: 600 14px var(--body); border: 1px solid rgba(255,245,220,.3); }
+.deck .dk-link { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 50%; color: var(--bone); }
+.deck .dk-link:hover { background: rgba(255,255,255,.1); }
+@media (max-width: 600px) { .deck .watch span, .deck .wave, .deck .dk-link, .deck .np img { display: none; } .deck { width: calc(100% - 32px); gap: 6px; padding: 8px 10px; } .deck button { width: 38px; height: 38px; } .deck .watch { padding: 0 10px; font-size: 0; gap: 0; } .deck .np { padding: 6px 10px; } }
 
 /* case studies: one cover card at a time, picked by tabs; it flips to the next project and tilts with the mouse in layers */
 .cases { margin-top: 96px; }
@@ -287,9 +310,7 @@ button { font: inherit; color: inherit; }
 .case .still:hover .vp::after { border-left-color: var(--ink); }
 .work-foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 48px; }
 @media (max-width: 860px) {
-  .reel .me { display: none; }
-  .fan { height: 360px; }
-  .fcard { width: 220px; margin-left: -110px; }
+    .fcard { width: 220px; margin-left: -110px; }
   .deck { margin: 8px 16px 20px; gap: 6px; padding: 8px 10px; }
   .deck .np small { display: none; }
   .case-body { grid-template-columns: 1fr; padding: 52px 22px 60px; }
@@ -363,6 +384,7 @@ button { font: inherit; color: inherit; }
 .about h2 .serif { font-size: 1.15em; color: var(--lime); }
 .stat-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; border-top: 1px solid var(--faint); padding-top: 24px; }
 .stat-row b { display: block; font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: 36px; }
+@media (max-width: 1100px) { .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 20px; } }
 .stat-row b em { font-style: normal; color: var(--lime); }
 .stat-row span { font-size: 14px; color: var(--muted); }
 .tools { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -377,14 +399,13 @@ button { font: inherit; color: inherit; }
 .services h2 { position: relative; margin-top: 28px; text-align: center; line-height: .78; }
 .services h2 .serif { display: block; font-size: clamp(72px, 9vw, 130px); color: rgba(242,239,233,.9); }
 .services h2 .wide { display: block; font-size: clamp(40px, 12vw, 196px); background: linear-gradient(180deg, #fff 35%, rgba(255,255,255,.08)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.stage { position: relative; height: 800px; margin-top: -48px; perspective: 1100px; }
-.stage .me { position: absolute; right: -3%; bottom: 0; height: 660px; width: auto; max-width: none; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); mask-image: linear-gradient(180deg, #000 72%, transparent); }
-.stage .halo { position: absolute; right: 8%; bottom: 120px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,242,78,.26), transparent); filter: blur(10px); }
+.stage { position: relative; height: 860px; margin-top: 40px; perspective: 1100px; }
+.stage .halo { position: absolute; left: 22%; top: 170px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,242,78,.26), transparent); filter: blur(10px); }
 /* the whole stack tilts with the mouse; each card is a lime glass slab with a real edge, a moving sheen and its own float */
 /* no preserve-3d on purpose: each card carries its own perspective(), so it renders the same with or without GPU compositing */
 .deck3d { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
 /* scroll drives --tx/--ty/--spin: at the top of the section the cards sit in one pile, then deal out to their places */
-.svc { position: absolute; width: 430px; transform: perspective(1100px) rotateX(calc(24deg + var(--rx, 0deg))) rotateY(var(--ry, 0deg)) rotateZ(calc(var(--rz, 0deg) + var(--spin, 0deg))); translate: var(--tx, 0px) var(--ty, 0px); transition: transform .8s var(--ease), translate .25s linear; }
+.svc { position: absolute; width: 430px; transform: perspective(1400px) rotateX(calc(12deg + var(--rx, 0deg))) rotateY(var(--ry, 0deg)) rotateZ(var(--rz, 0deg)); transition: transform .8s var(--ease); }
 .svc > div { position: relative; overflow: hidden; display: flex; align-items: center; gap: 18px; padding: 22px 26px; border-radius: 22px; color: #0d1a00;
   background: linear-gradient(145deg, #e4ff86 0%, #c6f24e 38%, #8fbf1f 100%);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.85), inset 0 -12px 24px rgba(40,70,0,.25),
@@ -402,22 +423,60 @@ button { font: inherit; color: inherit; }
 /* icon chip: a dark pressed key on the slab */
 .svc .ico, .svc .eq { position: relative; flex: none; width: 48px; height: 48px; padding: 12px; border-radius: 14px; background: linear-gradient(160deg, #23261c, #0b0d07); color: var(--lime); box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 4px 0 #050603, 0 8px 14px rgba(0,0,0,.4); box-sizing: border-box; }
 .svc .eq { display: inline-flex; align-items: flex-end; justify-content: center; gap: 3px; padding: 13px 12px; }
-.svc.s1 { left: 0; top: 30px; --rz: -14deg; --d: 0s; --f: 0s; }
-.svc.s2 { left: 17%; top: 150px; --rz: -10deg; --d: .12s; --f: -1.2s; }
-.svc.s3 { left: 25%; top: 275px; --rz: -5deg; --d: .24s; --f: -2.4s; }
-.svc.s4 { left: 28%; top: 405px; --rz: 0deg; --d: .36s; --f: -3.6s; }
-.svc.s5 { left: 25%; top: 535px; --rz: 5deg; --d: .48s; --f: -4.8s; }
-.svc.s6 { left: 1%; top: 640px; --rz: 9deg; --d: .6s; --f: -6s; }
-.spin { animation: spin 8s linear infinite; }
+/* the wheel: cards ride a half circle, JS sets --x/--y/--rz each frame; the card at the front (right) is .on */
+.svc { left: 0; top: 0; translate: var(--x, 0px) var(--y, 0px); transition: transform .8s var(--ease); cursor: pointer; }
+.svc.s1 { --f: 0s; } .svc.s2 { --f: -1.2s; } .svc.s3 { --f: -2.4s; } .svc.s4 { --f: -3.6s; } .svc.s5 { --f: -4.8s; } .svc.s6 { --f: -6s; }
+/* neon edge on the lime slab, like the reference's lit glass keys */
+.svc > div { outline: 2px solid rgba(240,255,190,.9); outline-offset: -2px; filter: drop-shadow(0 0 10px rgba(198,242,78,.75)) drop-shadow(0 0 26px rgba(198,242,78,.4)); }
+.svc.on > div { filter: drop-shadow(0 0 16px rgba(220,255,140,.95)) drop-shadow(0 0 44px rgba(198,242,78,.6)); scale: 1.08; }
+/* the front card, explained */
+.svc-info { position: absolute; left: 66%; top: 50%; width: 32%; translate: 0 -50%; z-index: 2; }
+.svc-info .idx { color: var(--lime); }
+.svc-info h3 { margin-top: 12px; font-family: var(--display); font-stretch: 125%; font-weight: 800; font-size: clamp(28px, 2.6vw, 42px); line-height: 1; text-transform: uppercase; letter-spacing: -0.02em; }
+.svc-info p { margin-top: 14px; color: var(--muted); max-width: 38ch; }
+.svc-info.swap h3, .svc-info.swap p, .svc-info.swap .idx { animation: infoIn .6s var(--ease) both; }
+@keyframes infoIn { from { opacity: 0; translate: 0 14px; filter: blur(6px); } }
+/* one small motion graphic per service; only the active one shows */
+.viz { position: relative; margin-top: 26px; height: 150px; border-radius: 18px; border: 1px solid rgba(198,242,78,.35); background: radial-gradient(70% 90% at 30% 20%, rgba(198,242,78,.14), transparent 70%), rgba(255,255,255,.03); overflow: hidden; }
+.viz .v { position: absolute; inset: 0; display: none; }
+.viz .v.on { display: block; }
+/* 0 edit: clips slide into a timeline, playhead runs */
+.v0 i { position: absolute; top: 58px; height: 34px; border-radius: 6px; animation: clipIn 3s var(--ease) infinite; }
+.v0 i:nth-child(1) { left: 6%; width: 22%; background: #c6f24e; } .v0 i:nth-child(2) { left: 30%; width: 30%; background: #e3a92a; animation-delay: .2s; }
+.v0 i:nth-child(3) { left: 62%; width: 14%; background: #4e9ec6; animation-delay: .4s; } .v0 i:nth-child(4) { left: 78%; width: 16%; background: #f2efe9; animation-delay: .6s; }
+@keyframes clipIn { 0% { translate: 0 -60px; opacity: 0; } 20%, 100% { translate: 0 0; opacity: 1; } }
+.v0 b, .v2 b { position: absolute; top: 40px; left: 6%; width: 2px; height: 70px; background: #fff; box-shadow: 0 0 8px #fff; animation: playhead 3s linear infinite; }
+/* 1 motion: a dot rides an ease curve */
+.v1 svg { position: absolute; inset: 14px 20px; width: calc(100% - 40px); height: calc(100% - 28px); fill: none; stroke: var(--lime); stroke-width: 3; }
+.v1 b { position: absolute; width: 14px; height: 14px; margin: -7px; border-radius: 50%; background: #fff; box-shadow: 0 0 12px var(--lime); offset-path: path("M30 126 C 110 126, 135 24, 270 24"); animation: ride 2.4s cubic-bezier(.7,0,.3,1) infinite alternate; }
+@keyframes ride { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+/* 2 vfx: three comp layers slide apart, a mask circle sweeps */
+.v2 i { position: absolute; left: 18%; top: 34px; width: 56%; height: 82px; border-radius: 10px; border: 1.5px solid rgba(242,239,233,.5); animation: layer 3s var(--ease) infinite alternate; }
+.v2 i:nth-child(1) { background: rgba(78,158,198,.35); } .v2 i:nth-child(2) { background: rgba(227,169,42,.35); --o: 16px; } .v2 i:nth-child(3) { background: rgba(198,242,78,.35); --o: 32px; }
+@keyframes layer { to { translate: var(--o, 0px) calc(var(--o, 0px) * -.6); } }
+/* 3 color: a wheel turns, a grade wipe sweeps across */
+.v3 b { position: absolute; left: 12%; top: 25px; width: 100px; height: 100px; border-radius: 50%; background: conic-gradient(#ff5f5f, #ffd25f, #c6f24e, #5fd4ff, #8f6bff, #ff5fc4, #ff5f5f); animation: spin 6s linear infinite; box-shadow: 0 0 24px rgba(198,242,78,.3); }
+.v3 i { position: absolute; right: 8%; top: 30px; width: 44%; height: 90px; border-radius: 10px; background: linear-gradient(90deg, #6b6b6b 0 50%, #e3a92a 50%); background-size: 200% 100%; animation: grade 3s ease-in-out infinite alternate; }
+@keyframes grade { from { background-position: 100% 0; } to { background-position: 0 0; } }
+/* 4 sound: a meter dances */
+.v4 { display: none; align-items: flex-end; justify-content: center; gap: 6px; padding-bottom: 26px; }
+.v4.on { display: flex; }
+.v4 i { width: 10px; border-radius: 4px; background: linear-gradient(0deg, #8fc21d, var(--lime)); animation: meter .6s ease-in-out infinite alternate; }
+.v4 i:nth-child(3n) { animation-delay: -.2s; } .v4 i:nth-child(3n+1) { animation-delay: -.45s; } .v4 i:nth-child(4n) { animation-duration: .45s; }
+/* 5 reels: a vertical frame with a 3-second hook counter */
+.v5 i { position: absolute; left: 50%; top: 14px; width: 68px; height: 122px; margin-left: -34px; border-radius: 12px; border: 2px solid var(--lime); background: linear-gradient(180deg, rgba(198,242,78,.25), transparent); }
+.v5 b { position: absolute; left: 50%; top: 50px; translate: -50% 0; font-family: var(--display); font-weight: 800; font-size: 40px; color: #fff; animation: hookPulse 1s ease-in-out infinite; }
+@keyframes hookPulse { 50% { scale: 1.25; color: var(--lime); } }.spin { animation: spin 8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .eq { display: inline-flex; align-items: flex-end; gap: 2px; width: 28px; height: 20px; }
 .eq i { width: 3px; border-radius: 2px; background: var(--lime); animation: meter .6s ease-in-out infinite alternate; }
 .eq i:nth-child(2) { animation-delay: -.2s; } .eq i:nth-child(3) { animation-delay: -.4s; } .eq i:nth-child(4) { animation-delay: -.1s; }
 @keyframes meter { from { height: 4px; } to { height: 18px; } }
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
   .services { padding-bottom: 88px; }
-  /* same stage as desktop, laid out at 640px and shrunk to fit (--sc set in JS) */
-  .stage { width: 640px; margin-top: 24px; transform: scale(var(--sc, .5)); transform-origin: 0 0; margin-bottom: calc(800px * (var(--sc, .5) - 1)); }
+  /* same wheel as desktop, laid out at 640px and shrunk to fit (--sc set in JS); the explanation moves below it at full size (JS) */
+  .stage { width: 640px; height: 740px; margin-top: 24px; margin-left: max(0px, calc((100% - 640px) / 2)); transform: scale(var(--sc, .5)); transform-origin: 0 0; margin-bottom: calc(740px * (var(--sc, .5) - 1)); }
+  .svc-info { position: static; width: auto; translate: none; margin-top: 28px; }
 }
 
 /* ---------- SC 05 process ---------- */
@@ -425,21 +484,36 @@ button { font: inherit; color: inherit; }
 .process .arc { position: absolute; left: -10%; right: -10%; top: -380px; height: 760px; border-radius: 50%; border-bottom: 1px solid rgba(255,255,255,.35); box-shadow: 0 40px 80px -20px rgba(255,255,255,.12); pointer-events: none; }
 .process h2 { margin-top: 36px; line-height: .92; font-size: clamp(42px, 6.5vw, 96px); }
 .process h2 .grad { background: linear-gradient(90deg, #8fc21d, var(--lime)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.pchip { position: absolute; z-index: 2; padding: 12px 20px; border-radius: 14px; color: var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.6); }
-.pc1 { left: 10%; top: 150px; background: linear-gradient(150deg, #d8ff7a, #a8e030); transform: rotate(-14deg); }
-.pc2 { right: 14%; top: 120px; background: linear-gradient(150deg, #ffe08a, #ffb43a); transform: rotate(8deg); }
-.pc3 { right: 8%; top: 330px; background: linear-gradient(150deg, #ffa8e2, #ff5fc4); transform: rotate(16deg); }
-.pc4 { left: 5%; top: 360px; background: linear-gradient(150deg, #a8f0ff, #3fc4ff); transform: rotate(-6deg); }
+.pchip { position: absolute; z-index: 2; padding: 12px 20px; border-radius: 999px; color: var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.6), inset 0 -4px 8px rgba(0,0,0,.12), 0 14px 30px -8px var(--g, rgba(0,0,0,.5)); animation: bob 5s ease-in-out infinite var(--b, 0s); }
+.pc1 { left: 10%; top: 150px; background: linear-gradient(150deg, #d8ff7a, #a8e030); transform: rotate(-14deg); --g: rgba(198,242,78,.6); }
+.pc2 { right: 14%; top: 120px; background: linear-gradient(150deg, #ffe08a, #ffb43a); transform: rotate(8deg); --g: rgba(255,180,58,.6); --b: -1.2s; }
+.pc3 { right: 8%; top: 330px; background: linear-gradient(150deg, #ffa8e2, #ff5fc4); transform: rotate(16deg); --g: rgba(255,95,196,.6); --b: -2.4s; }
+.pc4 { left: 5%; top: 360px; background: linear-gradient(150deg, #a8f0ff, #3fc4ff); transform: rotate(-6deg); --g: rgba(63,196,255,.6); --b: -3.6s; }
+.pc5 { left: 15%; top: 560px; background: linear-gradient(150deg, #d7c8ff, #8f6bff); transform: rotate(9deg); --g: rgba(143,107,255,.6); --b: -.6s; }
+.pc6 { right: 15%; top: 590px; background: linear-gradient(150deg, #ffffff, #d9d4c8); transform: rotate(-10deg); --b: -3s; }
+/* swatch strip and render bar under the folder: small editing props that keep moving */
+.fprops { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 28px; flex-wrap: wrap; }
+.swatch { display: flex; gap: 10px; padding: 10px 14px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); }
+.swatch i { width: 26px; height: 26px; border-radius: 7px; box-shadow: 0 6px 12px rgba(0,0,0,.4); animation: bob 3s ease-in-out infinite; }
+.swatch i:nth-child(2) { animation-delay: -.5s; } .swatch i:nth-child(3) { animation-delay: -1s; } .swatch i:nth-child(4) { animation-delay: -1.5s; } .swatch i:nth-child(5) { animation-delay: -2s; }
+.render { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); font-size: 11px; color: var(--muted); }
+.render .rbar { width: 160px; height: 6px; border-radius: 6px; background: rgba(255,255,255,.1); overflow: hidden; }
+.render .rbar i { display: block; height: 100%; width: 40%; border-radius: 6px; background: linear-gradient(90deg, #8fc21d, var(--lime)); box-shadow: 0 0 10px var(--lime); animation: render 4s ease-in-out infinite; }
+@keyframes render { 0% { width: 0; } 80%, 100% { width: 100%; } }
+@media (max-width: 960px) { .pc5, .pc6 { display: none; } }
 /* the folder: stills drop in on scroll, peek out on hover, the whole thing opens on click */
 .folder { position: relative; display: block; width: 680px; max-width: 100%; height: 480px; margin: 48px auto 0; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; transition: transform .5s var(--ease); }
 .folder:hover, .folder:focus-visible { transform: scale(1.04); }
-.folder img { position: absolute; width: 42%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 18px; box-shadow: 0 24px 50px rgba(0,0,0,.5); border: 3px solid var(--bone); transform: translateY(var(--y, 0px)) rotate(var(--r, 0deg)); opacity: 1; transition: transform .9s cubic-bezier(.3,1.4,.5,1) var(--d, 0s), opacity .5s var(--d, 0s); }
+.folder img { position: absolute; width: 34%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 18px; box-shadow: 0 24px 50px rgba(0,0,0,.5); border: 3px solid var(--bone); transform: translateY(var(--y, 0px)) rotate(var(--r, 0deg)); opacity: 1; transition: transform .9s cubic-bezier(.3,1.4,.5,1) var(--d, 0s), opacity .5s var(--d, 0s); }
 .folder:not(.in) img { --y: -320px; --r: 0deg; opacity: 0; }
 .folder:hover img, .folder:focus-visible img { --y: -40px; transition-delay: 0s; }
-.folder .f1 { left: 6%; top: 34px; --r: -11deg; --d: .1s; }
-.folder .f2 { left: 29%; top: 0; --d: .25s; }
-.folder .f3 { right: 4%; top: 34px; --r: 11deg; --d: .4s; }
-.folder:hover .f1 { --r: -16deg; } .folder:hover .f3 { --r: 16deg; }
+/* five stills fan out of the folder */
+.folder .f1 { left: -4%; top: 70px; --r: -18deg; --d: .1s; }
+.folder .f2 { left: 14%; top: 24px; --r: -8deg; --d: .2s; }
+.folder .f3 { left: 33%; top: 0; --d: .3s; }
+.folder .f4 { right: 14%; top: 24px; --r: 8deg; --d: .4s; }
+.folder .f5 { right: -4%; top: 70px; --r: 18deg; --d: .5s; }
+.folder:hover .f1 { --r: -24deg; } .folder:hover .f2 { --r: -11deg; } .folder:hover .f4 { --r: 11deg; } .folder:hover .f5 { --r: 24deg; }
 .folder:hover .lid, .folder:focus-visible .lid { box-shadow: 0 50px 90px rgba(0,0,0,.55), 0 0 90px rgba(198,242,78,.45), inset 0 1px 0 rgba(255,255,255,.6); }
 .folder .lid { transition: box-shadow .5s; }
 .folder .hint { position: absolute; left: 34px; bottom: 96px; color: rgba(247,255,230,.8); font-size: 11px; }
@@ -448,8 +522,9 @@ button { font: inherit; color: inherit; }
 @keyframes openUp { from { transform: translateY(40px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
 .fview-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; }
 .fview-top h3 { font-size: 26px; font-weight: 600; display: flex; align-items: center; gap: 12px; }
-.folder .lid { position: absolute; left: 0; right: 0; bottom: 0; height: 310px; border-radius: 36px; background: linear-gradient(160deg, rgba(175,220,50,.82), rgba(70,110,10,.94)); border: 1px solid rgba(235,255,180,.75); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 50px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.5); display: flex; align-items: flex-end; justify-content: space-between; padding: 30px 34px; color: #f7ffe6; clip-path: polygon(0 12%, 3% 0, 33% 0, 39% 12%, 100% 12%, 100% 100%, 0 100%); text-align: left; }
+.folder .lid { position: absolute; left: 0; right: 0; bottom: 0; height: 310px; border-radius: 36px; background: repeating-radial-gradient(circle at 30% 40%, rgba(255,255,255,.07) 0 2px, transparent 2px 9px), linear-gradient(160deg, rgba(200,245,90,.55), rgba(70,110,10,.8)); border: 1px solid rgba(235,255,180,.75); backdrop-filter: blur(9px) saturate(1.5); -webkit-backdrop-filter: blur(9px) saturate(1.5); box-shadow: 0 50px 90px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.5); display: flex; align-items: flex-end; justify-content: space-between; padding: 30px 34px; color: #f7ffe6; clip-path: polygon(0 12%, 3% 0, 33% 0, 39% 12%, 100% 12%, 100% 100%, 0 100%); text-align: left; }
 .folder .lid strong { font-size: 26px; font-weight: 500; display: flex; align-items: center; gap: 12px; }
+@media (max-width: 600px) { .folder .lid strong { font-size: 19px; gap: 8px; } .folder .lid .mono { padding: 8px 12px; } }
 .folder .lid .mono { background: var(--ink); color: var(--lime); padding: 10px 16px; border-radius: 999px; }
 @media (max-width: 960px) { .pchip { display: none; } .folder { height: 380px; } .folder .lid { height: 230px; } }
 
@@ -491,10 +566,7 @@ button { font: inherit; color: inherit; }
   box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -8px 16px rgba(40,70,0,.3), 0 2px 0 #a6d636, 0 4px 0 #8aba28, 0 6px 0 #6e9e1c, 0 8px 0 #548212, 0 30px 40px -10px rgba(0,0,0,.75), 0 0 60px rgba(198,242,78,.35); }
 .prop svg { width: 46%; height: 46%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .why.in .prop { transform: perspective(700px) rotateX(16deg) rotateY(var(--ry, 0deg)) rotate(var(--rz, 0deg)) scale(1); }
-.prop.tools { width: auto; height: auto; padding: 12px; border-radius: 18px; grid-template-columns: repeat(3, 26px); gap: 10px; }
-.prop.tools svg { width: 22px; height: 22px; opacity: .85; }
-.prop.tools svg:first-child { color: #0d1a00; background: var(--lime); border-radius: 7px; padding: 3px; width: 26px; height: 26px; margin: -2px; opacity: 1; }
-@media (max-width: 960px) { .why-props { display: none; } }
+@media (max-width: 1024px) { .why-props { display: none; } }
 /* desktop: the four points float around him in depth; two pass behind his cut-out, two in front */
 .why-cut { z-index: 2; }
 .why-props { z-index: 3; }
@@ -514,35 +586,42 @@ button { font: inherit; color: inherit; }
 .kcard b { font-family: var(--display); font-weight: 800; font-size: clamp(18px, 1.6vw, 26px); line-height: .95; overflow-wrap: normal; letter-spacing: -0.02em; text-transform: uppercase; }
 .kcard b i { display: block; font-family: var(--serif); font-weight: 400; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--lime); }
 .kcard.back { filter: brightness(.85); }
-/* motion graphics inside the cards: a dark comp window with a faint grid, the graphic in its top half */
-.mg { position: absolute; inset: 8px; border-radius: 15px; overflow: hidden; background: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 100% 14%, linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 14% 100%, radial-gradient(80% 60% at 50% 25%, #1d2312, #0b0d07); }
-/* shape shift: a lime shape morphs square > diamond > star > octagon inside an editor transform box, an editing tool works it */
-.mg-shift .shape, .mg-shift .bbox { position: absolute; left: 50%; top: 9%; width: 52%; aspect-ratio: 1; translate: -50% 0; }
-.mg-shift .shape { background: linear-gradient(150deg, #e4ff9a, #c6f24e 50%, #7fae1c); filter: drop-shadow(0 0 14px rgba(198,242,78,.45)); animation: morph 6s cubic-bezier(.7,0,.3,1) infinite; }
-.mg-shift .bbox { border: 1.5px dashed rgba(242,239,233,.55); animation: box 6s cubic-bezier(.7,0,.3,1) infinite; }
-.mg-shift .bbox i { position: absolute; width: 8px; height: 8px; background: #0b0d07; border: 1.5px solid #fff; }
-.mg-shift .bbox i:nth-child(1) { left: -5px; top: -5px; } .mg-shift .bbox i:nth-child(2) { right: -5px; top: -5px; } .mg-shift .bbox i:nth-child(3) { right: -5px; bottom: -5px; } .mg-shift .bbox i:nth-child(4) { left: -5px; bottom: -5px; }
-.mg-shift .tool { position: absolute; width: 22px; height: 22px; fill: #0b0d07; stroke: #fff; stroke-width: 1.6; stroke-linejoin: round; filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)); animation: toolPath 6s cubic-bezier(.7,0,.3,1) infinite; }
-@keyframes morph {
-  0%, 18% { clip-path: polygon(10% 10%, 50% 10%, 90% 10%, 90% 50%, 90% 90%, 50% 90%, 10% 90%, 10% 50%); rotate: 0deg; }
-  25%, 43% { clip-path: polygon(50% 0, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0 50%, 25% 25%); rotate: 0deg; }
-  50%, 68% { clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); rotate: 45deg; }
-  75%, 93% { clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%); rotate: 90deg; }
-  100% { clip-path: polygon(10% 10%, 50% 10%, 90% 10%, 90% 50%, 90% 90%, 50% 90%, 10% 90%, 10% 50%); rotate: 90deg; }
-}
-@keyframes box { 0%, 18% { scale: .82; } 25%, 43% { scale: 1; } 50%, 68% { scale: 1.05; rotate: 0deg; } 75%, 93% { scale: .95; } 100% { scale: .82; } }
-@keyframes toolPath { 0%, 15% { left: 72%; top: 12%; } 25%, 40% { left: 74%; top: 46%; } 50%, 65% { left: 50%; top: 52%; } 75%, 90% { left: 20%; top: 40%; } 100% { left: 72%; top: 12%; } }
-/* each card runs the same rig its own way */
-.mg-hook .shape, .mg-hook .bbox, .mg-hook .tool { animation-duration: 3s; }   /* hook: fast */
-.mg-story .shape, .mg-story .bbox, .mg-story .tool { animation-delay: -1.5s; }
-.mg-ret .shape { animation-delay: -3s; } .mg-ret .bbox, .mg-ret .tool { animation-delay: -3s; }
-.mg-brand .shape { animation: morph 6s cubic-bezier(.7,0,.3,1) infinite -4.5s, brandHue 6s steps(1) infinite; }
-@keyframes brandHue { 0% { background: linear-gradient(150deg, #e4ff9a, #c6f24e 50%, #7fae1c); } 25% { background: linear-gradient(150deg, #ffd27a, #e3a92a 50%, #a8761a); } 50% { background: linear-gradient(150deg, #ffffff, #f2efe9 50%, #c9c3b8); } 75% { background: linear-gradient(150deg, #9fe1ff, #4e9ec6 50%, #2d6a8a); } }
-.mg-brand .bbox, .mg-brand .tool { animation-delay: -4.5s; }
+/* scenes inside the cards: each point gets its own little poster */
+.mg { position: absolute; inset: 8px; border-radius: 15px; overflow: hidden; }
+.kcard.light figcaption { color: #0b0b0c; background: none; }
+.kcard.light b i { color: #5c8a0e; }
+/* story first: a pin board, his stills joined by string */
+.mg-story { background: radial-gradient(90% 70% at 50% 30%, #3b3b3b, #161616); }
+.mg-story .pola { position: absolute; width: 36%; padding: 3px 3px 9px; background: #f2efe9; rotate: var(--r); box-shadow: 0 6px 12px rgba(0,0,0,.5); }
+.mg-story .pola img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.mg-story .pola::before { content: ""; position: absolute; left: 50%; top: -3px; width: 8px; height: 8px; translate: -50% 0; border-radius: 50%; background: var(--lime); box-shadow: 0 2px 3px rgba(0,0,0,.6); }
+.mg-story svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mg-story path { fill: none; stroke: var(--lime); stroke-width: .8; stroke-dasharray: 1; animation: string 6s ease-in-out infinite; }
+@keyframes string { 0% { stroke-dashoffset: 1; } 30%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+/* hook in 3 seconds: a crane hook on its chain, swinging */
+.mg-hook { background: radial-gradient(90% 70% at 60% 25%, #ffffff, #e4e6e0); }
+.mg-hook svg { position: absolute; left: 50%; top: -6%; height: 80%; translate: -42% 0; transform-origin: 50% 0; animation: swing 3s ease-in-out infinite; filter: drop-shadow(0 10px 8px rgba(0,0,0,.25)); }
+@keyframes swing { 0%, 100% { rotate: 7deg; } 50% { rotate: -7deg; } }
+/* built to retain: the brain stands in for a letter, on a stick */
+.mg-ret { display: grid; place-items: center; background: radial-gradient(80% 60% at 50% 35%, #ffffff, #e9e9e6); color: #0b0b0c; }
+.mg-ret .word { margin-top: -38%; display: flex; align-items: center; font-family: var(--display); font-weight: 800; font-size: clamp(32px, 2.7vw, 44px); letter-spacing: -0.05em; line-height: 1; }
+.mg-ret .brain { position: relative; width: .95em; height: .8em; margin: 0 .02em; }
+.mg-ret .brain svg { width: 100%; height: 100%; animation: think 2.4s ease-in-out infinite; }
+.mg-ret .brain::after { content: ""; position: absolute; left: 50%; top: 92%; width: 2px; height: 2.6em; translate: -50% 0; background: linear-gradient(#9a9a96, rgba(154,154,150,0)); }
+@keyframes think { 50% { scale: 1.08; } }
+/* on-brand, every frame: a glossy brand tile over a chat that keeps it consistent */
+.mg-brand { background: radial-gradient(90% 70% at 60% 20%, #24461a, #0a1406); }
+.mg-brand .tile { position: absolute; right: 8%; top: 7%; width: 60%; padding: 9px 6px; border-radius: 14px; text-align: center; font-family: var(--display); font-weight: 800; font-style: italic; font-size: clamp(10px, .85vw, 13px); line-height: 1; text-transform: uppercase; color: #fff;
+  background: linear-gradient(160deg, #4f7a28, #1f3b10); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -6px 12px rgba(0,0,0,.35), 0 10px 18px rgba(0,0,0,.5); }
+.mg-brand .tile b { display: block; font-size: 1.6em; color: var(--lime); }
+.mg-brand .phone { position: absolute; left: 12%; top: 38%; width: 76%; height: 70%; padding: 10px 8px; border-radius: 16px; border: 3px solid #2f3a2a; background: #142a0c; rotate: -6deg; display: flex; flex-direction: column; gap: 5px; font-size: 9px; line-height: 1.2; }
+.mg-brand .phone span { max-width: 74%; padding: 4px 7px; border-radius: 9px; background: #d6efb0; color: #0d1a00; animation: chat 6s ease-out var(--d) infinite backwards; }
+.mg-brand .phone .me { align-self: flex-end; background: var(--lime); }
+@keyframes chat { 0%, 4% { opacity: 0; translate: 0 6px; } 10%, 90% { opacity: 1; translate: none; } 100% { opacity: 0; } }
 /* the four points start as pills on the left; each launches its card out to the right */
-.why .ktag.fire { box-shadow: 0 0 0 3px var(--lime), 0 0 30px rgba(198,242,78,.6), 0 22px 34px -12px rgba(0,0,0,.8); }
-@media (min-width: 961px) { #why { min-height: 960px; } }
-@media (max-width: 960px) { .kt3d-set, .why-cut { display: none; } }
+.why .ktag.gone { opacity: 0; transition: opacity .3s; pointer-events: none; }   /* the pill has become its card */
+@media (min-width: 1025px) { #why { min-height: 960px; } }
+@media (max-width: 1024px) { .kt3d-set, .why-cut { display: none; } }
 .why .trail { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
 .why .wrap { position: relative; z-index: 2; }
 .why .who { margin: 0 0 10px; font-size: clamp(30px, 3vw, 44px); color: var(--muted); }
@@ -621,7 +700,7 @@ button { font: inherit; color: inherit; }
 .reach { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 64px; }
 .reach a { display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px; min-height: 48px; border-radius: 12px; background: #000; border: 1px solid rgba(255,255,255,.12); font-size: 17px; transition: border-color .2s; }
 .reach a:hover { border-color: var(--lime); }
-@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } }
 
 /* ---------- end credits ---------- */
 .credits { position: relative; padding: 96px 20px 40px; text-align: center; background: #000; }
@@ -739,8 +818,8 @@ button { font: inherit; color: inherit; }
 <section class="why" id="why">
   <img class="why-bg" src="assets/why-me.webp" alt="" aria-hidden="true" width="1376" height="768" loading="lazy">
   <div class="kt3d-set" aria-hidden="true">
-    <div class="kfly" data-i="0" style="left: 84%; top: 8%;"><figure class="kcard back" style="--ry: -20deg; --r: 8deg; --d: .6s"><div class="mg mg-shift mg-story"><span class="shape"></span><span class="bbox"><i></i><i></i><i></i><i></i></span><svg class="tool" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><circle cx="11" cy="11" r="2"/></svg></div><figcaption><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 12 20 4"/></svg></span><b>Story <i>first</i></b></figcaption></figure></div>
-    <div class="kfly" data-i="2" style="left: 51%; top: 64%;"><figure class="kcard back light" style="--ry: 22deg; --r: -9deg; --d: 1s"><div class="mg mg-shift mg-ret"><span class="shape"></span><span class="bbox"><i></i><i></i><i></i><i></i></span><svg class="tool" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></div><figcaption><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><b>Built to <i>retain</i></b></figcaption></figure></div>
+    <div class="kfly" data-i="0" style="left: 84%; top: 8%;"><figure class="kcard back" style="--ry: -20deg; --r: 8deg; --d: .6s"><div class="mg mg-story"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="1" d="M24 22 Q50 22 76 6 Q66 28 48 42 Q34 36 24 22"/></svg><span class="pola" style="left: 6%; top: 22%; --r: -8deg"><img src="assets/work/rome.webp" alt="" loading="lazy"></span><span class="pola" style="left: 58%; top: 6%; --r: 7deg"><img src="assets/work/vikings.webp" alt="" loading="lazy"></span><span class="pola" style="left: 30%; top: 42%; --r: -3deg"><img src="assets/work/mega-projects.webp" alt="" loading="lazy"></span></div><figcaption><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 12 20 4"/></svg></span><b>Story <i>first</i></b></figcaption></figure></div>
+    <div class="kfly" data-i="2" style="left: 51%; top: 64%;"><figure class="kcard back light" style="--ry: 22deg; --r: -9deg; --d: 1s"><div class="mg mg-ret"><span class="word">ret<span class="brain"><svg viewBox="0 0 24 20"><defs><linearGradient id="brainG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4ff9a"/><stop offset="1" stop-color="#8fbf22"/></linearGradient></defs><path d="M12 2.5C10.6 1.2 7.6 1.4 6.8 3.6 4.4 3.4 2.6 5.4 3.2 7.8 1.4 9 1.4 12 3.4 13.2 3.2 15.6 5.4 17.4 7.6 16.6 8.6 18.4 11 18.6 12 17.2 13 18.6 15.4 18.4 16.4 16.6 18.6 17.4 20.8 15.6 20.6 13.2 22.6 12 22.6 9 20.8 7.8 21.4 5.4 19.6 3.4 17.2 3.6 16.4 1.4 13.4 1.2 12 2.5Z" fill="url(#brainG)" stroke="#0d1a00" stroke-width="1.2"/><path d="M12 2.5V17.2M7 6.5c1.6.2 2.6 1.4 2.4 3M17 6.5c-1.6.2-2.6 1.4-2.4 3M4.6 10.6c1.6-.6 3.2 0 3.8 1.6M19.4 10.6c-1.6-.6-3.2 0-3.8 1.6M8 14.4c1-.8 2.4-.8 3.2 0M16 14.4c-1-.8-2.4-.8-3.2 0" fill="none" stroke="#0d1a00" stroke-width="1.1" stroke-linecap="round"/></svg></span>in</span></div><figcaption><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><b>Built to <i>retain</i></b></figcaption></figure></div>
   </div>
   <img class="why-bg why-cut" src="assets/why-me-cut.webp" alt="" aria-hidden="true" width="1376" height="768" loading="lazy">
   <div class="why-props" aria-hidden="true">
@@ -748,8 +827,8 @@ button { font: inherit; color: inherit; }
     <span class="prop lime" style="left: 59%; top: 12%; --ry: 18deg; --rz: -12deg; --d: .5s"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></span>
   </div>
   <div class="kt3d-set front-set" aria-hidden="true">
-    <div class="kfly" data-i="1" style="left: 64%; top: 44%;"><figure class="kcard front light" style="--ry: 16deg; --r: -6deg; --d: .8s"><div class="mg mg-shift mg-hook"><span class="shape"></span><span class="bbox"><i></i><i></i><i></i><i></i></span><svg class="tool" viewBox="0 0 24 24"><path d="M4 4l7 17 2-7 7-2z"/></svg></div><figcaption><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><b>Hook in <i>3 seconds</i></b></figcaption></figure></div>
-    <div class="kfly" data-i="3" style="left: 82%; top: 50%;"><figure class="kcard front" style="--ry: -18deg; --r: 7deg; --d: 1.2s"><div class="mg mg-shift mg-brand"><span class="shape"></span><span class="bbox"><i></i><i></i><i></i><i></i></span><svg class="tool" viewBox="0 0 24 24"><path d="M2 22l1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="M15 6l3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4z"/></svg></div><figcaption><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span><b>On-brand, <i>every frame</i></b></figcaption></figure></div>
+    <div class="kfly" data-i="1" style="left: 64%; top: 44%;"><figure class="kcard front light" style="--ry: 16deg; --r: -6deg; --d: .8s"><div class="mg mg-hook"><svg viewBox="0 0 60 100"><defs><linearGradient id="hookG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e4ff9a"/><stop offset=".5" stop-color="#c6f24e"/><stop offset="1" stop-color="#7fae1c"/></linearGradient></defs><g fill="none" stroke="#1b1e14" stroke-width="2.4"><ellipse cx="30" cy="2" rx="4.5" ry="7"/><path d="M30 7v12" stroke-width="3.4"/><ellipse cx="30" cy="24" rx="4.5" ry="7"/><path d="M30 29v12" stroke-width="3.4"/></g><rect x="18" y="41" width="24" height="18" rx="3" fill="url(#hookG)" stroke="#0d1a00" stroke-width="1.5"/><g fill="#0d1a00"><circle cx="22" cy="45" r="1.3"/><circle cx="38" cy="45" r="1.3"/><circle cx="22" cy="55" r="1.3"/><circle cx="38" cy="55" r="1.3"/></g><rect x="21" y="59" width="18" height="4" fill="#1b1e14"/><rect x="27" y="63" width="6" height="6" fill="#1b1e14"/><path d="M30 69V82A9 9 0 0 1 12 82V77" fill="none" stroke="#0d1a00" stroke-width="10" stroke-linecap="round"/><path d="M30 69V82A9 9 0 0 1 12 82V77" fill="none" stroke="url(#hookG)" stroke-width="7" stroke-linecap="round"/></svg></div><figcaption><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><b>Hook in <i>3 seconds</i></b></figcaption></figure></div>
+    <div class="kfly" data-i="3" style="left: 82%; top: 50%;"><figure class="kcard front" style="--ry: -18deg; --r: 7deg; --d: 1.2s"><div class="mg mg-brand"><span class="tile">Same look<b>Every post</b></span><span class="phone"><span style="--d: .3s">Logo?</span><span class="me" style="--d: 1.1s">Locked ✓</span></span></div><figcaption><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span><b>On-brand, <i>every frame</i></b></figcaption></figure></div>
   </div>
   <canvas class="trail" id="trail" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
@@ -783,12 +862,13 @@ button { font: inherit; color: inherit; }
     <div class="reel reveal" id="reel">
       <div class="reel-top"><span class="now"><svg width="28" height="20" viewBox="0 0 30 22" aria-hidden="true"><rect width="30" height="22" rx="6" fill="#f2efe9"/><path d="M12 6v10l8-5z" fill="#0b0b0c"/></svg>Now playing</span><span class="mono" style="color: var(--muted)">Pick a cut</span></div>
       <div class="fan" id="fan" role="group" aria-label="Featured projects"></div>
-      <img class="me" src="assets/me-color.webp" alt="" aria-hidden="true" width="872" height="1200" loading="lazy">
       <div class="deck" aria-label="Player">
         <button type="button" id="prevCut" aria-label="Previous project"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 6v12L2 12zM21 6v12l-9-6z"/></svg></button>
-        <button type="button" class="playbtn" id="playCut" aria-label="Play this project"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></button>
+        <button type="button" class="playbtn" id="playCut" aria-label="Pause auto-play" aria-pressed="true"><svg class="i-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg><svg class="i-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></button>
         <button type="button" id="nextCut" aria-label="Next project"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 6v12l9-6zM3 6v12l9-6z"/></svg></button>
-        <div class="np" aria-live="polite"><img id="npImg" src="assets/work/vikings.webp" alt=""><div style="min-width: 0; flex: 1"><b id="npTitle">—</b><small id="npCat">—</small><div class="bar" aria-hidden="true"><i id="npBar"></i></div></div></div>
+        <div class="np"><img id="npImg" src="assets/work/vikings.webp" alt=""><div style="min-width: 0; flex: 1"><b id="npTitle">The Vikings vs Native Americans</b><small id="npCat">Documentary</small><div class="bar" aria-hidden="true"><i id="npBar"></i></div></div><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>
+        <button type="button" class="watch" id="watchCut" aria-label="Watch this project"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>Watch</button>
+        <a class="dk-link" href="#all-work" aria-label="See all projects"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></a>
       </div>
     </div>
 
@@ -858,7 +938,6 @@ button { font: inherit; color: inherit; }
     <h2 class="reveal"><span class="serif">Our</span><span class="wide">Services</span></h2>
     <div class="stage" id="stage">
       <span aria-hidden="true" class="halo"></span>
-      <img class="me" src="assets/me-bw.webp" alt="" aria-hidden="true" width="1662" height="2400" loading="lazy">
     <ul class="deck3d" id="deck3d">
       <li class="svc s1"><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg><p><b>Video Editing</b><span>Story, pace, structure</span></p></div></li>
       <li class="svc s2"><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20C10 20 9 4 21 4"/><circle cx="3" cy="20" r="1.5"/><circle cx="21" cy="4" r="1.5"/><path d="M15 4h6M3 20h6"/></svg><p><b>Motion Graphics</b><span>Titles, kinetic type, logos</span></p></div></li>
@@ -867,6 +946,20 @@ button { font: inherit; color: inherit; }
       <li class="svc s5"><div><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><p><b>Sound Design &amp; Mix</b><span>Music sync, cleanup, mix</span></p></div></li>
       <li class="svc s6"><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><p><b>Trailers, Ads &amp; Reels</b><span>Hooks, OVCs, vertical cuts</span></p></div></li>
     </ul>
+    <!-- the service at the front of the wheel, explained, with a small motion graphic of it -->
+    <aside class="svc-info" id="svcInfo">
+      <span class="mono idx" id="svcIdx">01 / 06</span>
+      <h3 id="svcTitle">Video Editing</h3>
+      <p id="svcText">Story first: I find the strongest thread in your footage, cut the slack and pace it so people keep watching.</p>
+      <div class="viz" aria-hidden="true">
+        <div class="v v0"><i></i><i></i><i></i><i></i><b></b></div>
+        <div class="v v1"><svg viewBox="0 0 200 100"><path d="M10 90 C 70 90, 90 10, 190 10"/></svg><b></b></div>
+        <div class="v v2"><i></i><i></i><i></i><b></b></div>
+        <div class="v v3"><b></b><i></i></div>
+        <div class="v v4"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="v v5"><i></i><b>3</b></div>
+      </div>
+    </aside>
     </div>
   </div>
 </section>
@@ -879,6 +972,8 @@ button { font: inherit; color: inherit; }
   <span class="pchip pc2 mono" aria-hidden="true">YouTube</span>
   <span class="pchip pc3 mono" aria-hidden="true">Reels</span>
   <span class="pchip pc4 mono" aria-hidden="true">OVC</span>
+  <span class="pchip pc5 mono" aria-hidden="true">Motion</span>
+  <span class="pchip pc6 mono" aria-hidden="true">Color</span>
   <div class="wrap" style="position: relative; z-index: 2">
     <p class="slate"><span class="bar" aria-hidden="true"></span><span class="mono">SC 05 · Take 2</span><span class="mono">Process</span></p>
     <h2 class="reveal"><span class="wide" style="display: block">From raw footage</span><span class="serif">to</span> <span class="wide grad">final cut</span></h2>
@@ -886,8 +981,14 @@ button { font: inherit; color: inherit; }
       <img class="f1" src="assets/work/niet.webp" alt="" loading="lazy">
       <img class="f2" src="assets/work/surokkha.webp" alt="" loading="lazy">
       <img class="f3" src="assets/work/noah.webp" alt="" loading="lazy">
+      <img class="f4" src="assets/work/singapore.webp" alt="" loading="lazy">
+      <img class="f5" src="assets/work/yorktown.webp" alt="" loading="lazy">
       <span class="lid"><span class="hint mono">Click to open ↗</span><strong><svg class="ico" viewBox="0 0 24 24" style="width: 28px; height: 28px" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8l4 4-4 4"/></svg>Anayet Hossain</strong><span class="mono" id="folderCount">22 projects</span></span>
     </button>
+    <div class="fprops" aria-hidden="true">
+      <span class="swatch"><i style="background: #f2efe9"></i><i style="background: #c6f24e"></i><i style="background: #e3a92a"></i><i style="background: #4e9ec6"></i><i style="background: #1b1d17; border: 1px solid #555"></i></span>
+      <span class="render mono">Rendering<span class="rbar"><i></i></span>4K · ProRes</span>
+    </div>
   </div>
 </section>
 
@@ -923,18 +1024,18 @@ button { font: inherit; color: inherit; }
 <!-- SC 06 · VOICES + FAQ -->
 <section class="scene voices" id="faq">
   <div class="wrap">
-    <div class="scene-head reveal" style="align-items: center; text-align: center">
+    <!-- PLACEHOLDER reviews: hidden until real client quotes exist; remove `hidden` from both blocks when they do -->
+    <div class="scene-head reveal" style="align-items: center; text-align: center" hidden>
       <p class="slate"><span class="bar" aria-hidden="true"></span><span class="mono">SC 06 · Take 1</span><span class="mono">Client words</span></p>
       <h2 class="wide" style="font-size: clamp(36px, 5vw, 64px)">What clients <span class="serif lime">say</span></h2>
     </div>
-    <!-- PLACEHOLDER reviews: replace with real client quotes -->
-    <div class="review-grid">
+    <div class="review-grid" hidden>
       <figure class="review glass reveal"><blockquote>“[Add a real client quote here.]”</blockquote><figcaption><span class="av" aria-hidden="true"></span><span><b style="color: var(--bone)">[Client name]</b><br>[Brand · project]</span></figcaption></figure>
       <figure class="review glass reveal"><blockquote>“[Add a second client quote here.]”</blockquote><figcaption><span class="av" aria-hidden="true"></span><span><b style="color: var(--bone)">[Client name]</b><br>[Brand · project]</span></figcaption></figure>
     </div>
 
     <div class="faq reveal" id="faqList">
-      <h3 class="wide">Questions</h3>
+      <h2 class="wide">Questions</h2>
       <details open><summary>How do I send my footage?<span class="pm" aria-hidden="true">+</span></summary><p>Upload it to Google Drive, Dropbox or WeTransfer and share the link with me. For big shoots I can send you a folder to upload into.</p></details>
       <details><summary>How long does a project take?<span class="pm" aria-hidden="true">+</span></summary><p>It depends on the length and how much motion graphics or VFX the project needs. You'll get a clear delivery date with the quote.</p></details>
       <details><summary>Are revisions included?<span class="pm" aria-hidden="true">+</span></summary><p>Yes. We agree on the number of revision rounds before we start, and you can leave timestamped notes on each version.</p></details>
@@ -965,8 +1066,8 @@ button { font: inherit; color: inherit; }
       </form>
     </div>
     <div class="reach">
-      <a data-link="whatsapp" href="#" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span data-text="whatsapp">[WhatsApp]</span></a>
-      <a data-link="email" href="#"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-text="email">[Email]</span></a>
+      <a data-link="whatsapp" href="#" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span data-text="whatsapp">+880 1855-558614</span></a>
+      <a data-link="email" href="#"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-text="email">ruhaniamy4@gmail.com</span></a>
       <a data-link="facebook" href="#" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg>Facebook</a>
       <a data-link="youtube" href="#" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/></svg>YouTube</a>
       <a data-link="instagram" href="#" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>Instagram</a>
@@ -1086,7 +1187,7 @@ const CASES = [
 
   /* ---- menu ---- */
   const menuBtn = $('menuBtn'), panel = $('menuPanel');
-  menuBtn.addEventListener('click', () => { const open = panel.hidden; panel.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open)); });
+  menuBtn.addEventListener('click', () => { const open = panel.hidden; panel.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); });
   panel.addEventListener('click', e => { if (e.target.closest('a')) { panel.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); } });
 
   /* ---- SC 02 now playing: fan of cuts + player ---- */
@@ -1114,15 +1215,21 @@ const CASES = [
   fan.addEventListener('click', e => { const c = e.target.closest('.fcard'); if (!c) return; +c.dataset.i === sel ? openPlayer(reelWork[sel]) : go(+c.dataset.i); });
   $('prevCut').addEventListener('click', () => go(sel - 1));
   $('nextCut').addEventListener('click', () => go(sel + 1));
-  $('playCut').addEventListener('click', () => openPlayer(reelWork[sel]));
+  $('watchCut').addEventListener('click', () => openPlayer(reelWork[sel]));
+  // play/pause controls the auto-advance (paused from the start when the visitor prefers less motion)
+  const deckEl = document.querySelector('.deck'), playCut = $('playCut');
+  let paused = reduce;
+  const setPaused = v => { paused = v; deckEl.classList.toggle('paused', v); playCut.setAttribute('aria-pressed', String(!v)); playCut.setAttribute('aria-label', v ? 'Resume auto-play' : 'Pause auto-play'); };
+  setPaused(paused);
+  playCut.addEventListener('click', () => setPaused(!paused));
   addEventListener('resize', layout);
   layout();
-  // auto-advance every 6s while the reel is on screen and nobody is hovering it
+  // auto-advance every 6s while the reel is on screen, not paused, and nobody is hovering the cards
   let reelOn = false, hover = false;
   new IntersectionObserver(es => { reelOn = es[0].isIntersecting; }, { threshold: .3 }).observe($('reel'));
-  $('reel').addEventListener('mouseenter', () => { hover = true; }); $('reel').addEventListener('mouseleave', () => { hover = false; });
+  fan.addEventListener('mouseenter', () => { hover = true; }); fan.addEventListener('mouseleave', () => { hover = false; });
   if (!reduce) setInterval(() => {
-    if (!reelOn || hover || !player.hidden) return;
+    if (paused || !reelOn || hover || !player.hidden) return;
     held += .1; $('npBar').style.width = Math.min(100, held / 6 * 100) + '%';
     if (held >= 6) go(sel + 1);
   }, 100);
@@ -1140,7 +1247,7 @@ const CASES = [
           <h3>${esc(w.title)}<svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.8 6.4 4.6 10.6 12 12-7.4 1.4-11.2 5.6-12 12-.8-6.4-4.6-10.6-12-12C7.4 10.6 11.2 6.4 12 0z"/></svg></h3>
           <p class="spaced">${esc(CATS[w.cat])}</p>
           <p>${esc(c.desc)}</p>
-          <button type="button" class="view" data-play="${w.slug}">View project ↗</button>
+          <button type="button" class="view" data-play="${w.slug}" aria-label="View project: ${esc(w.title)}">View project ↗</button>
         </div>
         <button type="button" class="still" data-play="${w.slug}" aria-label="Watch ${esc(w.title)}"><img class="${w.tall ? 'tall' : ''}" src="${thumb(w)}" alt="" loading="lazy"><span class="vp" aria-hidden="true"></span></button>
       </div>
@@ -1200,10 +1307,11 @@ const CASES = [
     lastFocus = document.activeElement;
     $('playerTitle').textContent = w.title; $('playerCat').textContent = CATS[w.cat]; $('playerOpen').href = view(w);
     pBox.classList.toggle('tall', !!w.tall);
-    pScreen.innerHTML = `<iframe src="https://drive.google.com/file/d/${w.id}/preview" allow="autoplay; fullscreen" allowfullscreen title="${esc(w.title)}"></iframe>`;
-    player.hidden = false; document.body.style.overflow = 'hidden'; $('playerClose').focus();
+    pScreen.innerHTML = `<iframe src="https://drive.google.com/file/d/${w.id}/preview" allow="autoplay; fullscreen" title="${esc(w.title)}"></iframe>`;
+    player.hidden = false; document.body.style.overflow = 'hidden'; setInert(); $('playerClose').focus();
   }
-  function closePlayer() { player.hidden = true; pScreen.innerHTML = ''; if (fview.hidden) document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+  const setInert = () => { const on = !player.hidden || !fview.hidden; [document.querySelector('main'), document.querySelector('.nav-shell'), document.querySelector('footer')].forEach(el => { if (el) el.inert = on; }); };
+  function closePlayer() { player.hidden = true; setInert(); pScreen.innerHTML = ''; if (fview.hidden) document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
   document.addEventListener('click', e => {
     const a = e.target.closest('[data-play]'); if (!a) return;
     const w = WORK.find(x => x.slug === a.dataset.play); if (!w) return;
@@ -1211,7 +1319,6 @@ const CASES = [
   });
   $('playerClose').addEventListener('click', closePlayer);
   player.addEventListener('click', e => { if (e.target === player) closePlayer(); });
-  addEventListener('keydown', e => { if (e.key === 'Escape' && !player.hidden) closePlayer(); });
 
   /* ---- reveal on scroll (only for elements that start below the fold) ---- */
   if (!reduce && 'IntersectionObserver' in window) {
@@ -1240,7 +1347,7 @@ const CASES = [
   /* ---- opening: craft cards orbit his head; the back of the ring falls out of focus ---- */
   const op = $('top'), opStage = $('opStage'), orbs = [...opStage.querySelectorAll('.orb')];
   let mx = 0, my = 0, opOn = true;
-  new IntersectionObserver(es => { opOn = es[0].isIntersecting; }).observe(op);
+  new IntersectionObserver(es => { opOn = es[0].isIntersecting; if (opOn && !reduce) tick(); }).observe(op);
   const place = t => {
     const R = opStage.clientWidth * (innerWidth < 760 ? .3 : .52);
     orbs.forEach((o, i) => {
@@ -1252,11 +1359,16 @@ const CASES = [
     });
   };
   const t0 = performance.now();
-  (function tick(now) {
+  // the orbit only runs while the opening is on screen; the observer above restarts it
+  let orbiting = false;
+  function step(now) {
+    if (!opOn) { orbiting = false; return; }
     const t = Math.max(0, now - t0) / 1000;
-    if (opOn) { opTc.textContent = tc(12 + t); place(reduce ? 0 : t); }
-    if (!reduce) requestAnimationFrame(tick);
-  })(t0);
+    opTc.textContent = tc(12 + t); place(reduce ? 0 : t);
+    if (!reduce) requestAnimationFrame(step); else orbiting = false;
+  }
+  function tick() { if (!orbiting) { orbiting = true; requestAnimationFrame(step); } }
+  orbiting = true; step(t0);
   // the headline's last word keeps changing, like a cut
   const rot = $('rotWord'), words = ['stories', 'emotions', 'brands', 'moments'];
   let wi = 0;
@@ -1276,7 +1388,7 @@ const CASES = [
   let ticking = false;
   function onScroll() {
     ticking = false;
-    const max = document.documentElement.scrollHeight - innerHeight, p = max > 0 ? scrollY / max : 0;
+    const max = document.documentElement.scrollHeight - innerHeight, p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
     phFill.style.height = (p * 100) + '%'; phTc.style.top = (p * 100) + '%'; phTc.textContent = tc(p * 222);
     progress.style.width = (p * 100) + '%';
     // nav order differs from page order, so pick the passed section that sits lowest on the page
@@ -1289,31 +1401,69 @@ const CASES = [
 
   /* ---- about: raw vs graded compare ---- */
   const cRange = $('cRange'), cAfter = $('cAfter'), cLine = $('cLine');
-  const setSplit = v => { cAfter.style.clipPath = `inset(0 0 0 ${v}%)`; cLine.style.left = v + '%'; };
+  const setSplit = v => { cAfter.style.clipPath = `inset(0 0 0 ${v}%)`; cLine.style.left = v + '%'; cRange.setAttribute('aria-valuetext', `${v}% raw photo, ${100 - v}% final grade`); };
   cRange.addEventListener('input', () => setSplit(cRange.value));
   setSplit(cRange.value);
 
-  /* ---- services: the cards start as one pile and deal out to their places as you scroll; the stack tilts with the mouse ---- */
+  /* ---- services: the cards ride a half circle; every 3s the wheel turns one step and the front card is explained on the right ---- */
   const stage = $('stage'), deck = $('deck3d'), svcs = [...deck.querySelectorAll('.svc')];
-  const pile = svcs.map((c, i) => ({ c, i }));
-  let pileOn = false;
-  function measurePile() {
-    stage.style.setProperty('--sc', Math.min(1, stage.parentElement.clientWidth / stage.offsetWidth).toFixed(4));   // only used ≤960px
-    pileOn = !reduce;
-    if (!pileOn) { svcs.forEach(c => { c.style.removeProperty('--tx'); c.style.removeProperty('--ty'); c.style.removeProperty('--spin'); }); return; }
-    const home = svcs[2];   // every card gathers on the middle card's spot
-    pile.forEach(p => { p.dx = home.offsetLeft - p.c.offsetLeft + p.i * 8; p.dy = home.offsetTop - p.c.offsetTop - p.i * 10; p.spin = (p.i - 2.5) * 5; });
+  const SVC_TEXT = [
+    'Story first: I find the strongest thread in your footage, cut the slack and pace it so people keep watching.',
+    'Titles, kinetic type and animated logos that move with the edit, so every graphic lands on the beat.',
+    'Screen replacements, tracking, roto and clean-ups that make impossible shots look like they were filmed.',
+    'A look for every story: balanced shots, natural skin tones and LUTs that keep a series consistent.',
+    'Music synced to the cut, dialogue cleaned up and a mix that sounds right on phones and big screens.',
+    'Hook in the first 3 seconds, vertical cuts and OVCs built to stop the scroll and sell the message.'
+  ];
+  const info = $('svcInfo'), viz = [...info.querySelectorAll('.viz .v')], STEP = 180 / svcs.length;
+  let phase = 0, target = 0, front = -1, svcOn = false, svcHover = false;
+  const scaleStage = () => stage.style.setProperty('--sc', Math.min(1, stage.parentElement.clientWidth / stage.offsetWidth).toFixed(4));   // only used ≤1024px
+  // ≤1024px the stage is shrunk to fit, so the explanation sits below it instead, at full size
+  const narrow = matchMedia('(max-width: 1024px)');
+  const placeInfo = () => { if (narrow.matches) stage.after(info); else stage.append(info); scaleStage(); };
+  placeInfo(); addEventListener('resize', scaleStage); narrow.addEventListener('change', () => { placeInfo(); placeWheel(); });
+  function placeWheel() {
+    const W = stage.offsetWidth, H = stage.offsetHeight, R = Math.min(W * (W < 700 ? .3 : .26), 330), cx = W < 700 ? -W * .06 : W * .04, cy = H * .5;
+    let best = 99;
+    svcs.forEach((c, i) => {
+      // angle on the half circle: -90 (top) .. +90 (bottom); wraps so the wheel never runs out of cards
+      const a = ((((i * STEP - phase) % 180) + 180) % 180) - 90, rad = a * Math.PI / 180;
+      c.style.setProperty('--x', (cx + R * Math.cos(rad)).toFixed(1) + 'px');
+      c.style.setProperty('--y', (cy + R * 1.15 * Math.sin(rad) - 50).toFixed(1) + 'px');
+      c.style.setProperty('--rz', (a * .22).toFixed(2) + 'deg');
+      // toward the two ends the card shrinks, blurs and fades, as if it turns away round the back of a full wheel
+      const back = Math.max(0, Math.abs(a) - 45) / 45;
+      c.style.opacity = (1 - back * back).toFixed(3);
+      c.style.scale = (1 - back * .35).toFixed(3);
+      c.style.filter = back > .02 ? `blur(${(back * 5).toFixed(1)}px)` : '';
+      c.style.zIndex = Math.round(10 - Math.abs(a) / 10);
+      if (Math.abs(a) < best) { best = Math.abs(a); front = i; }
+    });
+    svcs.forEach((c, i) => c.classList.toggle('on', i === front));
+    if (info.dataset.k !== String(front)) {
+      info.dataset.k = front;
+      $('svcIdx').textContent = `0${front + 1} / 0${svcs.length}`;
+      $('svcTitle').textContent = svcs[front].querySelector('b').textContent;
+      $('svcText').textContent = SVC_TEXT[front];
+      viz.forEach((v, i) => v.classList.toggle('on', i === front));
+      info.classList.remove('swap'); void info.offsetWidth; info.classList.add('swap');
+    }
   }
-  function dealPile() {
-    if (!pileOn) return;
-    const r = stage.getBoundingClientRect();
-    const t = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (innerHeight * .75)));
-    const e = 1 - Math.pow(1 - t, 3), k = 1 - e;
-    pile.forEach(p => { p.c.style.setProperty('--tx', (p.dx * k).toFixed(1) + 'px'); p.c.style.setProperty('--ty', (p.dy * k).toFixed(1) + 'px'); p.c.style.setProperty('--spin', (p.spin * k).toFixed(2) + 'deg'); });
+  placeWheel();
+  // click a card to bring it to the front, the shortest way round: a card is at the front when (i * STEP - phase) mod 180 is 90, so turn the shortest way to that
+  svcs.forEach((c, i) => c.addEventListener('click', () => { const d = ((((i * STEP - 90 - target) % 180) + 270) % 180) - 90; target += d; if (reduce) { phase = target; placeWheel(); } }));
+  if (!reduce) {
+    // the frame loop only runs while the wheel is on screen and still moving
+    let turning = false;
+    const turn = () => {
+      if (svcOn && Math.abs(target - phase) > .01) { phase += (target - phase) * .08; placeWheel(); requestAnimationFrame(turn); } else turning = false;
+    };
+    const kick = () => { if (!turning) { turning = true; requestAnimationFrame(turn); } };
+    new IntersectionObserver(es => { svcOn = es[0].isIntersecting; if (svcOn) kick(); }, { threshold: .2 }).observe(stage);
+    stage.addEventListener('mouseenter', () => { svcHover = true; }); stage.addEventListener('mouseleave', () => { svcHover = false; });
+    setInterval(() => { if (svcOn && !svcHover) { target += STEP; kick(); } }, 3000);
+    svcs.forEach(c => c.addEventListener('click', kick));
   }
-  measurePile(); dealPile();
-  addEventListener('resize', () => { measurePile(); dealPile(); });
-  addEventListener('scroll', () => requestAnimationFrame(dealPile), { passive: true });
   if (!reduce && matchMedia('(hover: hover) and (min-width: 961px)').matches) {
     stage.addEventListener('mousemove', e => {
       const r = stage.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
@@ -1330,11 +1480,27 @@ const CASES = [
   };
   onView(folderBtn, () => folderBtn.classList.add('in'));
   $('fgrid').innerHTML = grid.innerHTML;   // same cards as All projects; [data-play] opens the player on top
-  folderBtn.addEventListener('click', () => { fview.hidden = false; document.body.style.overflow = 'hidden'; $('fclose').focus(); });
-  const closeFolder = () => { fview.hidden = true; document.body.style.overflow = ''; folderBtn.focus(); };
+  folderBtn.addEventListener('click', () => { fview.hidden = false; document.body.style.overflow = 'hidden'; setInert(); $('fclose').focus(); });
+  const closeFolder = () => { fview.hidden = true; setInert(); document.body.style.overflow = ''; folderBtn.focus(); };
   $('fclose').addEventListener('click', closeFolder);
   fview.addEventListener('click', e => { if (e.target === fview) closeFolder(); });
-  addEventListener('keydown', e => { if (e.key === 'Escape' && !fview.hidden && player.hidden) closeFolder(); });
+  // one key handler for both pop-ups: Escape closes only the top one (the player opens on top of the folder);
+  // Tab stays inside whichever is open
+  addEventListener('keydown', e => {
+    const top = !player.hidden ? player : !fview.hidden ? fview : null;
+    if (!top) {
+      if (e.key === 'Escape' && !panel.hidden) { panel.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.setAttribute('aria-label', 'Open menu'); menuBtn.focus(); }
+      return;
+    }
+    if (e.key === 'Escape') { top === player ? closePlayer() : closeFolder(); return; }
+    if (e.key !== 'Tab') return;
+    const f = [...top.querySelectorAll('a[href], button, iframe, [tabindex]:not([tabindex="-1"])')].filter(el => !el.closest('[hidden]'));
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (!top.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+  });
 
   /* ---- why me: lines rise, selections draw; letters swell toward the cursor, the mouse draws a motion path ---- */
   const why = $('why'), kin = $('kin');
@@ -1344,16 +1510,18 @@ const CASES = [
     const pills = [...why.querySelectorAll('.ktags .ktag')];
     why.querySelectorAll('.kfly').forEach(fly => {
       const i = +fly.dataset.i, pill = pills[i];
-      if (reduce || !pill || !fly.animate || innerWidth <= 960) return;
+      if (!pill || innerWidth <= 1024) return;
+      if (reduce || !fly.animate) { pill.classList.add('gone'); return; }
       const at = 1700 + i * 450;   // after the pills have popped in, one by one
+      // the pill is still scaled to 0 here: its centre is right, its size comes from offsetWidth
       const p = pill.getBoundingClientRect(), c = fly.getBoundingClientRect();
       const dx = p.left + p.width / 2 - (c.left + c.width / 2), dy = p.top + p.height / 2 - (c.top + c.height / 2);
       fly.animate([
-        { transform: `translate(${dx}px, ${dy}px) scale(${(p.width / c.width).toFixed(3)})`, opacity: 0 },
+        { transform: `translate(${dx}px, ${dy}px) scale(${(pill.offsetWidth / c.width).toFixed(3)})`, opacity: 0 },
         { opacity: 1, offset: .15 },
         { transform: 'none', opacity: 1 }
       ], { duration: 1100, delay: at, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
-      setTimeout(() => { pill.classList.add('fire'); setTimeout(() => pill.classList.remove('fire'), 700); }, at);
+      setTimeout(() => pill.classList.add('gone'), at);
     });
     why.classList.add('flown');
   }, .2);
@@ -1364,20 +1532,26 @@ const CASES = [
   const cine = $('cine');
   if (!reduce) {
     const openCine = () => { const r = cine.getBoundingClientRect(); cine.style.setProperty('--o', Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight * .7))).toFixed(3)); };
-    addEventListener('scroll', openCine, { passive: true }); openCine();
+    let cineQueued = false;
+    addEventListener('scroll', () => { if (!cineQueued) { cineQueued = true; requestAnimationFrame(() => { cineQueued = false; openCine(); }); } }, { passive: true }); openCine();
   }
 
   /* ---- type strip: rows drift on their own, scrolling pushes them faster ---- */
   const mrows = [...document.querySelectorAll('.mrow')];
   mrows.forEach(r => r.innerHTML += r.innerHTML);   // two copies so the loop has no seam
   if (!reduce) {
-    let x = 0, boost = 0, py = scrollY;
+    let x = 0, boost = 0, py = scrollY, halves = [], stripOn = false, drifting = false;
+    // widths are measured once (and on resize), not every frame, so the loop never forces a layout
+    const measure = () => { halves = mrows.map(r => r.scrollWidth / 2); };
+    measure(); addEventListener('resize', measure); document.fonts && document.fonts.ready.then(measure);
     addEventListener('scroll', () => { boost = Math.min(30, boost + Math.abs(scrollY - py) * .15); py = scrollY; }, { passive: true });
-    (function drift() {
+    function drift() {
+      if (!stripOn) { drifting = false; return; }   // paused while the strip is off screen
       x += 0.6 + boost; boost *= .92;
-      mrows.forEach(r => { const half = r.scrollWidth / 2, d = +r.dataset.dir, o = x % half; r.style.transform = `translateX(${d > 0 ? -o : o - half}px)`; });
+      mrows.forEach((r, i) => { const half = halves[i], d = +r.dataset.dir, o = x % half; r.style.transform = `translateX(${d > 0 ? -o : o - half}px)`; });
       requestAnimationFrame(drift);
-    })();
+    }
+    new IntersectionObserver(es => { stripOn = es[0].isIntersecting; if (stripOn && !drifting) { drifting = true; requestAnimationFrame(drift); } }).observe($('marq'));
   }
   const chars = [];
   (function split(node) {
@@ -1397,19 +1571,21 @@ const CASES = [
   kin.setAttribute('aria-label', kin.textContent.replace(/\s+/g, ' ').trim());
   if (!reduce && matchMedia('(hover: hover)').matches) {
     const cv = $('trail'), g = cv.getContext('2d'), pts = [];
-    let mxw = -9999, myw = -9999, live = false;
+    let mxw = -9999, myw = -9999, live = false, lastMove = 0;
     const size = () => { const r = why.getBoundingClientRect(); cv.width = r.width * devicePixelRatio; cv.height = r.height * devicePixelRatio; };
     size(); addEventListener('resize', size);
     why.addEventListener('mousemove', e => {
-      const r = why.getBoundingClientRect(); mxw = e.clientX; myw = e.clientY;
+      const r = why.getBoundingClientRect(); mxw = e.clientX; myw = e.clientY; lastMove = performance.now();
       pts.push({ x: (e.clientX - r.left) * devicePixelRatio, y: (e.clientY - r.top) * devicePixelRatio, t: performance.now() });
       if (!live) { live = true; requestAnimationFrame(frame); }
     });
     why.addEventListener('mouseleave', () => { mxw = myw = -9999; });
     function frame(now) {
-      // letters: weight and width grow with closeness to the cursor
-      chars.forEach(s => {
-        const r = s.getBoundingClientRect(), d = Math.hypot(r.left + r.width / 2 - mxw, r.top + r.height / 2 - myw), k = Math.max(0, 1 - d / 220);
+      // letters: weight and width grow with closeness to the cursor.
+      // read every letter's position first, then write styles, so the browser lays out once per frame, not once per letter
+      const rects = chars.map(s => s.getBoundingClientRect());
+      chars.forEach((s, i) => {
+        const r = rects[i], d = Math.hypot(r.left + r.width / 2 - mxw, r.top + r.height / 2 - myw), k = Math.max(0, 1 - d / 220);
         s.style.fontVariationSettings = `"wght" ${Math.round(500 + 400 * k)}, "wdth" ${Math.round(100 + 25 * k)}`;
         s.style.transform = k ? `translateY(${(-k * 10).toFixed(1)}px)` : '';
         s.style.color = k > .45 ? 'var(--lime)' : '';
@@ -1430,7 +1606,7 @@ const CASES = [
           }
         }
       }
-      if (pts.length || mxw > -9999) requestAnimationFrame(frame); else live = false;
+      if (pts.length || now - lastMove < 600) requestAnimationFrame(frame); else live = false;
     }
   }
 
