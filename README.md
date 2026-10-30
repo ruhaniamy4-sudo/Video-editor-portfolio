@@ -11,6 +11,15 @@ Everything lives in `index.html`. Near the bottom, in the `<script>`:
 
 Text such as the hero headline, services, process steps, reviews and FAQ is plain HTML in the page.
 
+## Photos
+
+Graded photos live in `assets/`:
+
+- `hero-plate.webp` + `hero-cut.webp`: the hero frame and the matching cut-out that breaks out of it (same crop, same grade, so they line up)
+- `grade-log.webp` / `grade-final.webp`: the raw vs graded comparison in About
+- `clip-1.webp` … `clip-5.webp`: the five clips in "Inside My Timeline", each with its own look
+- `avatar.webp`, `contact-night.webp`, `sit-cut.webp`: contact card and footer
+
 ## Contact form
 
 Without a `formEndpoint`, the form opens the visitor's email app with the message filled in.
