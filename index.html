@@ -643,7 +643,7 @@ button { font: inherit; color: inherit; }
 .mg-brand .phone .me { align-self: flex-end; background: var(--lime); }
 @keyframes chat { 0%, 4% { opacity: 0; translate: 0 6px; } 10%, 90% { opacity: 1; translate: none; } 100% { opacity: 0; } }
 /* the four points start as pills on the left; each launches its card out to the right */
-.why .ktag.gone { opacity: 0; transition: opacity .3s; pointer-events: none; }   /* the pill has become its card */
+.why .ktag.gone { opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s .3s; pointer-events: none; }   /* the pill has become its card */
 @media (min-width: 1025px) { #why { min-height: 700px; } }
 @media (max-width: 1024px) { .kt3d-set, .why-cut { display: none; } }
 .why .trail { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
@@ -754,7 +754,7 @@ section > .dotbg ~ .wrap { position: relative; z-index: 1; }
 .kstack { display: grid; }
 .kstack > * { grid-area: 1 / 1; transition: opacity .6s var(--ease), translate .6s var(--ease), filter .6s var(--ease); }
 .why.detail .kintro { opacity: 0; translate: 0 -24px; filter: blur(8px); }
-.kdetail { --k: var(--lime); max-width: 640px; opacity: 0; translate: 0 24px; filter: blur(8px); }
+.kdetail { scroll-margin-top: 120px; --k: var(--lime); max-width: 640px; opacity: 0; translate: 0 24px; filter: blur(8px); }
 .why.detail .kdetail { opacity: 1; translate: none; filter: none; }
 .kdetail .slate .mono:last-child { background: var(--k); box-shadow: 0 0 22px color-mix(in srgb, var(--k) 40%, transparent); }
 .kdetail h3 { margin-top: 20px; font-family: var(--display); font-weight: 500; font-size: clamp(34px, 3.6vw, 56px); line-height: 1.02; letter-spacing: -0.03em; }
@@ -781,7 +781,7 @@ section > .dotbg ~ .wrap { position: relative; z-index: 1; }
 .kback { margin-top: 24px; }
 /* the cards are buttons once they have landed; the text layer lets clicks through to them */
 #why .wrap, #why .kstack, #why .kintro { pointer-events: none; }
-#why .kdetail, #why .ktags, #why .kin { pointer-events: auto; }
+#why .kdetail, #why .ktags { pointer-events: auto; }
 .why:not(.detail) .kdetail { pointer-events: none; }
 .why.flown .kfly { pointer-events: auto; cursor: pointer; }
 .kfly figure { transition: scale .4s var(--ease), outline-color .4s; outline: 2px solid transparent; outline-offset: 4px; }
@@ -789,7 +789,12 @@ section > .dotbg ~ .wrap { position: relative; z-index: 1; }
 .kfly.on figure { outline-color: var(--k, var(--lime)); scale: 1.06; }
 /* once the cards have landed the pills they grew out of fold away */
 .why .ktags { max-height: 200px; transition: opacity .5s, max-height .8s var(--ease), margin .8s var(--ease); }
-.why.landed .ktags { opacity: 0; max-height: 0; margin-top: 0; overflow: hidden; pointer-events: none; }
+.why.landed .ktags { visibility: hidden; opacity: 0; max-height: 0; margin-top: 0; overflow: hidden; pointer-events: none; }
+@media (max-width: 1024px) {
+  /* Rotation or window resizing must restore the compact touch controls. */
+  .why.landed .ktags { visibility: visible; opacity: 1; max-height: none; margin-top: 40px; overflow: visible; pointer-events: auto; }
+  .why .ktag.gone { visibility: visible; opacity: 1; pointer-events: auto; }
+}
 .why .who { margin: 14px 0 10px; font-size: clamp(30px, 3vw, 44px); color: var(--bone); }
 .why .who span { padding: 0 .12em; background: linear-gradient(transparent 58%, rgba(198,242,78,.45) 58% 90%, transparent 90%); }
 .kin { position: relative; font-family: var(--display); font-weight: 500; font-size: clamp(38px, 5vw, 80px); line-height: 1.02; letter-spacing: -0.03em; font-variation-settings: "wght" 500, "wdth" 100; }
@@ -808,7 +813,7 @@ section > .dotbg ~ .wrap { position: relative; z-index: 1; }
 .kin .sel i:first-of-type { left: -.1em; top: -.12em; border-top-color: var(--lime); border-left-color: var(--lime); }
 .kin .sel i:last-of-type { right: -.1em; bottom: -.12em; border-bottom-color: var(--lime); border-right-color: var(--lime); }
 .ktags { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; position: relative; z-index: 3; }
-.ktag { position: relative; display: inline-flex; align-items: center; gap: 12px; padding: 8px 22px 8px 8px; border-radius: 999px; font-weight: 600; font-size: clamp(14px, 1.2vw, 18px); white-space: nowrap; color: #fff; background: linear-gradient(180deg, #232323, #050505); box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 2px 0 #000, 0 4px 0 #000, 0 22px 34px -12px rgba(0,0,0,.8); transform: rotate(var(--r)) scale(0); transition: transform .7s cubic-bezier(.3,1.6,.5,1) var(--d); animation: bob 6s ease-in-out infinite; animation-delay: var(--d); }
+.ktag { border: 0; font-family: inherit; text-align: left; cursor: pointer; position: relative; display: inline-flex; align-items: center; gap: 12px; padding: 8px 22px 8px 8px; border-radius: 999px; font-weight: 600; font-size: clamp(14px, 1.2vw, 18px); white-space: nowrap; color: #fff; background: linear-gradient(180deg, #232323, #050505); box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 2px 0 #000, 0 4px 0 #000, 0 22px 34px -12px rgba(0,0,0,.8); transform: rotate(var(--r)) scale(0); transition: transform .7s cubic-bezier(.3,1.6,.5,1) var(--d); animation: bob 6s ease-in-out infinite; animation-delay: var(--d); }
 .ktag.light { color: #0b0b0c; background: linear-gradient(180deg, #ffffff, #e6e6e6); box-shadow: inset 0 -2px 0 rgba(0,0,0,.08), 0 2px 0 #bdbdbd, 0 4px 0 #9a9a9a, 0 22px 34px -12px rgba(0,0,0,.8); }
 .ktag .ic { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #fff; color: #0b0b0c; flex: none; }
 .ktag.light .ic { background: var(--lime); }
@@ -916,6 +921,8 @@ section > .dotbg ~ .wrap { position: relative; z-index: 1; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal.pre { opacity: 1; transform: none; }
+  .kv-path { stroke-dashoffset: 0; }
+  .kv-tile { opacity: 1; scale: 1; }
 }
 </style>
 </head>
@@ -1716,10 +1723,10 @@ DotFX.loader({ text: 'Anayet Hossain', sub: 'portfolio', accent: '#c6f24e', minM
     </div>
     </div>
     <div class="ktags">
-      <span class="ktag" style="--r: -3deg; --d: .9s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 12 20 4"/></svg></span>Story first</span>
-      <span class="ktag light" style="--r: 2deg; --d: 1.1s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>Hook in 3 seconds</span>
-      <span class="ktag" style="--r: -2deg; --d: 1.3s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span>Built to retain</span>
-      <span class="ktag light" style="--r: 3deg; --d: 1.5s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span>On-brand, every frame</span>
+      <button type="button" class="ktag" style="--r: -3deg; --d: .9s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 12 20 4"/></svg></span>Story first</button>
+      <button type="button" class="ktag light" style="--r: 2deg; --d: 1.1s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>Hook in 3 seconds</button>
+      <button type="button" class="ktag" style="--r: -2deg; --d: 1.3s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span>Built to retain</button>
+      <button type="button" class="ktag light" style="--r: 3deg; --d: 1.5s"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span>On-brand, every frame</button>
     </div>
   </div>
 </section>
@@ -2167,9 +2174,8 @@ const CASES = [
   let reelOn = false, hover = false;
   new IntersectionObserver(es => { reelOn = es[0].isIntersecting; }, { threshold: .3 }).observe($('reel'));
   if (matchMedia('(hover: hover)').matches) { fan.addEventListener('mouseenter', () => { hover = true; }); fan.addEventListener('mouseleave', () => { hover = false; }); }
-  fan.addEventListener('focusin', () => { hover = true; }); fan.addEventListener('focusout', () => { hover = false; });
-  if (!reduce) setInterval(() => {
-    if (paused || !reelOn || hover || !player.hidden) return;
+  setInterval(() => {
+    if (paused || !reelOn || hover || fan.contains(document.activeElement) || !player.hidden || document.hidden) return;
     held += .1; $('npBar').style.width = Math.min(100, held / 6 * 100) + '%';
     if (held >= 6) go(sel + 1);
   }, 100);
@@ -2436,9 +2442,12 @@ const CASES = [
     };
     const kick = () => { if (!turning) { turning = true; requestAnimationFrame(turn); } };
     new IntersectionObserver(es => { svcOn = es[0].isIntersecting; if (svcOn) kick(); }, { threshold: .2 }).observe(stage);
-    stage.addEventListener('mouseenter', () => { svcHover = true; }); stage.addEventListener('mouseleave', () => { svcHover = false; });
-    stage.addEventListener('focusin', () => { svcHover = true; }); stage.addEventListener('focusout', () => { svcHover = false; });
-    setInterval(() => { if (svcOn && !svcHover) { target += STEP; kick(); } }, 3000);
+    if (matchMedia('(hover: hover)').matches) {
+      stage.addEventListener('mouseenter', () => { svcHover = true; });
+      stage.addEventListener('mouseleave', () => { svcHover = false; });
+    }
+    // Hover and keyboard/touch focus are independent reasons to hold the selection.
+    setInterval(() => { if (svcOn && !svcHover && !stage.contains(document.activeElement) && !document.hidden) { target += STEP; kick(); } }, 3000);
     svcs.forEach(c => c.addEventListener('click', kick));
   }
   if (!reduce && matchMedia('(hover: hover) and (min-width: 961px)').matches) {
@@ -2526,16 +2535,33 @@ const CASES = [
   why.querySelectorAll('.kt3d-set').forEach(set => set.removeAttribute('aria-hidden'));
   kflys.forEach(f => { const fig = f.querySelector('figure'), d = KD[+f.dataset.i]; fig.tabIndex = 0; fig.setAttribute('role', 'button'); fig.setAttribute('aria-label', d.tag + ': read more'); fig.style.setProperty('--k', d.k); fig.querySelector('.mg')?.setAttribute('aria-hidden', 'true'); });
   kdetail.inert = true;
-  const openKd = i => {
+  let kdTrigger = null;
+  const kpills = [...why.querySelectorAll('.ktag')];
+  kpills.forEach((pill, i) => {
+    pill.setAttribute('aria-controls', 'kdetail');
+    pill.setAttribute('aria-expanded', 'false');
+    pill.addEventListener('click', () => openKd(i, pill));
+  });
+  const openKd = (i, trigger) => {
+    kdTrigger = trigger || kflys.find(f => +f.dataset.i === i)?.querySelector('figure');
     const d = KD[i];
     kdetail.style.setProperty('--k', d.k);
     $('kdTag').textContent = d.tag; $('kdTitle').innerHTML = d.title; $('kdText').textContent = d.text;
     $('kdStats').innerHTML = d.stats.map(([b, t]) => `<li class="lg"><b>${b}</b><span>${t}</span></li>`).join('');
     $('kdViz').innerHTML = d.viz;   // re-inserted so its drawing animation replays
+    if (reduce) $('kdViz').querySelectorAll('animateMotion').forEach(a => a.remove());
+    kpills.forEach((p, j) => p.setAttribute('aria-expanded', String(j === i)));
     kflys.forEach(f => f.classList.toggle('on', +f.dataset.i === i));
     why.classList.add('detail'); kdetail.inert = false; kintro.inert = true;
+    $('kdBack').focus({ preventScroll: true });
+    if (innerWidth <= 1024) kdetail.scrollIntoView({ block: 'start', behavior: 'instant' });
   };
-  const closeKd = () => { why.classList.remove('detail'); kdetail.inert = true; kintro.inert = false; kflys.forEach(f => f.classList.remove('on')); };
+  const closeKd = () => {
+    why.classList.remove('detail'); kdetail.inert = true; kintro.inert = false;
+    kflys.forEach(f => f.classList.remove('on'));
+    kpills.forEach(p => p.setAttribute('aria-expanded', 'false'));
+    kdTrigger?.focus({ preventScroll: true });
+  };
   why.addEventListener('click', e => { const f = e.target.closest('.kfly'); if (f && why.classList.contains('flown')) openKd(+f.dataset.i); });
   why.addEventListener('keydown', e => {
     const f = e.target.closest('.kfly');
@@ -2572,7 +2598,15 @@ const CASES = [
     v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none'; v.src = `assets/dots/${n}.mp4`;
     return v;
   });
-  const playOnly = i => CLIPS.forEach((v, j) => { if (!v) return; if (j === i && vizSeen) { if (reduce) { v.preload = 'auto'; v.currentTime = 1; } else v.play().catch(() => {}); } else v.pause(); });
+  const playOnly = i => CLIPS.forEach((v, j) => {
+    if (!v) return;
+    if (j === i && vizSeen && !document.hidden) {
+      if (reduce) {
+        v.preload = 'auto'; v.currentTime = 1;
+      } else v.play().catch(() => {});
+    } else v.pause();
+  });
+  document.addEventListener('visibilitychange', () => playOnly(shown));
   // paint the current picture into the tiny LED canvas: one pixel per dot
   function paintLed(clip, t) {
     const W = led.width, H = led.height;
