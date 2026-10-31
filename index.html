@@ -2639,7 +2639,8 @@ const CASES = [
     }
   }
   // reduced motion: no stream and no playback, each service shows one still frame
-  const vizLoop = now => { if (!vizSeen) { vizRunning = false; return; } drawViz(now); requestAnimationFrame(vizLoop); };
+  // reduced motion shows a still, so redraw twice a second (enough to catch a new card or a loaded clip) instead of every frame
+  const vizLoop = now => { if (!vizSeen) { vizRunning = false; return; } drawViz(now); if (reduce) setTimeout(() => requestAnimationFrame(vizLoop), 500); else requestAnimationFrame(vizLoop); };
   new IntersectionObserver(es => { vizSeen = es[0].isIntersecting; playOnly(shown); if (vizSeen && !vizRunning) { vizRunning = true; requestAnimationFrame(vizLoop); } }).observe(svcSec);
 
   /* ---- SC 07: "best" turns from the plain face into the serif, then the dots build the "Available for" box ---- */
@@ -2683,7 +2684,9 @@ const CASES = [
     if (reduce) { steps.forEach(li => li.classList.add('on')); return; }
     let k = 0;
     const lightSteps = () => { steps.forEach((li, j) => li.classList.toggle('on', j < k)); k = k > steps.length + 1 ? 0 : k + 1; };
-    lightSteps(); setInterval(lightSteps, 700);
+    let stepsSeen = true;
+    new IntersectionObserver(es => { stepsSeen = es[0].isIntersecting; }).observe($('steps'));
+    lightSteps(); setInterval(() => { if (stepsSeen) lightSteps(); }, 700);
   }, .4);
   // about numbers count up
   onView(document.querySelector('.stat-row'), () => {
