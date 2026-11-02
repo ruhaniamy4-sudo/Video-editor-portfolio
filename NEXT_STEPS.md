@@ -14,8 +14,11 @@ Talk to Anayet in Banglish, short and clear. Show a screenshot before asking to 
 - Hero photo: `assets/hero-me.webp` (Anayet's own Photoshop cut-out). Position: `.op` `--hy` (desktop/tablet/mobile). Fades: `.op-me` `mask-image`.
 - "Who am I": bg `assets/why-me.webp` + cut-out `assets/why-me-cut.webp`; 4 pills on the left launch 4 big 3D cards (motion-graphic "shape shift" inside) — `.kfly` / `.kcard` / `.mg-shift`.
 
-## Not yet verified
-- Live animations (pill → card flight, card flip, mouse tilt) were only checked as headless stills. Check in a real browser.
+## Browser verification (1 November 2026)
+- Mobile viewport/touch and reduced-motion regression work is documented in `MOBILE_QA.md`, with a repeatable `npm run test:mobile` suite and screenshots in `docs/`.
+- Chromium emulation covers the four detail controls, card flips, reel swipe/navigation, all five LED clips, responsive widths, and desktop mouse/resize regressions.
+- Physical iPhone/Android, OS backgrounding/power saving, real rotation, and third-party Google Drive playback still need device checks. Reduced-motion checks set the preference before loading the page.
+- Review branch: `fix/mobile-interactions`; these checks do not indicate that production has been redeployed.
 
 ## Uncommitted work (2026-10-31, waiting for Anayet's OK to commit + push)
 - "Who am I": each pill fades out (`.ktag.gone`) the moment its card launches; the card grows from the pill's real size.

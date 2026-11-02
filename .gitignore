@@ -11,3 +11,7 @@ _concepts/
 _websites/
 _design/
 _portraits/
+
+# Local browser test dependencies and captures
+node_modules/
+test-results/

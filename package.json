@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "test:mobile": "node tests/mobile.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
